@@ -96,14 +96,7 @@ tabPanel("Correlaci\u00f3n ",value = "RegresionCorrelacion",
 #                    
                    h3("An\u00e1lisis Correlaci\u00f3n"),
                   conditionalPanel("input.checkInput_Correlacion_Pearson == true || input.checkInput_Correlacion_Spearman == true || input.checkInput_Correlacion_Kendall == true", h3("Correlacion Tabla"),
-                                   downloadButton("descargaTCorrelacion","",
-                                                  style = "color: red;
-                                                                      background-color: white;
-                                                                      height: 35px;
-                                                                      width: 35px;
-                                                                      background-image:none
-                                                                      "
-                                   ),
+                                   
                                    gt::gt_output("tablaCorrelacion")),
                   conditionalPanel("input.checkInput_Correlacion_MapaCalor == true", h2("Mapa de Calor"),plotOutput("mapaCalor")),
                   conditionalPanel("input.checkInput_Correlacion_Estadistica == true", h2("Estadistica"),plotOutput("estadisticaCorrelacion"))

@@ -15,7 +15,8 @@ coverage](https://codecov.io/gh/CarlosGuerreroG/RoStatisticsGolem/branch/master/
 ## Descripción
 
 **RoStatictics** un paquete de software gráfico para realizar métodos
-estadísticos básicos para universitarios.
+estadísticos básicos para universitarios desarrollado por el PADLAB de
+la Universidad Catolica de Cuenca
 
 Características:
 
@@ -28,12 +29,21 @@ Características:
 -   Opción de descargar los datos en formato tiff(Importar en Ms
     Windows).
 
-## Instalación
+## Instalación:
 
-Se puede instalar la versión inicial con los siguientes comandos:
+Abrir RStudio e instalar remotes con el comando:
 
 ``` r
-remotes::install_github("CarlosGuerreroG/RoStatisticsGolem")
+install.packages("remotes")
+```
+
+Iniciar Remotes e instalar la versión inicial con los siguientes
+comandos:
+
+``` r
+library(remotes)
+
+remotes::install_github("PAD-LAB/Ro-Statistics")
 ```
 
 ## Ejemplo
@@ -45,3 +55,6 @@ library(RoStatistics)
 run_app()
 ## basic example code
 ```
+
+\#\#\#Nota: Versión en desarrollo, se podrian presentar algunos
+problemas.
