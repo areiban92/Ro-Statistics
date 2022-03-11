@@ -1,0 +1,13 @@
+name: RoStatistics
+title: RoStatistics
+username:
+account: rostatictictest
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5618947
+bundleId: 5600245
+url: https://rostatictictest.shinyapps.io/RoStatistics/
+when: 1645406422.34516
+lastSyncTime: 1645406422.34516
+asMultiple: FALSE
+asStatic: FALSE

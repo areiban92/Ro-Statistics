@@ -1,0 +1,291 @@
+/* Get a fancy font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Nunito:wght@200&display=swap');
+
+body {
+  
+ /* background-color: #7d1616;*/
+  background-color: white;
+  color: black; /* text color */
+  
+
+}
+
+h1 {
+  font-family: 'Yusei Magic', sans-serif;
+}
+
+/* Change header text to imported font */
+h2 {
+  font-family: 'Yusei Magic', sans-serif;
+}
+h3 {
+  font-family: 'Yusei Magic', sans-serif;
+}
+h4 {
+  font-family: 'Yusei Magic', sans-serif;
+}
+h5 {
+  font-family: 'Yusei Magic', sans-serif;
+}
+
+h6 {
+  font-family: 'Yusei Magic', sans-serif;
+}
+/* Make text visible on inputs */
+.shiny-input-container {
+   /*color: #2873C1;*/
+   color: black;
+}
+
+
+.navbar { 
+  background-color: #3c3c3bff ;
+  margin-left: -15px;
+  margin-right: -15px;
+  
+}
+
+.navbar-default .navbar-nav > li > a {
+  
+  color: white;
+
+}
+
+#checkboxDescripcionVariable {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#unique{
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.rank-list-container.custom-sortable {
+  background-color: #eff1f1;
+  min-height: 300px;
+  max-height: 300px;
+  overflow-y: auto;
+  border: rgba(255,255,255,.15);
+  
+}
+
+.rank-list-container.custom-sortableDependiente{
+  background-color: #eff1f1;
+  min-height: 150px;
+  max-height: 150px;
+  overflow-y: auto;
+  border: rgba(255,255,255,.15);
+  
+  
+  }
+                      
+.rank-list-container.custom-sortableAgrupamiento{
+  background-color: #eff1f1;
+  min-height: 80px;
+  max-height: 80px;
+  overflow-y: auto;
+  border: rgba(255,255,255,.15);
+
+}
+
+.custom-sortable .rank-list-item {
+  background-color: #f5f5f7;
+}
+
+.custom-sortable .rank-list.rank-list-empty {
+  border-style: solid;
+  border-color: #ddd;
+}
+
+.custom-sortableAgrupamiento .rank-list.rank-list-empty {
+  border-style: solid;
+  border-color: #ddd;
+}
+
+.custom-sortableDependiente .rank-list.rank-list-empty {
+  border-style: solid;
+  border-color: #ddd;
+}
+
+
+
+.default-sortable .rank-list {
+  
+  background-color: white;
+}
+
+
+
+.well {
+   /*background-color: #e1e2e2;*/
+   background-color: transparent;
+   overflow-y: auto;
+   border:none;
+/*   max-height: 640px; */
+   
+  
+}
+
+.shiny-output-error-validation {
+        color: red;
+      }
+
+
+#txtInput_Ttest_Intervalo_Confidencia{
+  
+  height: 14px;
+  
+}
+
+#txtInputDescriptivaEstadisticaPercentiless{
+  
+   height: 14px;
+}
+
+#txtInputDescriptivaEstadisticaPuntoCortess{
+  
+  height: 14px;
+}
+
+#txtInput_Contingencia_Intervalo_Confidencia{
+  height: 14px;
+  
+}
+
+#menuGraficas {
+  color: white;
+  padding-right: 465px;
+  height: 30px;
+  margin:5px;
+}
+
+#menuEstadistica{
+  color: white;
+  padding-right: 450px;
+  height: 30px;
+  margin:5px;
+  
+}
+
+#menuPostHocAnova{
+  color: white;
+  padding-right: 401px;
+  height: 30px;
+  margin:5px;
+  
+}
+
+#menuOpcionesAnova{
+  color: white;
+  padding-right: 450px;
+  height: 30px;
+  margin:5px;
+  
+}
+
+#menutestTtest{
+  color: white;
+  padding-right: 492px;
+  height: 30px;
+  margin:5px;
+  
+}
+
+#menuSuposicionesTtest{
+  color: white;
+  padding-right: 346px;
+  height: 30px;
+  margin:5px;
+  
+}  
+
+#menuTestContingencia{
+  color: white;
+  padding-right: 485px;
+  height: 30px;
+  margin:5px;
+  
+} 
+
+#menuPorcentajesContingencia{
+  color: white;
+  padding-right: 440px;
+  height: 30px;
+  margin:5px;
+  
+} 
+
+#menuTestCorrelacion{
+  color: white;
+  padding-right: 495px;
+  height: 30px;
+  margin:5px;
+  
+}
+
+#menuOpcionesCorrelacion{
+  color: white;
+  padding-right: 453px;
+  height: 30px;
+  margin:5px;
+  
+}
+
+
+.about-title {
+    clear: both;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+a:link { color: #f5f5f5; }
+
+#container {
+  position: relative;
+ 
+}
+
+#foto{
+  
+   max-width:100%;
+  max-height:100%;
+}
+
+#text-block {
+  position: absolute;
+  bottom: 600px;
+  right: 20px;
+  background-color: transparent;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+#textoIconos{
+  vertical-align: top;
+  display: inline-block;
+  text-align: center;
+  width: 80px;
+  font-family: 'Yusei Magic';
+  font-weight: 900;
+  padding-bottom: 10px;
+
+}
+
+#imgIconos{
+  
+ display: inline-block;
+ text-align: center;
+ margin: auto;
+
+}
+
+.MathJax_Display {
+  color: red !important;
+}
+ 

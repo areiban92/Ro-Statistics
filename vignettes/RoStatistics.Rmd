@@ -1,0 +1,59 @@
+---
+title: "RoStatistics"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{RoStatistics}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## About this app
+
+Esta aplicaci\u00f3n ha sido desarrollada con el fin de hacer mas f\u00e1cil la obtenci\u00f3n de métodos estadísticos, para ello se ha desarrollado una interfaz gr\u00e1fica usando el paquete `{shiny}`, ademas se ha creado este paquete usando el framework `{golem}`.
+
+
+## How to use this App 
+
+Ejecute el comando xxxx desde la consola de RStudio, la interfaz se cargara.
+
++ En la pestaña Carga Datos debera elegir una base de datos a analizar en formato csv,sav, o MS Excel. El software identificara el tipo de variable y los mostrara en dos tablas, la superior contendr\u00e1 el tipo de variables identificadas y en la parte inferior los valores.
++ El usuario debe hacer click en el boton Guardar para seguir con los analisis.
+
+
+
+### Estadistica Descriptiva
+
++ Nos permite realizar la estadística descriptiva se deber\u00e1 arrastar las variables a analizar a los respectivos cuadros y seleccionar los metodos a incluir en el an\u00e1lisis, en el area de resultados se mostrara los resultados en una tabla, ademas es posible obtener diferentes gr\u00e1ficas como distribucion, pastel, correlaci\u00f3n 
+
+### Pruebas T-Test
+
++ Esta pestaña nos evaluar las medias de uno o dos grupos mediante pruebas de hip\u00f3tesis contiene tres pruebas Student, Welch y la de Mann-Whitney.
+
+Ademas se incluye funciones para realizar verificaci\u00f3n de suposiciones como la prueba de Normalidad(Shapiro-Wilks) y la Igualdad de Varianza(Levene). 
+
+### Tablas de Contingencia
+
++ Esta pestaña consiste en crear al menos dos filas y dos columnas para representar datos categ\u00f3ricos en términos de conteos de frecuencia, para ello se debe colocar dos variables categ\u00f3ricas para proceder con el an\u00e1lisis.
+
++ Se consta ademas de dos pruebas Chi-Cuadrado y la prueba de Fisher y el conteo de porcentajes por filas y columnas.
+
+### One-Way ANOVA
+
++ Esta pestaña consiste en  una prueba estadística para estimar c\u00f3mo cambia una variable  cuantitativa según los niveles de una variable categ\u00f3rica.
+
++ Contiene pruebas Post Hoc de Bonferroni, Games Howell y la de Turkey
+
+### Regresi\u00f3n 
+
++ Correlaci\u00f3n:  es un tipo de asociaci\u00f3n entre dos variables numéricas, específicamente evalúa la tendencia (creciente o decreciente) en los datos.
+
++Regresi\u00f3n Lineal: La regresi\u00f3n lineal expresa la relaci\u00f3n entre una variable numérica con otras variables predictoras.
++Regresi\u00f3n Binomial: expresa la relaci\u00f3n entre una variable numérica con otra variable categorica que contenga solo dos niveles.
++Regresi\u00f3n Multinomial: expresa la relaci\u00f3n entre una variable numérica con otra variable categorica que contenga mas de dos niveles.
