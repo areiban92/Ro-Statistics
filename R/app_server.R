@@ -11,39 +11,39 @@ app_server <- function( input, output, session ) {
   namesClasified <- NULL
   print_dev <- NULL
   
-  source("./R/Metodos/Server/Descriptivas/DescriptivasEstadisticas.R",local = TRUE)
-  source("./R/Metodos/Server/Descriptivas/DescriptivasEstadisticasTablas.R",local = TRUE)
-  source("./R/Metodos/Server/Descriptivas/GraficasDescriptivas.R",local = TRUE)
-  source("./R/Metodos/Server/Descriptivas/ObserverEventDescriptivas.R",local = TRUE)
+  source("SERVERDescriptivasEstadisticas.R",local = TRUE)
+  source("SERVERDescriptivasEstadisticasTablas.R",local = TRUE)
+  source("SERVERGraficasDescriptivas.R",local = TRUE)
+  source("SERVERObserverEventDescriptivas.R",local = TRUE)
   
-  source("./R/Metodos/Server/Ttest/Ttest.R",local = TRUE)
-  source("./R/Metodos/Server/Ttest/TtestTablas.R",local = TRUE)
-  source("./R/Metodos/Server/Ttest/ObserverTtest.R",local = TRUE)
-  source("./R/Metodos/Server/APA/APA.R",local = TRUE)
-  source("./R/Metodos/Server/CargaDatos/cargaDatos.R",local = TRUE)
+  source("SERVERTtest.R",local = TRUE)
+  source("SERVERTtestTablas.R",local = TRUE)
+  source("SERVERObserverTtest.R",local = TRUE)
+  source("SERVERAPA.R",local = TRUE)
+  source("SERVERcargaDatos.R",local = TRUE)
   # 
-  source("./R/Metodos/Server/TablasContingencia/Tcontingencia.R",local = TRUE)
-  source("./R/Metodos/Server/TablasContingencia/TcontingenciaTablas.R",local = TRUE)
-  source("./R/Metodos/Server/TablasContingencia/ObserverContingencia.R",local = TRUE)
+  source("SERVERTcontingencia.R",local = TRUE)
+  source("SERVERTcontingenciaTablas.R",local = TRUE)
+  source("SERVERObserverContingencia.R",local = TRUE)
   # 
-  source("./R/Metodos/Server/Correlacion/Correlacion.R",local = TRUE)
-  source("./R/Metodos/Server/Correlacion/CorrelacionTablas.R",local = TRUE)
-  source("./R/Metodos/Server/Correlacion/ObserverCorrelacion.R",local = TRUE)
+  source("SERVERCorrelacion.R",local = TRUE)
+  source("SERVERCorrelacionTablas.R",local = TRUE)
+  source("SERVERObserverCorrelacion.R",local = TRUE)
   # 
-  source("./R/Metodos/Server/Anova/TanovaTablas.R",local = TRUE)
-  source("./R/Metodos/Server/Anova/Tanova.R",local = TRUE)
-  source("./R/Metodos/Server/Anova/ObserverAnova.R",local = TRUE)
+  source("SERVERTanovaTablas.R",local = TRUE)
+  source("SERVERTanova.R",local = TRUE)
+  source("SERVERObserverAnova.R",local = TRUE)
   # 
-  source("./R/Metodos/Server/Ayuda/ayuda.R",local=TRUE,encoding =  "UTF-8")
+  source("SERVERAyuda.R",local=TRUE,encoding =  "UTF-8")
   # 
-  source("./R/Metodos/Server/Regresion/Binomial/RegresionBinomial.R",local=TRUE,encoding =  "UTF-8")
-  source("./R/Metodos/Server/Regresion/Binomial/RegresionBinomialTablas.R",local=TRUE,encoding =  "UTF-8")
+  source("SERVERRegresionBinomial.R",local=TRUE,encoding =  "UTF-8")
+  source("SERVERRegresionBinomialTablas.R",local=TRUE,encoding =  "UTF-8")
   # 
-  source("./R/Metodos/Server/Regresion/Lineal/RegresionLineal.R",local=TRUE,encoding =  "UTF-8")
-  source("./R/Metodos/Server/Regresion/Lineal/RegresionLinealTablas.R",local=TRUE,encoding =  "UTF-8")
+  source("SERVERRegresionLineal.R",local=TRUE,encoding =  "UTF-8")
+  source("SERVERRegresionLinealTablas.R",local=TRUE,encoding =  "UTF-8")
   # 
-  source("./R/Metodos/Server/Regresion/Multinomial/RegresionMultinomial.R",local=TRUE,encoding =  "UTF-8")
-  source("./R/Metodos/Server/Regresion/Multinomial/RegresionMultinomialTablas.R",local=TRUE,encoding =  "UTF-8")
+  source("SERVERRegresionMultinomial.R",local=TRUE,encoding =  "UTF-8")
+  source("SERVERRegresionMultinomialTablas.R",local=TRUE,encoding =  "UTF-8")
   # 
 
   banderaDescriptivos <- FALSE

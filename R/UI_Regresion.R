@@ -10,16 +10,16 @@ navbarMenu( div(  id="textoIconos",
 ),
                  
 
-eval(parse("./R/Metodos/UI/Regresion/UI_Correlacion.R", encoding="UTF-8")),
+eval(parse("UI_Correlacion.R", encoding="UTF-8")),
 
 
-eval(parse("./R/Metodos/UI/Regresion/UI_RegresionLineal.R", encoding="UTF-8")),
+eval(parse("UI_RegresionLineal.R", encoding="UTF-8")),
 
 
-eval(parse("./R/Metodos/UI/Regresion/UI_RegresionBinomial.R", encoding="UTF-8")),
+eval(parse("UI_RegresionBinomial.R", encoding="UTF-8")),
 
 
-eval(parse("./R/Metodos/UI/Regresion/UI_RegresionMultinomial.R", encoding="UTF-8"))
+eval(parse("UI_RegresionMultinomial.R", encoding="UTF-8"))
 
 
 )

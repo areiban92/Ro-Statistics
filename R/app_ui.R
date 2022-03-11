@@ -25,23 +25,23 @@ app_ui <- function(request) {
                 windowTitle="Ro-Statistic",
                 ###################################################DESCRIPTIVOS########################
          
-                eval(parse("./R/Metodos/UI/Descriptivos/UI_Descriptivos.R",encoding =  "UTF-8")),   
+                eval(parse("UI_Descriptivos.R",encoding =  "UTF-8")),   
              
                 ###########################################################INICIO T TEST  #################################################
                
-                eval(parse("./R/Metodos/UI/TTest/UI_Ttest.R", encoding="UTF-8")),
+                eval(parse("UI_Ttest.R", encoding="UTF-8")),
                 ##########################################################Tablas COntingencia###################
                 
-                eval(parse("./R/Metodos/UI/TablasContingencia/UI_Contingencia.R", encoding="UTF-8")),
+                eval(parse("UI_Contingencia.R", encoding="UTF-8")),
                 #########################################################   ANOVA  TEST ####################
                 
-                eval(parse("./R/Metodos/UI/Anova/UI_Anova.R", encoding="UTF-8")),
+                eval(parse("UI_Anova.R", encoding="UTF-8")),
                 #########################################################   Regresions Test  ####################
                 
-                eval(parse("./R/Metodos/UI/Regresion/UI_Regresion.R", encoding="UTF-8")),
+                eval(parse("UI_Regresion.R", encoding="UTF-8")),
                 #############################################################################################ARCHIVOS#######################
              
-                eval(parse("./R/Metodos/UI/CargaDatos/UI_CargaDatos.R", encoding="UTF-8"))
+                eval(parse("UI_CargaDatos.R", encoding="UTF-8"))
                 
               ) #fin NAVBARPAGE
     

@@ -7,13 +7,13 @@ navbarMenu( div( id="textoIconos",
            
            
  # source("./R/Metodos/UI/CargaDatos/UI_CargaDatos_Carga.R",local = TRUE)$value, 
-  eval(parse("./R/Metodos/UI/CargaDatos/UI_CargaDatos_Carga.R", encoding="UTF-8")),
+  eval(parse("UI_CargaDatos_Carga.R", encoding="UTF-8")),
   
 #  source("./R/Metodos/UI/CargaDatos/UI_CargaDatos_InfoEstadistica.R",local = TRUE)$value,
-  eval(parse("./R/Metodos/UI/CargaDatos/UI_CargaDatos_InfoEstadistica.R", encoding="UTF-8")),
+  eval(parse("UI_CargaDatos_InfoEstadistica.R", encoding="UTF-8")),
   
  # source("./R/Metodos/UI/CargaDatos/UI_CargaDatos_Acerca.R",local = TRUE)$value      
-  eval(parse("./R/Metodos/UI/CargaDatos/UI_CargaDatos_Acerca.R", encoding="UTF-8"))
+  eval(parse("UI_CargaDatos_Acerca.R", encoding="UTF-8"))
   
   
 ) # FIN NAVBARMENU
