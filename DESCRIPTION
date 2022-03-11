@@ -1,0 +1,55 @@
+Package: RoStatistics
+Title: Ro-Statistics
+Version: 0.0.0.9000
+Authors@R: c(person('Carlos', 'Guerrero', email = 'carlos.guerrero@ucacue.edu.ec', role = c('cre', 'aut')),
+             person('Geovanny', 'Reivan', email = 'greivano@ucacue.edu.ec', role = c( 'aut')),
+             person('Edwin', 'Maxi', email = 'edwin.maxi@ucacue.edu.ec', role = c( 'aut')))
+Description: Este paquete ofrece un entorno grafico para la obtención de resultados estadisticos.
+  Desarrolllado con el paquete Shiny, ofrece una abstraccion de los metodos estadisticos mas usados en las ciencias sociales.
+  Contiene metodos descriptivos, T-test, Contingencia, Anova de un factor,correlacion.
+License: MIT + file LICENSE
+Imports: 
+    attempt,
+    car,
+    config (>= 0.3.1),
+    data.table,
+    dplyr,
+    DT,
+    foreign,
+    ggplot2,
+    ggpubr,
+    golem (>= 0.3.1),
+    gridExtra,
+    gt,
+    gtools,
+    magrittr,
+    modeest,
+    nnet,
+    onewaytests,
+    PerformanceAnalytics,
+    pkgload,
+    rapportools,
+    readxl,
+    rstatix,
+    shiny (>= 1.7.1),
+    shinyalert,
+    shinyjs,
+    shinythemes,
+    shinyWidgets,
+    sortable,
+    stats,
+    stringr,
+    summarytools,
+    thinkr,
+    tools,
+    utils
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.2
+Suggests: 
+    rmarkdown,
+    knitr,
+    testthat (>= 3.0.0),
+    covr
+Config/testthat/edition: 3
+VignetteBuilder: knitr
