@@ -16,7 +16,7 @@ app_ui <- function(request) {
                  HTML(".navbar-nav {width: 80%;}
                                     .navbar-nav :last-child{float:right}")),
       
-      theme = shinythemes::shinytheme("simplex"),
+      #theme = shinythemes::shinytheme("simplex"),
       tags$link(rel="stylesheet", type="text/css", href="www/dark_mode.css"),
         
       navbarPage(
