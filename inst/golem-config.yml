@@ -5,4 +5,4 @@ default:
 production:
   app_prod: yes
 dev:
-  golem_wd: C:/Users/CARLOS G/Desktop/ROCASIFINAL/RoStatistics
+  golem_wd: C:/Users/CARLOS G/Desktop/ucatolica/Ro-StaticticPADLAB/Ro-Statistics

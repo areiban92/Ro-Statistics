@@ -1,22 +1,34 @@
+#' correlacionFuntions 
+#'
+#' @description A fct function
+#'
+#' @return The return value, if any, from executing the function.
+#'
+#' @noRd
+#' 
+#'   
+
+
 
 calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
                                 pearson,spearman,kendall,
                                 Hypot,significancia,estadistica
-                                ) {
+) {
   
+  print_dev <- NULL
   agrupamiento = c()
   total = c()
   valorConfidencia="95"
   intervaloValue <- (as.numeric(valorConfidencia))
   print_dev("significancia")
   print_dev(significancia)
-
+  
   variable <- c(names(Agrupamiento))
   metodo <- c()
   var <- c()
   nColumnas <- length(variable)
   nFilas <- length(variable)
- 
+  
   if (intervaloValue < 100 ){
     
     correlacionmatrixCor = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas) #  
@@ -25,7 +37,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
     print_dev("Si es menor y cumple requisitos")
     
     intervaloValue <- intervaloValue/100
-   # print_dev(intervaloValue)
+    # print_dev(intervaloValue)
     
     if(pearson == FALSE &&  spearman == FALSE && kendall == FALSE ) # ok revissar
     {
@@ -49,7 +61,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       
       print_dev("SI CUMPLIO  # 1")
       tipoTtest = c("pearson")
-
+      
       if (Hypot == "correlacion"){
         # print_dev("HYPOTESIS IGUAL ")
         #
@@ -71,11 +83,11 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
             correlacionmatrixP.value[i,j] = correlacionPearsonP.value
           }
         }
-     
-   
+        
+        
         
       }
-     
+      
       if (Hypot == "correlacion_Positiva"){
         # print_dev("HYPOTESIS POSITOVA ")
         
@@ -101,15 +113,15 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
             correlacionmatrixP.value[i,j] = correlacionPearsonP.value
           }
         }
-       
+        
         
         
       }
-       
+      
       if (Hypot == "correlacion_Negativa"){
         print_dev("HYPOMENOR")
-
-
+        
+        
         for (i in 1:length(variable)) {
           for (j in 1:length(variable)) {
             
@@ -127,23 +139,23 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
             correlacionmatrixP.value[i,j] = correlacionPearsonP.value
           }
         }
-       # print_dev(correlacionmatrixCor)
-  
-
+        # print_dev(correlacionmatrixCor)
+        
+        
       }
-
+      
       ############Elima parte superior de las matrices
       print_dev("obtener parte arriba igual")
       
       correlacionmatrixCor[upper.tri(correlacionmatrixCor)] <- '----'
       diag(correlacionmatrixCor) <- '----'  
       corrMatrix <- correlacionmatrixCor
-  
+      
       correlacionmatrixP.value[upper.tri(correlacionmatrixP.value)] <- '----'
       diag(correlacionmatrixP.value) <- '----'  
       
       var <- variable
-
+      
       if( significancia == TRUE ){  # Si activa se Calcula diferencia de medias
         
         print_dev("significancia trueeeeee")
@@ -168,30 +180,30 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
         for (j in 1:nrow(mat_combined1)) {
           
           if(j==1) {
-          temporal[j]=1
+            temporal[j]=1
           }
           else
           {
-          
-              temporal[j]=temporal[[j-1]] + secuencia[j]
-              
+            
+            temporal[j]=temporal[[j-1]] + secuencia[j]
+            
           }
           
           #columnasTemp[j] <- list.append(j)
         }
-
+        
         corrMatrix <- mat_combined1[temporal,]
         
         
       }
-
+      
       tablaCorrelacion <- as.data.frame(corrMatrix)
       tablaCorrelacion <- data.frame(var,tipoTtest,tablaCorrelacion)
       colnames(tablaCorrelacion) <- c(" ","modelo",variable)
       
-
+      
       return(list(tablaCorrelacion,paste0(" ")))
-    
+      
     }
     
     
@@ -901,16 +913,16 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
         var[j*2] <- " "
         
       }
-     
+      
       for (j in 1:nrow(mat_combinedPS)) {
         
         if(j==1) {
           temporal[j]=1
-          }
+        }
         else
         {
-      
-   
+          
+          
           temporal[j]=temporal[[j-1]] + secuencia[j]
           
         }}
@@ -922,10 +934,10 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
         
         print_dev("significancia trueeeeee")
         tipoTtest = c("Pearson's r","valor P","Spearman","valor P")
-
+        
         mat_combined1 <- rbind(corrMatrix, corrMatrixPvalue)
         print_dev("Union de significancia de pearson y speramn")
-  
+        
         
         secuencia1 <- rep(seq(nrow(mat_combinedPS),(nrow(mat_combinedPS)*-1)+1,length.out = 2),times=nrow(mat_combinedPS) - 1)
         secuencia <- c(0,secuencia1,nrow(mat_combinedPS))
@@ -935,35 +947,35 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
         print_dev(maxVar)
         
         for (j in 1:maxVar) {
-         
-            var[((j*4)- 3)] = variable[[j]]
-            var[(j*4)- (2)] = " "
-            var[(j*4)- (1)] = " "
-            var[(j*4)] = " "
-       
+          
+          var[((j*4)- 3)] = variable[[j]]
+          var[(j*4)- (2)] = " "
+          var[(j*4)- (1)] = " "
+          var[(j*4)] = " "
+          
         }
-
-
+        
+        
         
         for (j in 1:nrow(mat_combined1)) {
-        
+          
           if(j==1) {
             temporal[j]=1
-           }
+          }
           else
           {
-         
+            
             temporal[j]=temporal[[j-1]] + secuencia[j]
-        
+            
           }
-        
+          
         }
         print_dev(temporal)
         corrMatrix <- mat_combined1[temporal,]
+        
+        
+      }
       
-      
-}
-
       tablaCorrelacion <- as.data.frame(corrMatrix)
       tablaCorrelacion <- data.frame(var,tipoTtest,tablaCorrelacion)
       colnames(tablaCorrelacion) <- c(" ","modelo",variable)
@@ -1276,7 +1288,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
           }
         }
         
-  
+        
         
       }
       
@@ -1401,8 +1413,8 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       mat_combinedPS_Pvalue <- rbind(correlacionmatrixP.valueP, correlacionmatrixP.valueS)     
       mat_combinedPSK_Pvalue <- rbind(mat_combinedPS_Pvalue, correlacionmatrixP.valueK)  
       
-     # print_dev(mat_combinedPSK)
-    #  print_dev(nrow(mat_combinedPSK))
+      # print_dev(mat_combinedPSK)
+      #  print_dev(nrow(mat_combinedPSK))
       #Secuencia para  Obtener 3 metodos en la tabla
       
       nVariables =nFilas
@@ -1414,7 +1426,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       secuencia = c(0,rep(c(secuencia1,(nVariables-(nUnido-1))),times=(nVariables-1)),secuencia1)
       print_dev(secuencia)
       
-     
+      
       maxVar = nrow(mat_combinedPSK) / 3
       print_dev(maxVar)
       
@@ -1441,8 +1453,8 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
           
         }}
       
-     # print_dev(temporal)
-     #print_dev(mat_combinedPSK)
+      # print_dev(temporal)
+      #print_dev(mat_combinedPSK)
       corrMatrix <- mat_combinedPSK[temporal,]
       corrMatrixPvalue <- mat_combinedPSK_Pvalue[temporal,]
       print_dev(corrMatrix)
@@ -1514,67 +1526,12 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
     
   }
   
- 
+  
 }
 
 calculoMapadeCalor_Correlacion <- function(session, df, Agrupamiento, Dependiente, mapaCalor) {
-    
-    agrupamiento = c()
-    total = c()
-    valorConfidencia="95"
-    intervaloValue <- (as.numeric(valorConfidencia))
-   
-    
-    variable <- c(names(Agrupamiento))
-    metodo <- c()
-    var <- c()
-    nColumnas <- length(variable)
-    nFilas <- length(variable)
-    
-      correlacionmatrixCor = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas) #  
-      correlacionmatrixP.value = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas) #  
-      
-      print_dev("Si es menor y cumple requisitos de calor de correlacion")
-      
-      intervaloValue <- intervaloValue/100
-      # print_dev(intervaloValue)
-      
-        columnasTemp <- list()
-        temporal <- vector()
-        
-        print_dev("SI CUMPLIO  # 1")
-        tipoTtest = c("pearson")
-
-          for (i in 1:length(variable)) {
-            for (j in 1:length(variable)) {
-              
-              if((cor.test(Agrupamiento[[i]],Agrupamiento[[j]] , method=c("pearson"),alternative = c("two.sided"),conf.level = intervaloValue))$p.value < 0.01)
-              {
-                correlacionPearsonP.value     <- "< 0.01"
-                
-              }
-              else
-              {
-                correlacionPearsonP.value <- round((cor.test(Agrupamiento[[i]],Agrupamiento[[j]] , method=c("pearson"),alternative = c("two.sided"),conf.level = intervaloValue))$p.value,3)
-              }
-              
-              correlacionPearsonCor <- round((cor.test(Agrupamiento[[i]],Agrupamiento[[j]] , method=c("pearson"),alternative = c("two.sided"),conf.level = intervaloValue))$estimate[[1]],3)
-              correlacionmatrixCor[i,j] = correlacionPearsonCor
-              correlacionmatrixP.value[i,j] = correlacionPearsonP.value
-            }
-          }
-          
-        
-          
-          colnames(correlacionmatrixCor) <- variable
-          rownames(correlacionmatrixCor) <- variable
-          print_dev(correlacionmatrixCor)
-        return(correlacionmatrixCor)
-    
-}
-
-calculoEstadistica_Correlacion <- function(session, df, Agrupamiento, Dependiente, estadistica) {
   
+  print_dev <- NULL
   agrupamiento = c()
   total = c()
   valorConfidencia="95"
@@ -1587,68 +1544,80 @@ calculoEstadistica_Correlacion <- function(session, df, Agrupamiento, Dependient
   nColumnas <- length(variable)
   nFilas <- length(variable)
   
-
-    correlacionmatrixCor = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas) #  
-    correlacionmatrixP.value = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas) #  
-    
-    print_dev("Si es menor y cumple requisitos de descriptivass")
-    
-    intervaloValue <- intervaloValue/100
-    # print_dev(intervaloValue)
-    
-      columnasTemp <- list()
-      temporal <- vector()
+  correlacionmatrixCor = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas) #  
+  correlacionmatrixP.value = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas) #  
+  
+  print_dev("Si es menor y cumple requisitos de calor de correlacion")
+  
+  intervaloValue <- intervaloValue/100
+  # print_dev(intervaloValue)
+  
+  columnasTemp <- list()
+  temporal <- vector()
+  
+  print_dev("SI CUMPLIO  # 1")
+  tipoTtest = c("pearson")
+  
+  for (i in 1:length(variable)) {
+    for (j in 1:length(variable)) {
       
-    #  print_dev(Agrupamiento)
-      
-      data <- data.frame(Agrupamiento)
-      
-      print_dev(data)
-      return(data)
- 
-  }
-
-table_calculoTCorrelacion <- reactive({
-  
-  calculoTCorrelacion(
-    session,values$mydata,df_TCorrelacion_Seleccion_Dependiente(),df_TCorrelacion_Seleccion_Agrupamiento(),
-    checkCorrelacionTipoPearson(),checkCorrelacionTipoSpearman(),checkCorrelacionTipoKendall(),
-    radioCorrelacionHypoValue(),checkCorrelacion_Significancia(),checkCorrelacion_Estadisticas()
-     )
-  
-  
-  
-})
-
-output$mapaCalor <- renderPlot({
-  
-  
-  
-  if(checkCorrelacion_MapaCalor()==TRUE) {
-         if (length(df_TCorrelacion_Seleccion_Dependiente()) >= 2){
-      
-        print_dev("si ok plot de calor")
-        
-      col<- colorRampPalette(c("blue", "white", "red"))(20)
-      heatmap(x = calculoMapadeCalor_Correlacion(session,values$mydata,df_TCorrelacion_Seleccion_Dependiente(),
-                                                 df_TCorrelacion_Seleccion_Agrupamiento(),checkCorrelacion_MapaCalor()
-                                                  ), col = col, symm = TRUE)
-      
-      } else {
-        
-        shinyalert::shinyalert("Oops!", "Se necesita al menos dos variables para gr\u00e1fica de calor", type = "error",size = "xs")
+      if((cor.test(Agrupamiento[[i]],Agrupamiento[[j]] , method=c("pearson"),alternative = c("two.sided"),conf.level = intervaloValue))$p.value < 0.01)
+      {
+        correlacionPearsonP.value     <- "< 0.01"
         
       }
+      else
+      {
+        correlacionPearsonP.value <- round((cor.test(Agrupamiento[[i]],Agrupamiento[[j]] , method=c("pearson"),alternative = c("two.sided"),conf.level = intervaloValue))$p.value,3)
+      }
+      
+      correlacionPearsonCor <- round((cor.test(Agrupamiento[[i]],Agrupamiento[[j]] , method=c("pearson"),alternative = c("two.sided"),conf.level = intervaloValue))$estimate[[1]],3)
+      correlacionmatrixCor[i,j] = correlacionPearsonCor
+      correlacionmatrixP.value[i,j] = correlacionPearsonP.value
+    }
   }
   
-}, bg="transparent")
-
-
-output$estadisticaCorrelacion <- renderPlot({
   
-  if(checkCorrelacion_Estadisticas()==TRUE){
+  
+  colnames(correlacionmatrixCor) <- variable
+  rownames(correlacionmatrixCor) <- variable
+  print_dev(correlacionmatrixCor)
+  return(correlacionmatrixCor)
+  
+}
 
-    PerformanceAnalytics::chart.Correlation(calculoEstadistica_Correlacion(session,values$mydata,df_TCorrelacion_Seleccion_Dependiente(),df_TCorrelacion_Seleccion_Agrupamiento(),
-                                                   checkCorrelacion_Estadisticas()),  method = c("pearson", "kendall", "spearman"),histogram=TRUE, pch=19)
-  }
-  }, bg="transparent")
+calculoEstadistica_Correlacion <- function(session, df, Agrupamiento, Dependiente, estadistica) {
+  
+  print_dev <- NULL
+  agrupamiento = c()
+  total = c()
+  valorConfidencia="95"
+  intervaloValue <- (as.numeric(valorConfidencia))
+  
+  
+  variable <- c(names(Agrupamiento))
+  metodo <- c()
+  var <- c()
+  nColumnas <- length(variable)
+  nFilas <- length(variable)
+  
+  
+  correlacionmatrixCor = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas) #  
+  correlacionmatrixP.value = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas) #  
+  
+  print_dev("Si es menor y cumple requisitos de descriptivass")
+  
+  intervaloValue <- intervaloValue/100
+  # print_dev(intervaloValue)
+  
+  columnasTemp <- list()
+  temporal <- vector()
+  
+  #  print_dev(Agrupamiento)
+  
+  data <- data.frame(Agrupamiento)
+  
+  print_dev(data)
+  return(data)
+  
+}

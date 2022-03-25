@@ -1,5 +1,16 @@
+#' ANOVAFuntions 
+#'
+#' @description A fct function
+#'
+#' @return The return value, if any, from executing the function.
+#'
+#' @noRd
+
+
+
 calculoTanova <- function(session, df, Dependiente, Agrupamiento) {
   
+  print_dev <- NULL
   casos = c()
   sumaDeCuadrados = c()
   #df = c()
@@ -19,7 +30,7 @@ calculoTanova <- function(session, df, Dependiente, Agrupamiento) {
   levelsAgrupamiento <- length(sapply(Agrupamiento, levels))
   levelsAgrupamientoNombre <- sapply(Agrupamiento, levels)
   
- 
+  
   casos <- c(nombreAgrupamiento,"residuales")
   
   #anovaTabla <- data.frame(nombreAgrupamiento,valorPvalue)
@@ -28,7 +39,7 @@ calculoTanova <- function(session, df, Dependiente, Agrupamiento) {
   print_dev("dsde aqui aov")
   resAOV <- aov(Dependiente[[1]] ~  Agrupamiento[[1]], data = df)
   resAOVsummary <- summary(resAOV)
- 
+  
   sumaDeCuadrados <- resAOVsummary[[1]]$'Sum Sq'
   dftabla <- resAOVsummary[[1]]$'Df'
   mediaCuadrada <- resAOVsummary[[1]]$'Mean Sq'
@@ -48,8 +59,9 @@ calculoTanova <- function(session, df, Dependiente, Agrupamiento) {
 
 calculoTanovaWelch <- function(session, df, Dependiente, Agrupamiento,  WelchAnova) {
   
+  print_dev <- NULL
   sumaDeCuadrados = c()
-
+  
   mediaCuadrada = c()
   valorF = c()
   valorP = c()
@@ -61,29 +73,29 @@ calculoTanovaWelch <- function(session, df, Dependiente, Agrupamiento,  WelchAno
   nombreAgrupamiento <- variable[[1]]
   
   if(WelchAnova == TRUE){
-  
-  levelsDependiente <- length(sapply(Dependiente, levels))
-  levelsDependienteNombre <- sapply(Dependiente, levels)
-  
-  levelsAgrupamiento <- length(sapply(Agrupamiento, levels))
-  levelsAgrupamientoNombre <- sapply(Agrupamiento, levels)
-  
-  print_dev("dsde aqui aov")
-  resAOVWelch <- oneway.test(Dependiente[[1]] ~ Agrupamiento[[1]], data = df)
-  
-  
-  #sumaDeCuadrados <- resAOVsummary[[1]]$'Sum Sq'
-  #dftabla <- resAOVsummary[[1]]$'Df'
-  #mediaCuadrada <- resAOVsummary[[1]]$'Mean Sq'
-  #valorF <- resAOVWelch[[1]]$'F value'
-  #valorP <- resAOVWelch[[1]]$'Pr(>F)'
-  valorP <- resAOVWelch[["p.value"]]
-  valorF <- resAOVWelch[["statistic"]]
     
-  anovaTablaWelch <- data.frame("Welch",valorF,valorP)
-  colnames(anovaTablaWelch) <- c(" ","valor F ","Pr(>F)")
-  
-  anovaTablaWelch <- dplyr::mutate(anovaTablaWelch, dplyr::across(where(is.numeric), round, 3))
+    levelsDependiente <- length(sapply(Dependiente, levels))
+    levelsDependienteNombre <- sapply(Dependiente, levels)
+    
+    levelsAgrupamiento <- length(sapply(Agrupamiento, levels))
+    levelsAgrupamientoNombre <- sapply(Agrupamiento, levels)
+    
+    print_dev("dsde aqui aov")
+    resAOVWelch <- oneway.test(Dependiente[[1]] ~ Agrupamiento[[1]], data = df)
+    
+    
+    #sumaDeCuadrados <- resAOVsummary[[1]]$'Sum Sq'
+    #dftabla <- resAOVsummary[[1]]$'Df'
+    #mediaCuadrada <- resAOVsummary[[1]]$'Mean Sq'
+    #valorF <- resAOVWelch[[1]]$'F value'
+    #valorP <- resAOVWelch[[1]]$'Pr(>F)'
+    valorP <- resAOVWelch[["p.value"]]
+    valorF <- resAOVWelch[["statistic"]]
+    
+    anovaTablaWelch <- data.frame("Welch",valorF,valorP)
+    colnames(anovaTablaWelch) <- c(" ","valor F ","Pr(>F)")
+    
+    anovaTablaWelch <- dplyr::mutate(anovaTablaWelch, dplyr::across(where(is.numeric), round, 3))
   }else{
     
     valorP <- ""
@@ -92,7 +104,7 @@ calculoTanovaWelch <- function(session, df, Dependiente, Agrupamiento,  WelchAno
     anovaTablaWelch <- data.frame("Welch",valorF,valorP)
     
     anovaTablaWelch <- dplyr::mutate(anovaTablaWelch, dplyr::across(where(is.numeric), round, 3))
-
+    
   }
   
   return(list(anovaTablaWelch," ",FALSE))
@@ -101,6 +113,7 @@ calculoTanovaWelch <- function(session, df, Dependiente, Agrupamiento,  WelchAno
 
 calculoTanovaBrown <- function(session, df, Dependiente, Agrupamiento, BrownAnova) {
   
+  print_dev <- NULL
   sumaDeCuadrados = c()
   
   mediaCuadrada = c()
@@ -154,15 +167,15 @@ calculoTanovaBrown <- function(session, df, Dependiente, Agrupamiento, BrownAnov
 
 
 calculoPostHocAnovaIguales <- function(session, df,  Dependiente, Agrupamiento, checkAnovaTurkey, 
-                           checkAnovaBonferroni) {
-  
+                                       checkAnovaBonferroni,anovaTablaresult) {
+  print_dev <- NULL
   var1AnovaIguales = c()
   var2AnovaIguales= c()
   
   sumaDeCuadrados = c()
-
+  
   mediaCuadrada = c()
-
+  
   variable <- c(names(Agrupamiento))
   variable2 <- c(names(Dependiente))
   
@@ -175,8 +188,9 @@ calculoPostHocAnovaIguales <- function(session, df,  Dependiente, Agrupamiento, 
   levelsAgrupamiento <- length(sapply(Agrupamiento, levels))
   levelsAgrupamientoNombre <- sapply(Agrupamiento, levels)
   
-  tablaAux <- TukeyHSD(table_calculo_Anova()[[4]])
-
+  tablaAux <- TukeyHSD(anovaTablaresult )  
+  #tablaAux <- TukeyHSD(table_calculo_Anova()[[4]])
+  
   tablaGeneral<-as.data.frame(tablaAux[1:1])
   namesrow <- row.names(tablaGeneral)
   
@@ -195,21 +209,21 @@ calculoPostHocAnovaIguales <- function(session, df,  Dependiente, Agrupamiento, 
   bonferrony <- pairwise.t.test(Dependiente[[1]],Agrupamiento[[1]], p.adjust="bonferroni", pool.sd = T)
   bonferronyPvalue <- bonferrony$p.value 
   tablaGeneral <- tablaGeneral[,c(-4,-5,-6)]
-
+  
   if(checkAnovaTurkey &&  !checkAnovaBonferroni){
     
     tablaturkeyFinal <- data.frame(tablaGeneral,turkey)
     
-   colnames(tablaturkeyFinal) <- c(" ","  ","Diff Medias","Turkey")
-   
-   tablaturkeyFinal <- dplyr::mutate(tablaturkeyFinal, dplyr::across(where(is.numeric), round, 3))
-   tablaturkeyFinal["Turkey"][tablaturkeyFinal["Turkey"] <= 0.01] <- "<0.001"
-   
-   #colnames(tuekeyTabla) <- c()
-  # print_dev(tablaturkeyFinal)
-   #print_dev(dimnames(turkey[[1]]))
-   #print_dev((turkey))
-   
+    colnames(tablaturkeyFinal) <- c(" ","  ","Diff Medias","Turkey")
+    
+    tablaturkeyFinal <- dplyr::mutate(tablaturkeyFinal, dplyr::across(where(is.numeric), round, 3))
+    tablaturkeyFinal["Turkey"][tablaturkeyFinal["Turkey"] <= 0.01] <- "<0.001"
+    
+    #colnames(tuekeyTabla) <- c()
+    # print_dev(tablaturkeyFinal)
+    #print_dev(dimnames(turkey[[1]]))
+    #print_dev((turkey))
+    
     
     #print_dev(table_calculoTanova()[[4]])
     return(list(tablaturkeyFinal," ",FALSE," "))
@@ -219,13 +233,13 @@ calculoPostHocAnovaIguales <- function(session, df,  Dependiente, Agrupamiento, 
   if(checkAnovaBonferroni && !checkAnovaTurkey) {
     
     print_dev("Bonferroni")
-   
+    
     bonPvalue=c(bonferronyPvalue)
     bonPvalue<-bonPvalue[!is.na(bonPvalue)]
     
-   
+    
     tablabonferroniFinal <- data.frame(tablaGeneral,bonPvalue)
-
+    
     #print_dev(tablabonferroniFinal)
     colnames(tablabonferroniFinal) <- c(" ","  ","Diff Medias","Bonferroni")
     tablabonferroniFinal <- dplyr::mutate(tablabonferroniFinal, dplyr::across(where(is.numeric), round, 3))
@@ -237,7 +251,7 @@ calculoPostHocAnovaIguales <- function(session, df,  Dependiente, Agrupamiento, 
     return(list(tablabonferroniFinal," ",FALSE," "))
     
   }
-
+  
   if(checkAnovaBonferroni && checkAnovaTurkey) {
     
     print_dev("final")
@@ -261,7 +275,7 @@ calculoPostHocAnovaIguales <- function(session, df,  Dependiente, Agrupamiento, 
     
   {
     print_dev("Entro en vacio")
-
+    
     mean_Anova_Iguales <- " "
     sd_Anova_Iguales <- " "
     
@@ -269,22 +283,23 @@ calculoPostHocAnovaIguales <- function(session, df,  Dependiente, Agrupamiento, 
     
     colnames(posthoc_Anova_Des_empty) <- c(" ","  ")
     row.names(posthoc_Anova_Des_empty) <- NULL
-
+    
     posthoc_Anova_Des_empty <- dplyr::mutate(posthoc_Anova_Des_empty, dplyr::across(where(is.numeric), round, 3))
     posthoc_Anova_Des_empty = posthoc_Anova_Des_empty[FALSE,]
-
+    
     return(list((posthoc_Anova_Des_empty)," "))
-
-
-    }
-  
-  
-  
+    
+    
   }
+  
+  
+  
+}
 
 calculoPostHocAnovaDesiguales <- function(session, df,  Dependiente, Agrupamiento, checkAnovaGamesHowell )
 {
   
+  print_dev <- NULL
   casos = c()
   sumaDeCuadrados = c()
   var1AnovaDesiguales = c()
@@ -332,7 +347,7 @@ calculoPostHocAnovaDesiguales <- function(session, df,  Dependiente, Agrupamient
   {
     
     print_dev("sdfgsdgdsdgdgfgsd")
- 
+    
     gamesTxt <- paste0("rstatix::games_howell_test(df,",eval(nombreDependiente),"~",eval(nombreAgrupamiento),")")
     print_dev(gamesTxt)
     games <- eval(parse(text=gamesTxt))
@@ -345,7 +360,7 @@ calculoPostHocAnovaDesiguales <- function(session, df,  Dependiente, Agrupamient
     
     tablaGames <- data.frame(tablaGeneralDes,gamesPvalue)
     
-   # print_dev(colnames(tablaGames))
+    # print_dev(colnames(tablaGames))
     
     print_dev("cuys2")
     colnames(tablaGames) <- c(" ","  ","Diff Medias","PHowell")
@@ -361,19 +376,20 @@ calculoPostHocAnovaDesiguales <- function(session, df,  Dependiente, Agrupamient
   }
   else
   {
-      
-    }
+    
+  }
   
 }
-  
+
 calculoEstadisticaAnova <- function(session, df,Dependiente, Agrupamiento,  Estadistica){
   
+  print_dev <- NULL
   
   levelsDependienteNombre <- sapply(Dependiente, levels)
   levelsAgrupamientoNombre <- sapply(Agrupamiento, levels)
   #print_dev(levelsDependienteNombre)
   nombreAgrupamiento <- c((c(names(Agrupamiento)))[[1]]," ")
-
+  
   variable <- c(names(Agrupamiento))
   variable2 <- c(names(Dependiente))
   
@@ -404,13 +420,13 @@ calculoEstadisticaAnova <- function(session, df,Dependiente, Agrupamiento,  Esta
     
     stadisticas_AnovaTable <- dplyr::mutate(stadisticas_AnovaTable, dplyr::across(where(is.numeric), round, 3))
     
-    gs <- ggplot2::ggplot(data = values$mydata, ggplot2::aes_string(x=Agrupamiento[[1]], y= Dependiente[[1]], color= Dependiente[[1]]  )) + ggplot2::geom_boxplot() + ggplot2::theme_bw() +  
+    gs <- ggplot2::ggplot(data = df, ggplot2::aes_string(x=Agrupamiento[[1]], y= Dependiente[[1]], color= Dependiente[[1]]  )) + ggplot2::geom_boxplot() + ggplot2::theme_bw() +  
       ggplot2::labs(x = nombreDependiente, y= nombreAgrupamiento) +
       ggplot2::theme(legend.position = "none",
-                plot.background = ggplot2::element_rect(fill = "transparent",colour = NA)
-            
-            
-            )  #+ scale_x_discrete(limits = c("-3","0")) +
+                     plot.background = ggplot2::element_rect(fill = "transparent",colour = NA)
+                     
+                     
+      )  #+ scale_x_discrete(limits = c("-3","0")) +
     
     return(list((stadisticas_AnovaTable)," ",  gs ) )
     
@@ -418,6 +434,8 @@ calculoEstadisticaAnova <- function(session, df,Dependiente, Agrupamiento,  Esta
   }
   else {
     
+    nombreAgrupamiento <- " "
+    levelsDependienteNombre <- " "
     mean_Anova_Descriptivas <- " "
     sd_Anova_Descriptivas <- " " 
     se_Anova_Descriptivas <- " "
@@ -431,8 +449,8 @@ calculoEstadisticaAnova <- function(session, df,Dependiente, Agrupamiento,  Esta
     
     stadisticas_AnovaTable <- dplyr::mutate(stadisticas_AnovaTable, dplyr::across(where(is.numeric), round, 3))
     stadisticas_AnovaTable = stadisticas_AnovaTable[FALSE,]
-    
-    return(list((stadisticas_AnovaTable)," "))
+    gs <- ggplot2::ggplot() + ggplot2::theme_void()
+    return(list((stadisticas_AnovaTable)," ",gs))
     
     
   }
@@ -444,7 +462,7 @@ calculoEstadisticaAnova <- function(session, df,Dependiente, Agrupamiento,  Esta
 calculoEfectosFijosyAleatorios <- function(session, df, Agrupamiento, Dependiente, checkAleatorios) 
   
 {
-  
+  print_dev <- NULL
   variable <- c(names(Agrupamiento))
   variable2 <- c(names(Dependiente))
   
@@ -467,75 +485,3 @@ calculoEfectosFijosyAleatorios <- function(session, df, Agrupamiento, Dependient
   
 }
 
-
-table_calculo_Anova <- reactive({
-  
-  calculoTanova(session,values$mydata,df_Anova_Seleccion_Dependiente(),
-                df_Anova_Seleccion_Agrupamiento()
-                        )
-  
-})
-
-
-
-table_calculo_Anova_Stadisticas <- reactive({
-  
-  calculoEstadisticaAnova(session,values$mydata, df_Anova_Seleccion_Dependiente(),
-                          df_Anova_Seleccion_Agrupamiento(),checkAnovaEstadisticas())
-  
-  
-})
-
-table_calculo_Anova_PostHoc_Iguales <- reactive({
-  
-  calculoPostHocAnovaIguales(session,values$mydata,df_Anova_Seleccion_Dependiente(),
-                             df_Anova_Seleccion_Agrupamiento(),checkAnovaTurkey(),
-                             checkAnovaBonferroni() )
-  
-})
-
-table_calculo_Anova_PostHoc_Desiguales <- reactive({
-  
-  calculoPostHocAnovaDesiguales(session,values$mydata, df_Anova_Seleccion_Dependiente(),
-                                df_Anova_Seleccion_Agrupamiento(),
-                                checkAnovaGamesHowell()  )
-  
-})
-
-table_calculo_Anova_EfectosFijosyAleatorios <- reactive({ 
-  
-  calculoEfectosFijosyAleatorios( session,values$mydata,  df_Anova_Seleccion_Dependiente(),  
-                                  df_Anova_Seleccion_Agrupamiento(),  checkAnovaEfectos()   )
-  
-  })
-
-
-table_calculo_Anova_Suposiciones_VarianzaIgual <- reactive({
-  
-  #Reuza Suposicion de TTest
-  calculo_Ttest_Suposiciones_VarianzaIgual(session, values$mydata, df_Anova_Seleccion_Dependiente(),
-                                           df_Anova_Seleccion_Agrupamiento(),
-                                           checkAnovaHomogeniedad())
-  
-  
-})
-
-table_calculo_Anova_Welch <- reactive({
-  
-  #Reuza Suposicion de TTest
-  calculoTanovaWelch(session, values$mydata, df_Anova_Seleccion_Dependiente(),
-                                           df_Anova_Seleccion_Agrupamiento(),
-                                            checkAnovaWelch())
-  
-  
-})
-
-table_calculo_Anova_Brown <- reactive({
-  
-  #Reuza Suposicion de TTest
-  calculoTanovaBrown(session, values$mydata, df_Anova_Seleccion_Dependiente(),
-                     df_Anova_Seleccion_Agrupamiento(),
-                     checkAnovaBrown())
-  
-  
-})

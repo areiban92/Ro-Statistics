@@ -1,6 +1,15 @@
+#' tTestFuntions 
+#'
+#' @description A fct function
+#'
+#' @return The return value, if any, from executing the function.
+#'
+#' @noRd
+
 
 calculo_Ttest_Stadisticas <- function(df,Agrupamiento,Dependiente,Estadistica) {
   
+  print_dev <- NULL
   #print_dev("Stadisticas ttes")
   #variabless <- c(names(Dependiente))
   #nombreAgrupamiento <- c(variable[[1]])
@@ -24,7 +33,7 @@ calculo_Ttest_Stadisticas <- function(df,Agrupamiento,Dependiente,Estadistica) {
                                          mean_Ttest_Descriptivas,sd_Ttest_Descriptivas,se_Ttest_Descriptivas)
     colnames(stadisticas_TtestTable) <- c(" ","Grupo","N","mean","SD","SE")
     row.names(stadisticas_TtestTable) <- NULL
-   
+    
     stadisticas_TtestTable <- dplyr::mutate(stadisticas_TtestTable, dplyr::across(where(is.numeric), round, 3))
     return(list((stadisticas_TtestTable)," "))
   }
@@ -64,19 +73,20 @@ calculo_Ttest_Stadisticas <- function(df,Agrupamiento,Dependiente,Estadistica) {
 
 calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,student,Welch,Mann,localizacion,intervaloActiva,intervalo) {
   
+  print_dev <- NULL
   localizacionGT = FALSE
   variable <- c(names(Agrupamiento))
   variable2 <- c(names(Dependiente))
   intervaloValue <- (as.numeric(intervalo))
   
- # print_dev(variable)
+  # print_dev(variable)
   nombreDependiente <- variable2[[1]]
- # print_dev(Hypot)
+  # print_dev(Hypot)
   
   levelsDependiente <- length(sapply(Dependiente, levels))
   levelsDependienteNombre <- sapply(Dependiente, levels)
   
-
+  
   if(levelsDependiente==2 && intervaloValue  < 100 ){
     
     print_dev("Si es menor y cumple requisitos")
@@ -141,7 +151,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         stderr = c(valorstderr)
         
         
-     
+        
       }
       
       if (Hypot == "hipotesis_Mayor"){
@@ -225,15 +235,15 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         
         
         if(Hypot == "hipotesis_Igual"){
-        
-            return(list(ttestTable," Nota. Prueba Student ",localizacionGT))
-             
+          
+          return(list(ttestTable," Nota. Prueba Student ",localizacionGT))
+          
         }
         else
-          {
-        
-              print_dev("Vaolr de P")
-            print_dev(valorPvalueStudent)
+        {
+          
+          print_dev("Vaolr de P")
+          print_dev(valorPvalueStudent)
           
           if(valorPvalueStudent > 0.05 ){
             #print_dev(levelsDependienteNombre[[1]])
@@ -246,7 +256,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
             return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
                                           levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
           }
-            
+          
         }
         
       }
@@ -254,10 +264,10 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         localizacionGT=FALSE
         ttestTable <- data.frame(nombreAgrupamiento,tipoTtest, statictis,df,p)
         colnames(ttestTable) <- c(" ","Prueba","valor t","df","valor p")  
-       
+        
         ttestTable <- dplyr::mutate(ttestTable, dplyr::across(where(is.numeric), round, 3))
-      #  ttestTable %>% dplyr::mutate_if(is.numeric, ~round(., 3))
-       
+        #  ttestTable %>% dplyr::mutate_if(is.numeric, ~round(., 3))
+        
         
         if(Hypot == "hipotesis_Igual"){
           
@@ -265,18 +275,18 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
           
         }
         else {
-        
-        if(valorPvalueStudent > 0.05){
-          #print_dev(levelsDependienteNombre[[1]])
-          return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
-                                        levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
           
-        } else 
-          
-        {
-          return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
-                                        levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
-        }
+          if(valorPvalueStudent > 0.05){
+            #print_dev(levelsDependienteNombre[[1]])
+            return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
+                                          levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+            
+          } else 
+            
+          {
+            return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
+                                          levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+          }
         }
         
         
@@ -407,18 +417,18 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
           
         }
         else {
-        
-        if(valorPvalueWelch > 0.05){
-          #print_dev(levelsDependienteNombre[[1]])
-          return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
-                                        levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
           
-        } else 
-          
-        {
-          return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
-                                        levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
-        }
+          if(valorPvalueWelch > 0.05){
+            #print_dev(levelsDependienteNombre[[1]])
+            return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
+                                          levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+            
+          } else 
+            
+          {
+            return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
+                                          levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+          }
         }
         
       }
@@ -435,19 +445,19 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
           
         }
         else {
-        
-        if(valorPvalueWelch > 0.05){
           
-          return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
-                                        levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+          if(valorPvalueWelch > 0.05){
+            
+            return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
+                                          levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+            
+          } else 
+            
+          {
+            return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
+                                          levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+          }
           
-        } else 
-          
-        {
-          return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
-                                        levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
-        }
-        
         }
         
       }
@@ -592,20 +602,20 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
           
         }
         else {
-        
-        if(valorPvalueMann > 0.05){
-          #print_dev(levelsDependienteNombre[[1]])
-          return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
-                                        levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
           
-        } else 
+          if(valorPvalueMann > 0.05){
+            #print_dev(levelsDependienteNombre[[1]])
+            return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
+                                          levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+            
+          } else 
+            
+          {
+            return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
+                                          levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+          }
           
-        {
-          return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
-                                        levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
         }
-        
-      }
         
       }
       else{
@@ -620,19 +630,19 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
           
         }
         else {
-        
-        if(valorPvalueMann > 0.05){
           
-          return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
-                                        levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+          if(valorPvalueMann > 0.05){
+            
+            return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
+                                          levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+            
+          } else 
+            
+          {
+            return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
+                                          levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+          }
           
-        } else 
-          
-        {
-          return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
-                                        levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
-        }
-        
         }
         
       }
@@ -649,7 +659,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
     if(student == FALSE &&  Welch == TRUE && Mann == TRUE )  #4 ok
       
     {
-    
+      
       localizacionGT=FALSE
       tipoTtest = c("Welch","Mann-Whitney")
       statictis = c()
@@ -801,18 +811,18 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         }
         else
         {
-        
-        if(valorPvalueMann > 0.05 && valorPvalueWelch > 0.05){
-          #print_dev(levelsDependienteNombre[[1]])
-          return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
-                                        levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
           
-        } else 
-          
-        {
-          return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
-                                        levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
-        }
+          if(valorPvalueMann > 0.05 && valorPvalueWelch > 0.05){
+            #print_dev(levelsDependienteNombre[[1]])
+            return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
+                                          levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+            
+          } else 
+            
+          {
+            return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
+                                          levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+          }
         }
         
       }
@@ -1015,7 +1025,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         }
         else
         {
-        
+          
           if(valorPvalueStudent > 0.05 && valorPvalueMann > 0.05){
             #print_dev(levelsDependienteNombre[[1]])
             return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
@@ -1043,19 +1053,19 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         }
         else
         {
-        
-            if(valorPvalueStudent > 0.05 && valorPvalueMann > 0.05){
-              
-              return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
-                                            levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
-              
-            } else 
-              
-            {
-              return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
-                                            levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
-            }
-        
+          
+          if(valorPvalueStudent > 0.05 && valorPvalueMann > 0.05){
+            
+            return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
+                                          levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+            
+          } else 
+            
+          {
+            return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
+                                          levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+          }
+          
         }
       }
       
@@ -1219,7 +1229,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         }
         else
         {
-        
+          
           if(valorPvalueStudent > 0.05  && valorPvalueWelch > 0.05  ){
             #print_dev(levelsDependienteNombre[[1]])
             return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
@@ -1248,17 +1258,17 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         }
         else
         {
-            if(valorPvalueStudent > 0.05 && valorPvalueWelch > 0.05){
-              
-              return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
-                                            levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
-              
-            } else 
-              
-            {
-              return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
-                                            levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
-            }
+          if(valorPvalueStudent > 0.05 && valorPvalueWelch > 0.05){
+            
+            return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
+                                          levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+            
+          } else 
+            
+          {
+            return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
+                                          levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+          }
         }
         
       }
@@ -1285,12 +1295,12 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       confInt = c()
       
       nombreAgrupamiento <- c(variable[[1]]," "," ")
-
+      
       
       print_dev("SI CUMPLIO True True True ")
       
       if (Hypot == "hipotesis_Igual"){
-
+        
         student <-  t.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "two.sided", var.equal = TRUE, conf.level = intervaloValue )
         welch <- t.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "two.sided", conf.level = intervaloValue )
         mann <- wilcox.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "two.sided",conf.level = intervaloValue,conf.int=TRUE)
@@ -1454,18 +1464,18 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         }
         else
         {
-        
-            if(valorPvalueStudent > 0.05  && valorPvalueWelch > 0.05 && valorPvalueMann > 0.05 ){
-              #print_dev(levelsDependienteNombre[[1]])
-              return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
-                                            levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
-              
-            } else 
-              
-            {
-              return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
-                                            levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
-            }
+          
+          if(valorPvalueStudent > 0.05  && valorPvalueWelch > 0.05 && valorPvalueMann > 0.05 ){
+            #print_dev(levelsDependienteNombre[[1]])
+            return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
+                                          levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+            
+          } else 
+            
+          {
+            return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
+                                          levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+          }
         }
       }
       else{
@@ -1481,18 +1491,18 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         }
         else
         {
-        
-            if(valorPvalueStudent > 0.05 && valorPvalueWelch > 0.05 && valorPvalueMann > 0.05) {
-              
-              return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
-                                            levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
-              
-            } else 
-              
-            {
-              return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
-                                            levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
-            }
+          
+          if(valorPvalueStudent > 0.05 && valorPvalueWelch > 0.05 && valorPvalueMann > 0.05) {
+            
+            return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
+                                          levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+            
+          } else 
+            
+          {
+            return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
+                                          levelsDependienteNombre[[1]]," es mayor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
+          }
         }
         
       }
@@ -1525,7 +1535,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
 
 calculo_Ttest_Suposiciones_Normal <- function(session,df,Agrupamiento,Dependiente,Normalidad) {
   
-  
+  print_dev <- NULL
   print_dev("Desde aqui Suposiciones Shapiro") 
   #print_dev(Normalidad)
   #print_dev("debug step")
@@ -1533,7 +1543,7 @@ calculo_Ttest_Suposiciones_Normal <- function(session,df,Agrupamiento,Dependient
   variable <- c(names(Agrupamiento))
   variable2 <- c(names(Dependiente))
   
- # print_dev(variable)
+  # print_dev(variable)
   #print_dev(variable2)
   #nombreAgrupamiento <- variable[[1]]
   nombreDependiente <- variable2[[1]]
@@ -1555,7 +1565,7 @@ calculo_Ttest_Suposiciones_Normal <- function(session,df,Agrupamiento,Dependient
     colnames(ttestTable) <- c(" ","F","df","p")
     ttestTable <- dplyr::mutate(ttestTable, dplyr::across(where(is.numeric), round, 3))
     return(list(ttestTable," "))
- 
+    
   }
   
   
@@ -1609,7 +1619,7 @@ calculo_Ttest_Suposiciones_Normal <- function(session,df,Agrupamiento,Dependient
 
 calculo_Ttest_Suposiciones_VarianzaIgual <- function(session,df,Agrupamiento,Dependiente,VarianzaIgual) {
   
-  
+  print_dev <- NULL
   print_dev("Desde aqui Suposiciones Varianza Igual") 
   #print_dev(VarianzaIgual)
   #print_dev("debug step")
@@ -1617,14 +1627,14 @@ calculo_Ttest_Suposiciones_VarianzaIgual <- function(session,df,Agrupamiento,Dep
   variable <- c(names(Agrupamiento))
   variable2 <- c(names(Dependiente))
   
-
+  
   nombreDependiente <- variable2[[1]]
   
-
+  
   levelsDependiente <- length(sapply(Dependiente, levels))
   levelsDependienteNombre <- sapply(Dependiente, levels)
   
-
+  
   if(VarianzaIgual == FALSE ) # 
   {
     
@@ -1680,43 +1690,4 @@ calculo_Ttest_Suposiciones_VarianzaIgual <- function(session,df,Agrupamiento,Dep
     
   }
 }
-
-
-
-tablaTtestFinal <- reactive({
-  calculo_Ttest_Student(session,values$mydata,  df_Ttest_Seleccion_Dependiente(),
-                        df_Ttest_Seleccion_Agrupamiento(),radioTtestHypoValue(),
-                        checkTtestTipoStudent(),checkTtestTipoWelch(),
-                        checkTtestTipoMann(),checkTtest_Localizacion(),
-                        checkTtest_IntervaloConfidencia(),txtTtest_IntervaloConfidencia())
-  
-})
-
-tabla_calculo_Ttest_Suposiciones_Normal <- reactive({
-  
-  calculo_Ttest_Suposiciones_Normal(session,values$mydata,
-                                    df_Ttest_Seleccion_Dependiente(),df_Ttest_Seleccion_Agrupamiento(),
-                                    checkTtest_Supo_Normal())
-  
-}) 
-
-table_calculo_Ttest_Suposiciones_VarianzaIgual <- reactive({
-  
-  
-  calculo_Ttest_Suposiciones_VarianzaIgual(session,values$mydata,
-                                           df_Ttest_Seleccion_Dependiente(),df_Ttest_Seleccion_Agrupamiento(),
-                                           checkTtest_Supo_VarianzasIguales())
-  
-  
-})
-
-table_calculo_Ttest_Stadisticas <- reactive({
-  
-  calculo_Ttest_Stadisticas(values$mydata,
-                            df_Ttest_Seleccion_Dependiente(),df_Ttest_Seleccion_Agrupamiento(),
-                            checkTtest_Estadisticas())
-  
-  
-})
-
 

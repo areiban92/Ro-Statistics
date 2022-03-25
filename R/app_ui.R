@@ -16,41 +16,28 @@ app_ui <- function(request) {
                  HTML(".navbar-nav {width: 80%;}
                                     .navbar-nav :last-child{float:right}")),
       
-      #theme = shinythemes::shinytheme("simplex"),
+      theme = shinythemes::shinytheme("simplex"),
       tags$link(rel="stylesheet", type="text/css", href="www/dark_mode.css"),
         
       navbarPage(
                 
                 title = div(tags$img(src = "www/g12.png", style= "width: 200px; margin-top: 5px;  height: 50px")),
                 windowTitle="Ro-Statistic",
-                ###################################################DESCRIPTIVOS########################
-         
-                eval(parse("UI_Descriptivos.R",encoding =  "UTF-8")),   
-             
-                ###########################################################INICIO T TEST  #################################################
-               
-                eval(parse("UI_Ttest.R", encoding="UTF-8")),
-                ##########################################################Tablas COntingencia###################
-                
-                eval(parse("UI_Contingencia.R", encoding="UTF-8")),
-                #########################################################   ANOVA  TEST ####################
-                
-                eval(parse("UI_Anova.R", encoding="UTF-8")),
-                #########################################################   Regresions Test  ####################
-                
-                eval(parse("UI_Regresion.R", encoding="UTF-8")),
+                ###################################################        DESCRIPTIVOS########################
+                mod_UIDescriptivos_ui("UIDescriptivos_ui_1"),
+                ########################################################### INICIO T TEST  #################################################
+                mod_Ttest_ui("Ttest_ui_1"),
+                ##########################################################  CONTINGENCIA ####################
+                mod_Contingencia_ui("Contingencia_ui_1"),
+                ##########################################################   ANOVA   #########################
+                mod_Anova_ui("Anova_ui_1"),
+                ##########################################################   REGRESION  ####################
+                mod_Regresion_ui("Regresion_ui_1"),
                 #############################################################################################ARCHIVOS#######################
-             
-                eval(parse("UI_CargaDatos.R", encoding="UTF-8"))
-                
+                mod_cargaDatos_ui("cargaDatos_ui_1")
               ) #fin NAVBARPAGE
     
     )
-    
-    
-    
-    
-    
     
     
     )
