@@ -7,7 +7,7 @@
 app_server <- function( input, output, session ) {
 
 
-  utils::globalVariables(c("inferior","superior"))
+  #utils::globalVariables(c("inferior","superior"))
   r <- reactiveValues()
   t <- reactiveValues()
   
