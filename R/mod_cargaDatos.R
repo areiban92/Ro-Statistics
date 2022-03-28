@@ -146,7 +146,7 @@ mod_cargaDatos_ui <- function(id){
                  #       tags$img(src='iconos2/info.png', style= "width: 50px; margin-top: 0px; margin-bottom: 5px;  height: 30px")),
                    div( 
                      
-                     "INFORMACI\u00d3N" ) ,
+                     "InformaciI\u00f3n" ) ,
     ),value = "Tab 6",
     sidebarPanel( width = 6, 
                   

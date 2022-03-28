@@ -163,6 +163,9 @@ apaTtest <- function(x, title = " ", nota,ID) {
 
 apaTtestConfidencia <- function(x, title = " ", nota, confidencia,ID) {
   
+  inferior <- NULL
+  superior <- NULL
+  
   if(confidencia == TRUE){
     gt::gt(x,rownames_to_stub = FALSE ,id = ID) %>%
       

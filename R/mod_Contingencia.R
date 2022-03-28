@@ -11,9 +11,9 @@ mod_Contingencia_ui <- function(id){
   ns <- NS(id)
   
   
-  tabPanel(
-    div(  id= ns("textoIconos"),
-          tags$img(src ='www/iconos2/contingencia.png', style= "width: 50px; margin-top: 0px; margin-bottom: 5px; height: 34px"),
+  tabPanel( div(  id= ns("textoIconos"),
+            div(  id= ns("imgIconos"),  
+              tags$img(src ='www/iconos2/contingencia.png', style= "width: 50px; margin-top: 0px; margin-bottom: 5px; height: 34px")),
           div(
             "CONTINGENCIA")
           

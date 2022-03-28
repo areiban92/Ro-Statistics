@@ -1514,7 +1514,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
   }
   else {
     
-    shinyalert::shinyalert("Oops!", "El numero de niveles del factor ≠ 2 ", type = "error",size = "xs")
+    shinyalert::shinyalert("Oops!", "El numero de niveles del factor debe ser igual a 2 ", type = "error",size = "xs")
     
     nombreAgrupamiento <- " "
     valorEstadistico <- " "
