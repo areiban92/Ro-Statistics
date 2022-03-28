@@ -6,12 +6,12 @@
 #'
 #' @noRd
 
-print_dev <- NULL
+
 
 calculoTRegresionLineal <- function(session, df, Agrupamiento, Dependiente) {
   
   
-  print_dev <- NULL
+
   casos = c()
   sumaDeCuadrados = c()
   mediaCuadrada = c()
@@ -27,11 +27,11 @@ calculoTRegresionLineal <- function(session, df, Agrupamiento, Dependiente) {
   levelsAgrupamientoNombre <- sapply(Agrupamiento, levels)
   
   casos <- c(nombreAgrupamiento,"residuales")
-  print_dev("dsde aqui Regresion Lineal")
+  golem::print_dev("dsde aqui Regresion Lineal")
   
   if(length(nombreAgrupamiento)  > 1 ){
     
-    print_dev(paste(nombreAgrupamiento, collapse = '+'))
+    golem::print_dev(paste(nombreAgrupamiento, collapse = '+'))
     txtLineal <- paste0(nombreDependiente,"~ ",paste(nombreAgrupamiento, collapse = '+'))
   }
   else
@@ -67,7 +67,7 @@ calculoTRegresionLineal <- function(session, df, Agrupamiento, Dependiente) {
 
 calculoTRegresionBinomial <- function(session, df, Agrupamiento, Dependiente) {
   
-  print_dev <- NULL
+
   
   casos = c()
   sumaDeCuadrados = c()
@@ -85,11 +85,11 @@ calculoTRegresionBinomial <- function(session, df, Agrupamiento, Dependiente) {
   levelsAgrupamientoNombre <- sapply(Agrupamiento, levels)
   
   casos <- c(nombreAgrupamiento,"residuales")
-  print_dev("dsde aqui Regresion Binomial")
+  golem::print_dev("dsde aqui Regresion Binomial")
   
-  print_dev(class(nombreAgrupamiento))
-  print_dev("dsde aqui Regresion Binomial")
-  print_dev(levelsDependienteNombre)
+  golem::print_dev(class(nombreAgrupamiento))
+  golem::print_dev("dsde aqui Regresion Binomial")
+  golem::print_dev(levelsDependienteNombre)
   
   if (levelsDependiente <= 2) {
     
@@ -97,7 +97,7 @@ calculoTRegresionBinomial <- function(session, df, Agrupamiento, Dependiente) {
     if(length(nombreAgrupamiento)  > 1 ){
       
       
-      print_dev(paste(nombreAgrupamiento, collapse = '+'))
+      golem::print_dev(paste(nombreAgrupamiento, collapse = '+'))
       
       
       txtBinomial <- paste0(nombreDependiente,"~ ",paste(nombreAgrupamiento, collapse = '+'))
@@ -114,7 +114,7 @@ calculoTRegresionBinomial <- function(session, df, Agrupamiento, Dependiente) {
     model2 <- glm(eval(parse(text = txtBinomial2)), data= df, family = binomial )
     
     modelSummaryBinomial <- summary(model)
-    print_dev(modelSummaryBinomial)
+    golem::print_dev(modelSummaryBinomial)
     
     lmBinomial <- as.data.frame(modelSummaryBinomial[["coefficients"]][,])
     nombreVariablesBinomial <- rownames(lmBinomial)
@@ -168,7 +168,7 @@ calculoTRegresionBinomial <- function(session, df, Agrupamiento, Dependiente) {
 
 calculoTRegresionMultinomial <- function(session, df, Agrupamiento, Dependiente, selector ) {
   
-  print_dev <- NULL
+
   sumaDeCuadrados = c()
   mediaCuadrada = c()
   valorF = c()
@@ -183,12 +183,12 @@ calculoTRegresionMultinomial <- function(session, df, Agrupamiento, Dependiente,
   levelsAgrupamientoNombre <- sapply(Agrupamiento, levels)
   
   casos <- c(nombreAgrupamiento,"residuales")
-  print_dev("dsde aqui Regresion Multinomial")
+  golem::print_dev("dsde aqui Regresion Multinomial")
   
-  print_dev(class(nombreAgrupamiento))
-  print_dev("dsde aqui Regresion Multinomial")
-  print_dev(levelsDependienteNombre)
-  #print_dev(nombreDependiente)
+  golem::print_dev(class(nombreAgrupamiento))
+  golem::print_dev("dsde aqui Regresion Multinomial")
+  golem::print_dev(levelsDependienteNombre)
+  #golem::print_dev(nombreDependiente)
   
   if (levelsDependiente > 2) {
     
@@ -197,13 +197,13 @@ calculoTRegresionMultinomial <- function(session, df, Agrupamiento, Dependiente,
     if(length(nombreAgrupamiento)  > 1 ){
       
       txtMultinomialLogit <- paste0("nivel"," ~ ",paste(nombreAgrupamiento, collapse = '+'))
-      print_dev(txtMultinomialLogit)
+      golem::print_dev(txtMultinomialLogit)
     }
     else
     {
       #txtMultinomial <- paste0(nombreDependiente,"~ ",nombreAgrupamiento[[1]])
       txtMultinomialLogit <- paste0("nivel"," ~ ",nombreAgrupamiento[[1]])
-      print_dev(txtMultinomialLogit)
+      golem::print_dev(txtMultinomialLogit)
     }
     
     multi_model <- nnet::multinom(eval(parse(text = txtMultinomialLogit)), data= df )
@@ -211,9 +211,9 @@ calculoTRegresionMultinomial <- function(session, df, Agrupamiento, Dependiente,
     
     multi_model_empty <- nnet::multinom( eval(parse(text = txtMultinomial)), data= df  )
     
-    #print_dev(utils::str(multi_model))
+    #golem::print_dev(utils::str(multi_model))
     modelSummaryMultinomial <- summary(multi_model)
-    # print_dev(modelSummaryMultinomial)
+    # golem::print_dev(modelSummaryMultinomial)
     print_dev(modelSummaryMultinomial)
     
     lmMultinomialEstimate <- as.data.frame(modelSummaryMultinomial[["coefficients"]][,])
@@ -228,11 +228,11 @@ calculoTRegresionMultinomial <- function(session, df, Agrupamiento, Dependiente,
     p <- (1 - pnorm(abs(z), 0, 1)) * 2
     
     nombres <- c("Intercep",nombreAgrupamiento)
-    print_dev(paste0("nombres es : ", nombres))
+    golem::print_dev(paste0("nombres es : ", nombres))
     
     nombreRowss <- c()
     suma <- length(nombres)
-    print_dev(paste0("suma es : ", suma) )
+    golem::print_dev(paste0("suma es : ", suma) )
     
     ayudavector <- c(1)
     for (variable in 2:length(nombresRow)) {
@@ -247,8 +247,8 @@ calculoTRegresionMultinomial <- function(session, df, Agrupamiento, Dependiente,
       if(variable %in% ayudavector){
         
         final[variable] <-nombresRow[match(variable,ayudavector)]
-        #print_dev(match(variable,ayudavector))
-        print_dev("Si es igual")  
+        #golem::print_dev(match(variable,ayudavector))
+        golem::print_dev("Si es igual")  
         
       }
       else{
@@ -259,7 +259,7 @@ calculoTRegresionMultinomial <- function(session, df, Agrupamiento, Dependiente,
       
     }
     
-    print_dev(final)
+    golem::print_dev(final)
     # nombreRowss[variable] = nombresRow[variable]
     #  nombreRowss[i+1] = ""
     lmMultinomial <- data.frame(final,nombres,estimate,se,z,p)

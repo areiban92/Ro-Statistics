@@ -10,7 +10,7 @@
 
 calculoTanova <- function(session, df, Dependiente, Agrupamiento) {
   
-  print_dev <- NULL
+
   casos = c()
   sumaDeCuadrados = c()
   #df = c()
@@ -36,7 +36,7 @@ calculoTanova <- function(session, df, Dependiente, Agrupamiento) {
   #anovaTabla <- data.frame(nombreAgrupamiento,valorPvalue)
   #colnames(anovaTabla) <- c(" --","--")
   
-  print_dev("dsde aqui aov")
+  golem::print_dev("dsde aqui aov")
   resAOV <- aov(Dependiente[[1]] ~  Agrupamiento[[1]], data = df)
   resAOVsummary <- summary(resAOV)
   
@@ -59,7 +59,7 @@ calculoTanova <- function(session, df, Dependiente, Agrupamiento) {
 
 calculoTanovaWelch <- function(session, df, Dependiente, Agrupamiento,  WelchAnova) {
   
-  print_dev <- NULL
+  
   sumaDeCuadrados = c()
   
   mediaCuadrada = c()
@@ -80,7 +80,7 @@ calculoTanovaWelch <- function(session, df, Dependiente, Agrupamiento,  WelchAno
     levelsAgrupamiento <- length(sapply(Agrupamiento, levels))
     levelsAgrupamientoNombre <- sapply(Agrupamiento, levels)
     
-    print_dev("dsde aqui aov")
+    golem::print_dev("dsde aqui aov")
     resAOVWelch <- oneway.test(Dependiente[[1]] ~ Agrupamiento[[1]], data = df)
     
     
@@ -113,7 +113,7 @@ calculoTanovaWelch <- function(session, df, Dependiente, Agrupamiento,  WelchAno
 
 calculoTanovaBrown <- function(session, df, Dependiente, Agrupamiento, BrownAnova) {
   
-  print_dev <- NULL
+  
   sumaDeCuadrados = c()
   
   mediaCuadrada = c()
@@ -134,7 +134,7 @@ calculoTanovaBrown <- function(session, df, Dependiente, Agrupamiento, BrownAnov
     levelsAgrupamiento <- length(sapply(Agrupamiento, levels))
     levelsAgrupamientoNombre <- sapply(Agrupamiento, levels)
     
-    print_dev("dsde aqui aovbrown")
+    golem::print_dev("dsde aqui aovbrown")
     resAOVBrown <- onewaytests::bf.test(Dependiente[[1]] ~ Agrupamiento[[1]], data = df)
     
     
@@ -168,7 +168,7 @@ calculoTanovaBrown <- function(session, df, Dependiente, Agrupamiento, BrownAnov
 
 calculoPostHocAnovaIguales <- function(session, df,  Dependiente, Agrupamiento, checkAnovaTurkey, 
                                        checkAnovaBonferroni,anovaTablaresult) {
-  print_dev <- NULL
+  
   var1AnovaIguales = c()
   var2AnovaIguales= c()
   
@@ -220,19 +220,19 @@ calculoPostHocAnovaIguales <- function(session, df,  Dependiente, Agrupamiento, 
     tablaturkeyFinal["Turkey"][tablaturkeyFinal["Turkey"] <= 0.01] <- "<0.001"
     
     #colnames(tuekeyTabla) <- c()
-    # print_dev(tablaturkeyFinal)
-    #print_dev(dimnames(turkey[[1]]))
-    #print_dev((turkey))
+    # golem::print_dev(tablaturkeyFinal)
+    #golem::print_dev(dimnames(turkey[[1]]))
+    #golem::print_dev((turkey))
     
     
-    #print_dev(table_calculoTanova()[[4]])
+    #golem::print_dev(table_calculoTanova()[[4]])
     return(list(tablaturkeyFinal," ",FALSE," "))
     
   } 
   
   if(checkAnovaBonferroni && !checkAnovaTurkey) {
     
-    print_dev("Bonferroni")
+    golem::print_dev("Bonferroni")
     
     bonPvalue=c(bonferronyPvalue)
     bonPvalue<-bonPvalue[!is.na(bonPvalue)]
@@ -240,7 +240,7 @@ calculoPostHocAnovaIguales <- function(session, df,  Dependiente, Agrupamiento, 
     
     tablabonferroniFinal <- data.frame(tablaGeneral,bonPvalue)
     
-    #print_dev(tablabonferroniFinal)
+    #golem::print_dev(tablabonferroniFinal)
     colnames(tablabonferroniFinal) <- c(" ","  ","Diff Medias","Bonferroni")
     tablabonferroniFinal <- dplyr::mutate(tablabonferroniFinal, dplyr::across(where(is.numeric), round, 3))
     tablabonferroniFinal <- tablabonferroniFinal[order(tablabonferroniFinal$" "),]
@@ -254,7 +254,7 @@ calculoPostHocAnovaIguales <- function(session, df,  Dependiente, Agrupamiento, 
   
   if(checkAnovaBonferroni && checkAnovaTurkey) {
     
-    print_dev("final")
+    golem::print_dev("final")
     bonPvalue=c(bonferronyPvalue)
     bonPvalue<-bonPvalue[!is.na(bonPvalue)]
     
@@ -274,7 +274,7 @@ calculoPostHocAnovaIguales <- function(session, df,  Dependiente, Agrupamiento, 
   if(!checkAnovaTurkey && !checkAnovaBonferroni)
     
   {
-    print_dev("Entro en vacio")
+    golem::print_dev("Entro en vacio")
     
     mean_Anova_Iguales <- " "
     sd_Anova_Iguales <- " "
@@ -299,7 +299,7 @@ calculoPostHocAnovaIguales <- function(session, df,  Dependiente, Agrupamiento, 
 calculoPostHocAnovaDesiguales <- function(session, df,  Dependiente, Agrupamiento, checkAnovaGamesHowell )
 {
   
-  print_dev <- NULL
+  
   casos = c()
   sumaDeCuadrados = c()
   var1AnovaDesiguales = c()
@@ -322,7 +322,7 @@ calculoPostHocAnovaDesiguales <- function(session, df,  Dependiente, Agrupamient
   levelsAgrupamientoNombre <- sapply(Agrupamiento, levels)
   
   tablaAuxDes <- TukeyHSD(table_calculo_Anova()[[4]])
-  #print_dev(utils::str(tablaAux))
+  #golem::print_dev(utils::str(tablaAux))
   
   tablaGeneralDes<-as.data.frame(tablaAuxDes[1:1])
   namesrowDes <- row.names(tablaGeneralDes)
@@ -340,32 +340,32 @@ calculoPostHocAnovaDesiguales <- function(session, df,  Dependiente, Agrupamient
   tablaGeneralDes <- data.frame(var2AnovaDesiguales,var1AnovaDesiguales,tablaGeneralDes)
   tablaGeneralDes <- tablaGeneralDes[,c(-4,-5,-6)]
   
-  print_dev("Desde aqui Howellllllllllll")
-  #print_dev(tablaGeneralDes)
+  golem::print_dev("Desde aqui Howellllllllllll")
+  #golem::print_dev(tablaGeneralDes)
   
   if (checkAnovaGamesHowell) 
   {
     
-    print_dev("sdfgsdgdsdgdgfgsd")
+    
     
     gamesTxt <- paste0("rstatix::games_howell_test(df,",eval(nombreDependiente),"~",eval(nombreAgrupamiento),")")
-    print_dev(gamesTxt)
+    golem::print_dev(gamesTxt)
     games <- eval(parse(text=gamesTxt))
     
-    #print_dev(games)
+    #golem::print_dev(games)
     gamesPvalue <- games$p.adj
     
-    #print_dev(gamesPvalue)
+    #golem::print_dev(gamesPvalue)
     
     
     tablaGames <- data.frame(tablaGeneralDes,gamesPvalue)
     
-    # print_dev(colnames(tablaGames))
+    # golem::print_dev(colnames(tablaGames))
     
-    print_dev("cuys2")
+    golem::print_dev("cuys2")
     colnames(tablaGames) <- c(" ","  ","Diff Medias","PHowell")
     
-    #print_dev(tablaGames)
+    #golem::print_dev(tablaGames)
     
     tablaGames <- dplyr::mutate(tablaGames, dplyr::across(where(is.numeric), round, 3))
     tablaGames["PHowell"][tablaGames["PHowell"] <= 0.01] <- "<0.001"
@@ -383,11 +383,11 @@ calculoPostHocAnovaDesiguales <- function(session, df,  Dependiente, Agrupamient
 
 calculoEstadisticaAnova <- function(session, df,Dependiente, Agrupamiento,  Estadistica){
   
-  print_dev <- NULL
+ 
   
   levelsDependienteNombre <- sapply(Dependiente, levels)
   levelsAgrupamientoNombre <- sapply(Agrupamiento, levels)
-  #print_dev(levelsDependienteNombre)
+  #golem::print_dev(levelsDependienteNombre)
   nombreAgrupamiento <- c((c(names(Agrupamiento)))[[1]]," ")
   
   variable <- c(names(Agrupamiento))
@@ -397,24 +397,24 @@ calculoEstadisticaAnova <- function(session, df,Dependiente, Agrupamiento,  Esta
   nombreAgrupamiento <- variable[[1]]
   
   if(Estadistica==TRUE){
-    print_dev("Estadsitica true anova")
+    golem::print_dev("Estadsitica true anova")
     
     mean_Anova_Descriptivas <- with(df, tapply(Dependiente[[1]], Agrupamiento[[1]], mean))
-    print_dev(mean_Anova_Descriptivas)
+    golem::print_dev(mean_Anova_Descriptivas)
     
     sd_Anova_Descriptivas <- with(df, tapply(Dependiente[[1]],Agrupamiento[[1]], sd))  
     
     se_Anova_Descriptivas <- with(df, tapply(Dependiente[[1]],Agrupamiento[[1]], rapportools::se.mean))
     
     lenght_Anova_Descriptivas <-  with(df, tapply(Dependiente[[1]],Agrupamiento[[1]], length))
-    print_dev(lenght_Anova_Descriptivas)
+    golem::print_dev(lenght_Anova_Descriptivas)
     
     
     stadisticas_AnovaTable <- data.frame(nombreAgrupamiento,
                                          levelsAgrupamientoNombre,lenght_Anova_Descriptivas,
                                          mean_Anova_Descriptivas,sd_Anova_Descriptivas,se_Anova_Descriptivas)
     
-    print_dev(stadisticas_AnovaTable)
+    golem::print_dev(stadisticas_AnovaTable)
     colnames(stadisticas_AnovaTable) <- c(" ","Grupo","N","mean","SD","SE")
     row.names(stadisticas_AnovaTable) <- NULL
     
@@ -462,7 +462,7 @@ calculoEstadisticaAnova <- function(session, df,Dependiente, Agrupamiento,  Esta
 calculoEfectosFijosyAleatorios <- function(session, df, Agrupamiento, Dependiente, checkAleatorios) 
   
 {
-  print_dev <- NULL
+  
   variable <- c(names(Agrupamiento))
   variable2 <- c(names(Dependiente))
   
@@ -476,9 +476,9 @@ calculoEfectosFijosyAleatorios <- function(session, df, Agrupamiento, Dependient
   levelsAgrupamientoNombre <- sapply(Agrupamiento, levels)
   
   
-  print_dev("EFECTOS ALEATORIOS")
-  print_dev(levelsDependiente)
-  print_dev(levelsDependienteNombre)
+  golem::print_dev("EFECTOS ALEATORIOS")
+  golem::print_dev(levelsDependiente)
+  golem::print_dev(levelsDependienteNombre)
   
   
   

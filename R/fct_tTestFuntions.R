@@ -9,16 +9,16 @@
 
 calculo_Ttest_Stadisticas <- function(df,Agrupamiento,Dependiente,Estadistica) {
   
-  print_dev <- NULL
-  #print_dev("Stadisticas ttes")
+ 
+  #golem::print_dev("Stadisticas ttes")
   #variabless <- c(names(Dependiente))
   #nombreAgrupamiento <- c(variable[[1]])
   #nombreAgrupamiento <- 
   levelsDependienteNombre <- sapply(Dependiente, levels)
-  print_dev(levelsDependienteNombre)
+  golem::print_dev(levelsDependienteNombre)
   nombreAgrupamiento <- c((c(names(Agrupamiento)))[[1]]," ")
-  #print_dev(utils::utils::str(Dependiente))
-  #print_dev(variabless)
+  #golem::print_dev(utils::utils::str(Dependiente))
+  #golem::print_dev(variabless)
   
   if(Estadistica==TRUE){
     
@@ -39,7 +39,7 @@ calculo_Ttest_Stadisticas <- function(df,Agrupamiento,Dependiente,Estadistica) {
   }
   else {
     
-    print_dev("ENTRO FALSO T TESTTTTTTTTTTTTTTTTTTTT")
+    golem::print_dev("ENTRO FALSO T TESTTTTTTTTTTTTTTTTTTTT")
     mean_Ttest_Descriptivas <- " "
     sd_Ttest_Descriptivas <- " " 
     se_Ttest_Descriptivas <- " "
@@ -61,7 +61,7 @@ calculo_Ttest_Stadisticas <- function(df,Agrupamiento,Dependiente,Estadistica) {
   
   
   #  error <- sqrt((sd_Ttest_Descriptivas[[1]]**2/(lenght_Ttest_Descriptivas[[1]])) + (sd_Ttest_Descriptivas[[2]]**2/(lenght_Ttest_Descriptivas[[2]])))
-  #print_dev(se_error)
+  #golem::print_dev(se_error)
   # group_by(df, "group") %>%
   #    summarise(
   #     # count = n(),
@@ -73,15 +73,15 @@ calculo_Ttest_Stadisticas <- function(df,Agrupamiento,Dependiente,Estadistica) {
 
 calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,student,Welch,Mann,localizacion,intervaloActiva,intervalo) {
   
-  print_dev <- NULL
+
   localizacionGT = FALSE
   variable <- c(names(Agrupamiento))
   variable2 <- c(names(Dependiente))
   intervaloValue <- (as.numeric(intervalo))
   
-  # print_dev(variable)
+  # golem::print_dev(variable)
   nombreDependiente <- variable2[[1]]
-  # print_dev(Hypot)
+  # golem::print_dev(Hypot)
   
   levelsDependiente <- length(sapply(Dependiente, levels))
   levelsDependienteNombre <- sapply(Dependiente, levels)
@@ -89,10 +89,10 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
   
   if(levelsDependiente==2 && intervaloValue  < 100 ){
     
-    print_dev("Si es menor y cumple requisitos")
+    golem::print_dev("Si es menor y cumple requisitos")
     
     intervaloValue <- intervaloValue/100
-    print_dev(intervaloValue)
+    golem::print_dev(intervaloValue)
     
     if(student == FALSE &&  Welch == FALSE && Mann == FALSE ) # ok revissar
     {
@@ -101,7 +101,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       valorEstadistico <- " "
       valorParametro <- " "
       valorPvalue <- " "
-      #print_dev(resss)
+      #golem::print_dev(resss)
       correlacionTabla <- data.frame(nombreAgrupamiento,valorPvalue)
       colnames(correlacionTabla) <- c(" --","--")
       return(list(correlacionTabla," ",localizacionGT))
@@ -114,7 +114,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       
     {
       
-      print_dev("SI CUMPLIO  # 1")
+      golem::print_dev("SI CUMPLIO  # 1")
       
       tipoTtest = c("student")
       statictis = c()
@@ -128,13 +128,13 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       nombreAgrupamiento <- c(variable[[1]])
       
       
-      print_dev("SI CUMPLIO True False False ")
+      golem::print_dev("SI CUMPLIO True False False ")
       
       if (Hypot == "hipotesis_Igual"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         #
         student <-  t.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "two.sided", var.equal = TRUE, conf.level = intervaloValue)
-        print_dev(utils::str(student))
+        golem::print_dev(utils::str(student))
         #Valores del Mann
         valorEstadisticoStudent <- student$statistic
         valorParametroStudent <- student$parameter
@@ -155,7 +155,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       }
       
       if (Hypot == "hipotesis_Mayor"){
-        # print_dev("HYPOTESIS mayor ")
+        # golem::print_dev("HYPOTESIS mayor ")
         #
         student <-  t.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "greater", var.equal = TRUE,conf.level = intervaloValue)
         
@@ -174,17 +174,17 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         meanValues = c(valorMedias[[1]]- valorMedias[[2]])
         stderr = c(valorstderr)
         
-        #print_dev(resss)
+        #golem::print_dev(resss)
         ttestTable <- data.frame(nombreAgrupamiento,tipoTtest, statictis,df,p)
         colnames(ttestTable) <- c(" ","Prueba","valor t","df","valor p")
-        print_dev(utils::str(ttestTable))
+        golem::print_dev(utils::str(ttestTable))
         ttestTable <- dplyr::mutate(ttestTable, dplyr::across(where(is.numeric), round, 3))
         
         
       }
       
       if (Hypot == "hipotesis_Menor"){
-        print_dev("HYPOMENOR")
+        golem::print_dev("HYPOMENOR")
         
         
         #
@@ -206,7 +206,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         meanValues = c(valorMedias[[1]]- valorMedias[[2]])
         stderr = c(valorstderr)
         
-        #print_dev(resss)
+        #golem::print_dev(resss)
         ttestTable <- data.frame(nombreAgrupamiento,tipoTtest, statictis,df,p)
         colnames(ttestTable) <- c(" ","Prueba","valor t","df","valor p")
         
@@ -242,11 +242,11 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         else
         {
           
-          print_dev("Vaolr de P")
-          print_dev(valorPvalueStudent)
+          golem::print_dev("Vaolr de P")
+          golem::print_dev(valorPvalueStudent)
           
           if(valorPvalueStudent > 0.05 ){
-            #print_dev(levelsDependienteNombre[[1]])
+            #golem::print_dev(levelsDependienteNombre[[1]])
             return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
                                           levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
             
@@ -277,7 +277,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         else {
           
           if(valorPvalueStudent > 0.05){
-            #print_dev(levelsDependienteNombre[[1]])
+            #golem::print_dev(levelsDependienteNombre[[1]])
             return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
                                           levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
             
@@ -299,7 +299,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       
     {
       localizacionGT=FALSE
-      print_dev("SI CUMPLIO WELCH")
+      golem::print_dev("SI CUMPLIO WELCH")
       
       tipoTtest = c("Welch")
       statictis = c()
@@ -313,10 +313,10 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       nombreAgrupamiento <- c(variable[[1]])
       
       
-      print_dev("SI CUMPLIO False True False ")
+      golem::print_dev("SI CUMPLIO False True False ")
       
       if (Hypot == "hipotesis_Igual"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         #
         
         welch <- t.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "two.sided",conf.level = intervaloValue )
@@ -345,7 +345,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       }
       
       if (Hypot == "hipotesis_Mayor"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         #
         
         
@@ -373,8 +373,8 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       }
       
       if (Hypot == "hipotesis_Menor"){
-        print_dev("HYPOMENOR")
-        # print_dev("HYPOTESIS IGUAL ")
+        golem::print_dev("HYPOMENOR")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         #
         welch <- t.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "less",conf.level = intervaloValue )
         
@@ -419,7 +419,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         else {
           
           if(valorPvalueWelch > 0.05){
-            #print_dev(levelsDependienteNombre[[1]])
+            #golem::print_dev(levelsDependienteNombre[[1]])
             return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
                                           levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
             
@@ -473,7 +473,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       
     {
       
-      print_dev("SI CUMPLIO WILCOM")
+      golem::print_dev("SI CUMPLIO WILCOM")
       localizacionGT=FALSE
       
       tipoTtest = c("Mann-Whitney")
@@ -491,14 +491,14 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       # nombreDependiente <- c(variable2[[1]],"vvvvv ")
       #nombreAgrupamiento 
       
-      print_dev("SI CUMPLIO False False True ")
+      golem::print_dev("SI CUMPLIO False False True ")
       
       if (Hypot == "hipotesis_Igual"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         #
         mann <- wilcox.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "two.sided",conf.level = intervaloValue,conf.int=TRUE)
         
-        print_dev(utils::str(mann))
+        golem::print_dev(utils::str(mann))
         
         #Valores del Mann
         valorEstadisticoMann <- mann$statistic
@@ -515,20 +515,20 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         meanValues = c(valorMedias[[1]])
         stderr = c(valorstderr)
         
-        #print_dev(resss)
+        #golem::print_dev(resss)
         # ttestTable <- data.frame(nombreAgrupamiento,tipoTtest, statictis,df,p)
         # colnames(ttestTable) <- c(" ","Prueba","valor t","df","valor p")
         # return(list(ttestTable," "))
         
-        #print_dev(ttestTable,row.names = FALSE)
+        #golem::print_dev(ttestTable,row.names = FALSE)
       }
       
       if (Hypot == "hipotesis_Mayor"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         
         mann <- wilcox.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "greater",conf.level = intervaloValue,conf.int=TRUE)
         
-        print_dev(utils::str(mann))
+        golem::print_dev(utils::str(mann))
         
         #Valores del Mann
         valorEstadisticoMann <- mann$statistic
@@ -550,10 +550,10 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       }
       
       if (Hypot == "hipotesis_Menor"){
-        print_dev("HYPOMENOR")
+        golem::print_dev("HYPOMENOR")
         mann <- wilcox.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "less",conf.level = intervaloValue,conf.int=TRUE)
         
-        print_dev(utils::str(mann))
+        golem::print_dev(utils::str(mann))
         
         #Valores del Mann
         valorEstadisticoMann <- mann$statistic
@@ -583,7 +583,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         if(intervaloActiva == TRUE){ # Si activa se calcula limites de intevalos
           localizacionGT=TRUE
           ttestTable <- data.frame(nombreAgrupamiento,tipoTtest, statictis,df,p,meanValues,stderr, valorconfInt[[1]], valorconfInt[[2]])
-          print_dev(utils::str(ttestTable))
+          golem::print_dev(utils::str(ttestTable))
           colnames(ttestTable) <- c(" ","Prueba","valor t","df","valor p","Dif de medias","Dif SE","inferior","superior")  
           ttestTable <- dplyr::mutate(ttestTable, dplyr::across(where(is.numeric), round, 3))
         }
@@ -604,7 +604,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         else {
           
           if(valorPvalueMann > 0.05){
-            #print_dev(levelsDependienteNombre[[1]])
+            #golem::print_dev(levelsDependienteNombre[[1]])
             return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
                                           levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
             
@@ -674,16 +674,16 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       # nombreDependiente <- c(variable2[[1]],"vvvvv ")
       #nombreAgrupamiento 
       
-      print_dev("SI CUMPLIO False True True ")
+      golem::print_dev("SI CUMPLIO False True True ")
       
       if (Hypot == "hipotesis_Igual"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         #
         mann <- wilcox.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "two.sided",conf.level = intervaloValue,conf.int=TRUE)
         welch <- t.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "two.sided",conf.level = intervaloValue )
         
-        print_dev(mann)
-        print_dev(welch)
+        golem::print_dev(mann)
+        golem::print_dev(welch)
         #Valores del Mann
         valorEstadisticoMann <- mann$statistic
         valorParametroMann <- " "
@@ -712,13 +712,13 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       }
       
       if (Hypot == "hipotesis_Mayor"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         
         mann <- wilcox.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "greater",conf.level = intervaloValue,conf.int=TRUE)
         welch <- t.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "greater",conf.level = intervaloValue )
         
-        print_dev(mann)
-        print_dev(welch)
+        golem::print_dev(mann)
+        golem::print_dev(welch)
         #Valores del Mann
         valorEstadisticoMann <- mann$statistic
         valorParametroMann <- " "
@@ -748,13 +748,13 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       }
       
       if (Hypot == "hipotesis_Menor"){
-        print_dev("HYPOMENOR")
+        golem::print_dev("HYPOMENOR")
         
         mann <- wilcox.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "less",conf.level = intervaloValue,conf.int=TRUE)
         welch <- t.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "less",conf.level = intervaloValue )
         
-        print_dev(mann)
-        print_dev(welch)
+        golem::print_dev(mann)
+        golem::print_dev(welch)
         #Valores del Mann
         valorEstadisticoMann <- mann$statistic
         valorParametroMann <- " "
@@ -790,7 +790,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
           
           localizacionGT=TRUE
           ttestTable <- data.frame(nombreAgrupamiento,tipoTtest, statictis,df,p,meanValues,stderr, confIntLower, confIntUpper)
-          print_dev(utils::str(ttestTable))
+          golem::print_dev(utils::str(ttestTable))
           colnames(ttestTable) <- c(" ","Prueba","valor t","df","valor p","Dif de medias","Dif SE","inferior","superior")  
           ttestTable <- dplyr::mutate(ttestTable, dplyr::across(where(is.numeric), round, 3))
         }
@@ -813,7 +813,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         {
           
           if(valorPvalueMann > 0.05 && valorPvalueWelch > 0.05){
-            #print_dev(levelsDependienteNombre[[1]])
+            #golem::print_dev(levelsDependienteNombre[[1]])
             return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
                                           levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
             
@@ -864,7 +864,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       
     {
       
-      print_dev("SI CUMPLIO #5")
+      golem::print_dev("SI CUMPLIO #5")
       localizacionGT=FALSE
       tipoTtest = c("Student","Mann-Whitney")
       statictis = c()
@@ -878,10 +878,10 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       # nombreDependiente <- c(variable2[[1]],"vvvvv ")
       #nombreAgrupamiento 
       
-      print_dev("SI CUMPLIO True False True ")
+      golem::print_dev("SI CUMPLIO True False True ")
       
       if (Hypot == "hipotesis_Igual"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         #
         student <-  t.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "two.sided", var.equal = TRUE, conf.level = intervaloValue )
         mann <- wilcox.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "two.sided",conf.level = intervaloValue,conf.int=TRUE)
@@ -919,7 +919,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       }
       
       if (Hypot == "hipotesis_Mayor"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         
         student <-  t.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "greater", var.equal = TRUE, conf.level = intervaloValue )
         mann <- wilcox.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "greater",conf.level = intervaloValue,conf.int=TRUE)
@@ -958,8 +958,8 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       }
       
       if (Hypot == "hipotesis_Menor"){
-        print_dev("HYPOMENOR")
-        # print_dev("HYPOTESIS IGUAL ")
+        golem::print_dev("HYPOMENOR")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         #
         
         student <-  t.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "less", var.equal = TRUE, conf.level = intervaloValue )
@@ -1005,7 +1005,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         if(intervaloActiva == TRUE){ # Si activa se calcula limites de intevalos
           localizacionGT=TRUE
           ttestTable <- data.frame(nombreAgrupamiento,tipoTtest, statictis,df,p,meanValues,stderr, confIntLower, confIntUpper)
-          print_dev(utils::str(ttestTable))
+          golem::print_dev(utils::str(ttestTable))
           colnames(ttestTable) <- c(" ","Prueba","valor t","df","valor p","Dif de medias","Dif SE","inferior","superior")  
           ttestTable <- dplyr::mutate(ttestTable, dplyr::across(where(is.numeric), round, 3))
         }
@@ -1027,7 +1027,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         {
           
           if(valorPvalueStudent > 0.05 && valorPvalueMann > 0.05){
-            #print_dev(levelsDependienteNombre[[1]])
+            #golem::print_dev(levelsDependienteNombre[[1]])
             return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
                                           levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
             
@@ -1078,7 +1078,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       
     {
       
-      print_dev("SI CUMPLIO #6")
+      golem::print_dev("SI CUMPLIO #6")
       localizacionGT=FALSE
       
       tipoTtest = c("Student","Welch")
@@ -1094,10 +1094,10 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       # nombreDependiente <- c(variable2[[1]],"vvvvv ")
       #nombreAgrupamiento 
       
-      print_dev("SI CUMPLIO False True True ")
+      golem::print_dev("SI CUMPLIO False True True ")
       
       if (Hypot == "hipotesis_Igual"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         #
         student <-  t.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "two.sided", var.equal = TRUE, conf.level = intervaloValue )
         welch <- t.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "two.sided", conf.level = intervaloValue )
@@ -1131,7 +1131,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       }
       
       if (Hypot == "hipotesis_Mayor"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         #
         student <-  t.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "greater", var.equal = TRUE, conf.level = intervaloValue )
         welch <- t.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "greater", conf.level = intervaloValue )
@@ -1165,8 +1165,8 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       }
       
       if (Hypot == "hipotesis_Menor"){
-        print_dev("HYPOMENOR")
-        # print_dev("HYPOTESIS IGUAL ")
+        golem::print_dev("HYPOMENOR")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         #
         
         
@@ -1209,7 +1209,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
           
           localizacionGT=TRUE
           ttestTable <- data.frame(nombreAgrupamiento,tipoTtest, statictis,df,p,meanValues,stderr, confIntLower, confIntUpper)
-          print_dev(utils::str(ttestTable))
+          golem::print_dev(utils::str(ttestTable))
           colnames(ttestTable) <- c(" ","Prueba","valor t","df","valor p","Dif de medias","Dif SE","inferior","superior")  
           ttestTable <- dplyr::mutate(ttestTable, dplyr::across(where(is.numeric), round, 3))
         }
@@ -1231,7 +1231,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         {
           
           if(valorPvalueStudent > 0.05  && valorPvalueWelch > 0.05  ){
-            #print_dev(levelsDependienteNombre[[1]])
+            #golem::print_dev(levelsDependienteNombre[[1]])
             return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
                                           levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
             
@@ -1282,7 +1282,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       
     {
       
-      print_dev("SI CUMPLIO #8")
+      golem::print_dev("SI CUMPLIO #8")
       localizacionGT=FALSE
       
       tipoTtest = c("Student","Welch","Mann-Whitney")
@@ -1297,7 +1297,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       nombreAgrupamiento <- c(variable[[1]]," "," ")
       
       
-      print_dev("SI CUMPLIO True True True ")
+      golem::print_dev("SI CUMPLIO True True True ")
       
       if (Hypot == "hipotesis_Igual"){
         
@@ -1345,7 +1345,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
       }
       
       if (Hypot == "hipotesis_Mayor"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         
         
         student <-  t.test(Agrupamiento[[1]] ~ Dependiente[[1]],data = df,alternative = "greater", var.equal = TRUE, conf.level = intervaloValue )
@@ -1444,7 +1444,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
           
           localizacionGT=TRUE
           ttestTable <- data.frame(nombreAgrupamiento,tipoTtest, statictis,df,p,meanValues,stderr, confIntLower, confIntUpper)
-          print_dev(utils::str(ttestTable))
+          golem::print_dev(utils::str(ttestTable))
           colnames(ttestTable) <- c(" ","Prueba","valor t","df","valor p","Dif de medias","Dif SE","inferior","superior")  
           ttestTable <- dplyr::mutate(ttestTable, dplyr::across(where(is.numeric), round, 3))
         }
@@ -1466,7 +1466,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
         {
           
           if(valorPvalueStudent > 0.05  && valorPvalueWelch > 0.05 && valorPvalueMann > 0.05 ){
-            #print_dev(levelsDependienteNombre[[1]])
+            #golem::print_dev(levelsDependienteNombre[[1]])
             return(list(ttestTable,paste0("Nota. La hipotesis especifica que el Grupo ",
                                           levelsDependienteNombre[[1]]," es menor al Grupo ",levelsDependienteNombre[[2]] ),localizacionGT))
             
@@ -1520,7 +1520,7 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
     valorEstadistico <- " "
     valorParametro <- " "
     valorPvalue <- " "
-    #print_dev(resss)
+    #golem::print_dev(resss)
     ttestTable <- data.frame(nombreAgrupamiento[[1]],valorEstadistico,valorParametro,valorPvalue)
     colnames(ttestTable) <- c(" ","t","df","p")
     #ttestTable <- dplyr::mutate(ttestTable, dplyr::across(where(is.numeric), round, 3))
@@ -1535,23 +1535,23 @@ calculo_Ttest_Student <- function(session,df,Agrupamiento,Dependiente,Hypot,stud
 
 calculo_Ttest_Suposiciones_Normal <- function(session,df,Agrupamiento,Dependiente,Normalidad) {
   
-  print_dev <- NULL
-  print_dev("Desde aqui Suposiciones Shapiro") 
-  #print_dev(Normalidad)
-  #print_dev("debug step")
+ 
+  golem::print_dev("Desde aqui Suposiciones Shapiro") 
+  #golem::print_dev(Normalidad)
+  #golem::print_dev("debug step")
   
   variable <- c(names(Agrupamiento))
   variable2 <- c(names(Dependiente))
   
-  # print_dev(variable)
-  #print_dev(variable2)
+  # golem::print_dev(variable)
+  #golem::print_dev(variable2)
   #nombreAgrupamiento <- variable[[1]]
   nombreDependiente <- variable2[[1]]
   
   levelsDependiente <- length(sapply(Dependiente, levels))
   levelsDependienteNombre <- sapply(Dependiente, levels)
   
-  print_dev("Si es menor")
+  golem::print_dev("Si es menor")
   
   if(Normalidad == FALSE ) # 
   {
@@ -1560,7 +1560,7 @@ calculo_Ttest_Suposiciones_Normal <- function(session,df,Agrupamiento,Dependient
     valorEstadistico <- " "
     valorParametro <- " "
     valorPvalue <- " "
-    #print_dev(resss)
+    #golem::print_dev(resss)
     ttestTable <- data.frame(nombreAgrupamiento,valorEstadistico,valorParametro,valorPvalue)
     colnames(ttestTable) <- c(" ","F","df","p")
     ttestTable <- dplyr::mutate(ttestTable, dplyr::across(where(is.numeric), round, 3))
@@ -1580,20 +1580,20 @@ calculo_Ttest_Suposiciones_Normal <- function(session,df,Agrupamiento,Dependient
     
     nombreAgrupamiento[1] <- c(variable[[1]])   
     
-    print_dev(nombreAgrupamiento)
+    golem::print_dev(nombreAgrupamiento)
     
-    print_dev("SI CUMPLIO True ")
+    golem::print_dev("SI CUMPLIO True ")
     
     
     shapiro <-  tapply(Agrupamiento[[1]], Dependiente[[1]], shapiro.test)
     shapiroPvalue <- unlist(lapply(shapiro, function(x) x$p.value))  
     
-    # print_dev(variablesNOmbres)
+    # golem::print_dev(variablesNOmbres)
     shapiroStaticstic <- unlist(lapply(shapiro, function(x) x$statistic))
     
     
     shapiroTtestTable <- data.frame(nombreAgrupamiento,levelsDependienteNombre,shapiroPvalue,shapiroStaticstic )
-    print_dev(shapiroTtestTable,row.names = FALSE)
+    golem::print_dev(shapiroTtestTable,row.names = FALSE)
     
     colnames(shapiroTtestTable) <- c(" ","  ","p","W")
     shapiroTtestTable <- dplyr::mutate(shapiroTtestTable, dplyr::across(where(is.numeric), round, 3))
@@ -1603,7 +1603,7 @@ calculo_Ttest_Suposiciones_Normal <- function(session,df,Agrupamiento,Dependient
     #   
     # 
     #   if(valorPvalue > 0.05){
-    #     #print_dev(levelsDependienteNombre[[1]])
+    #     #golem::print_dev(levelsDependienteNombre[[1]])
     #     return(list(leveneTtestTable,paste0("Nota. Levene Test" )))
     # 
     #   } else
@@ -1619,10 +1619,10 @@ calculo_Ttest_Suposiciones_Normal <- function(session,df,Agrupamiento,Dependient
 
 calculo_Ttest_Suposiciones_VarianzaIgual <- function(session,df,Agrupamiento,Dependiente,VarianzaIgual) {
   
-  print_dev <- NULL
-  print_dev("Desde aqui Suposiciones Varianza Igual") 
-  #print_dev(VarianzaIgual)
-  #print_dev("debug step")
+
+  golem::print_dev("Desde aqui Suposiciones Varianza Igual") 
+  #golem::print_dev(VarianzaIgual)
+  #golem::print_dev("debug step")
   
   variable <- c(names(Agrupamiento))
   variable2 <- c(names(Dependiente))
@@ -1642,7 +1642,7 @@ calculo_Ttest_Suposiciones_VarianzaIgual <- function(session,df,Agrupamiento,Dep
     valorEstadistico <- " "
     valorParametro <- " "
     valorPvalue <- " "
-    #print_dev(resss)
+    #golem::print_dev(resss)
     ttestTable <- data.frame(nombreAgrupamiento,valorEstadistico,valorParametro,valorPvalue)
     colnames(ttestTable) <- c(" ","F","df","p")
     ttestTable <- dplyr::mutate(ttestTable, dplyr::across(where(is.numeric), round, 3))
@@ -1660,10 +1660,10 @@ calculo_Ttest_Suposiciones_VarianzaIgual <- function(session,df,Agrupamiento,Dep
     p = c()
     
     nombreAgrupamiento <- c(variable[[1]])
-    print_dev("SI CUMPLIO True ")
+    golem::print_dev("SI CUMPLIO True ")
     
     Levene <- car::leveneTest(Agrupamiento[[1]] ~ Dependiente[[1]],data = df, center = mean )
-    print_dev(utils::str(Levene))
+    golem::print_dev(utils::str(Levene))
     
     # #Valores de Normalidad
     
@@ -1677,7 +1677,7 @@ calculo_Ttest_Suposiciones_VarianzaIgual <- function(session,df,Agrupamiento,Dep
     
     
     if(valorPvalue > 0.05){
-      #print_dev(levelsDependienteNombre[[1]])
+      #golem::print_dev(levelsDependienteNombre[[1]])
       return(list(leveneTtestTable,paste0("Nota. Levene Test" )))
       
     } else

@@ -15,13 +15,13 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
                                 Hypot,significancia,estadistica
 ) {
   
-  print_dev <- NULL
+
   agrupamiento = c()
   total = c()
   valorConfidencia="95"
   intervaloValue <- (as.numeric(valorConfidencia))
-  print_dev("significancia")
-  print_dev(significancia)
+  golem::print_dev("significancia")
+  golem::print_dev(significancia)
   
   variable <- c(names(Agrupamiento))
   metodo <- c()
@@ -34,10 +34,10 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
     correlacionmatrixCor = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas) #  
     correlacionmatrixP.value = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas) #  
     
-    print_dev("Si es menor y cumple requisitos")
+    golem::print_dev("Si es menor y cumple requisitos")
     
     intervaloValue <- intervaloValue/100
-    # print_dev(intervaloValue)
+    # golem::print_dev(intervaloValue)
     
     if(pearson == FALSE &&  spearman == FALSE && kendall == FALSE ) # ok revissar
     {
@@ -46,7 +46,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       valorEstadistico <- " "
       valorParametro <- " "
       valorPvalue <- " "
-      #print_dev(resss)
+      #golem::print_dev(resss)
       tablaCorrelacion <- data.frame(nombreAgrupamiento,valorEstadistico)
       colnames(tablaCorrelacion) <- c("--"," --")
       #return(list(ttestTable," "))
@@ -59,11 +59,11 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       columnasTemp <- list()
       temporal <- vector()
       
-      print_dev("SI CUMPLIO  # 1")
+      golem::print_dev("SI CUMPLIO  # 1")
       tipoTtest = c("pearson")
       
       if (Hypot == "correlacion"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         #
         for (i in 1:length(variable)) {
           for (j in 1:length(variable)) {
@@ -89,7 +89,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       }
       
       if (Hypot == "correlacion_Positiva"){
-        # print_dev("HYPOTESIS POSITOVA ")
+        # golem::print_dev("HYPOTESIS POSITOVA ")
         
         for (i in 1:length(variable)) {
           for (j in 1:length(variable)) {
@@ -119,7 +119,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       }
       
       if (Hypot == "correlacion_Negativa"){
-        print_dev("HYPOMENOR")
+        golem::print_dev("HYPOMENOR")
         
         
         for (i in 1:length(variable)) {
@@ -139,13 +139,13 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
             correlacionmatrixP.value[i,j] = correlacionPearsonP.value
           }
         }
-        # print_dev(correlacionmatrixCor)
+        # golem::print_dev(correlacionmatrixCor)
         
         
       }
       
       ############Elima parte superior de las matrices
-      print_dev("obtener parte arriba igual")
+      golem::print_dev("obtener parte arriba igual")
       
       correlacionmatrixCor[upper.tri(correlacionmatrixCor)] <- '----'
       diag(correlacionmatrixCor) <- '----'  
@@ -158,17 +158,17 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       
       if( significancia == TRUE ){  # Si activa se Calcula diferencia de medias
         
-        print_dev("significancia trueeeeee")
+        golem::print_dev("significancia trueeeeee")
         tipoTtest = c("Pearson's r","valor P")
         
         
         mat_combined1 <- rbind(correlacionmatrixCor, correlacionmatrixP.value)   
-        print_dev(mat_combined1)
-        print_dev("datossssssssss")
+        golem::print_dev(mat_combined1)
+        golem::print_dev("datossssssssss")
         
         secuencia1 <- rep(seq(nrow(correlacionmatrixCor),(nrow(correlacionmatrixCor)*-1)+1,length.out = 2),times=nrow(correlacionmatrixCor) - 1)
         secuencia <- c(0,secuencia1,nrow(correlacionmatrixCor))
-        print_dev(secuencia)
+        golem::print_dev(secuencia)
         
         for (j in 1:nrow(correlacionmatrixCor)) {
           
@@ -212,11 +212,11 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       columnasTemp <- list()
       temporal <- vector()
       
-      print_dev("SI CUMPLIO  # 1")
+      golem::print_dev("SI CUMPLIO  # 1")
       tipoTtest = c("spearman")
       
       if (Hypot == "correlacion"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         #
         for (i in 1:length(variable)) {
           for (j in 1:length(variable)) {
@@ -242,7 +242,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       }
       
       if (Hypot == "correlacion_Positiva"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         
         for (i in 1:length(variable)) {
           for (j in 1:length(variable)) {
@@ -272,7 +272,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       }
       
       if (Hypot == "correlacion_Negativa"){
-        print_dev("HYPOMENOR")
+        golem::print_dev("HYPOMENOR")
         
         
         for (i in 1:length(variable)) {
@@ -292,13 +292,13 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
             correlacionmatrixP.value[i,j] = correlacionSpearmanP.value
           }
         }
-        # print_dev(correlacionmatrixCor)
+        # golem::print_dev(correlacionmatrixCor)
         
         
       }
       
       ############Elima parte superior de las matrices
-      print_dev("obtener parte arriba igual")
+      golem::print_dev("obtener parte arriba igual")
       
       correlacionmatrixCor[upper.tri(correlacionmatrixCor)] <- '----'
       diag(correlacionmatrixCor) <- '----'  
@@ -311,17 +311,17 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       
       if( significancia == TRUE ){  # Si activa se Calcula diferencia de medias
         
-        print_dev("significancia trueeeeee")
+        golem::print_dev("significancia trueeeeee")
         tipoTtest = c("Spearman","valor P")
         
         
         mat_combined1 <- rbind(correlacionmatrixCor, correlacionmatrixP.value)   
-        print_dev(mat_combined1)
-        print_dev("datossssssssss")
+        golem::print_dev(mat_combined1)
+        golem::print_dev("datossssssssss")
         
         secuencia1 <- rep(seq(nrow(correlacionmatrixCor),(nrow(correlacionmatrixCor)*-1)+1,length.out = 2),times=nrow(correlacionmatrixCor) - 1)
         secuencia <- c(0,secuencia1,nrow(correlacionmatrixCor))
-        print_dev(secuencia)
+        golem::print_dev(secuencia)
         
         for (j in 1:nrow(correlacionmatrixCor)) {
           
@@ -365,11 +365,11 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       columnasTemp <- list()
       temporal <- vector()
       
-      print_dev("SI CUMPLIO  # 1")
+      golem::print_dev("SI CUMPLIO  # 1")
       tipoTtest = c("kendall")
       
       if (Hypot == "correlacion"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         #
         for (i in 1:length(variable)) {
           for (j in 1:length(variable)) {
@@ -395,7 +395,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       }
       
       if (Hypot == "correlacion_Positiva"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         
         for (i in 1:length(variable)) {
           for (j in 1:length(variable)) {
@@ -425,7 +425,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       }
       
       if (Hypot == "correlacion_Negativa"){
-        print_dev("HYPOMENOR")
+        golem::print_dev("HYPOMENOR")
         
         
         for (i in 1:length(variable)) {
@@ -445,13 +445,13 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
             correlacionmatrixP.value[i,j] = correlacionKendallP.value
           }
         }
-        # print_dev(correlacionmatrixCor)
+        # golem::print_dev(correlacionmatrixCor)
         
         
       }
       
       ############Elima parte superior de las matrices
-      print_dev("obtener parte arriba igual")
+      golem::print_dev("obtener parte arriba igual")
       
       correlacionmatrixCor[upper.tri(correlacionmatrixCor)] <- '----'
       diag(correlacionmatrixCor) <- '----'  
@@ -464,17 +464,17 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       
       if( significancia == TRUE ){  # Si activa se Calcula diferencia de medias
         
-        print_dev("significancia trueeeeee")
+        golem::print_dev("significancia trueeeeee")
         tipoTtest = c("kendall","valor P")
         
         
         mat_combined1 <- rbind(correlacionmatrixCor, correlacionmatrixP.value)   
-        print_dev(mat_combined1)
-        print_dev("datossssssssss")
+        golem::print_dev(mat_combined1)
+        golem::print_dev("datossssssssss")
         
         secuencia1 <- rep(seq(nrow(correlacionmatrixCor),(nrow(correlacionmatrixCor)*-1)+1,length.out = 2),times=nrow(correlacionmatrixCor) - 1)
         secuencia <- c(0,secuencia1,nrow(correlacionmatrixCor))
-        print_dev(secuencia)
+        golem::print_dev(secuencia)
         
         for (j in 1:nrow(correlacionmatrixCor)) {
           
@@ -524,11 +524,11 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       correlacionmatrixCorS = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas)
       correlacionmatrixP.valueS = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas)
       
-      print_dev("SI CUMPLIO  # 3")
+      golem::print_dev("SI CUMPLIO  # 3")
       tipoTtest = c("Pearson","Kendall")
       
       if (Hypot == "correlacion"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         #
         for (i in 1:length(variable)) {
           for (j in 1:length(variable)) {
@@ -564,13 +564,13 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
           }
         }
         
-        #print_dev(variable)
-        #print_dev(length((variable)))
+        #golem::print_dev(variable)
+        #golem::print_dev(length((variable)))
         
       }
       
       if (Hypot == "correlacion_Positiva"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         for (i in 1:length(variable)) {
           for (j in 1:length(variable)) {
             
@@ -609,7 +609,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       }
       
       if (Hypot == "correlacion_Negativa"){
-        print_dev("HYPOMENOR")
+        golem::print_dev("HYPOMENOR")
         
         for (i in 1:length(variable)) {
           for (j in 1:length(variable)) {
@@ -648,7 +648,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       
       ############ Se obtiene parte de arriba de matrix Correlation
       
-      print_dev("obtener parte abajo de Ambas matrices Corr")
+      golem::print_dev("obtener parte abajo de Ambas matrices Corr")
       
       correlacionmatrixCorP[upper.tri(correlacionmatrixCorP)] <- '----'
       diag(correlacionmatrixCorP) <- '----'  
@@ -668,7 +668,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       secuencia1 <- rep(seq(nrow(correlacionmatrixCorP),(nrow(correlacionmatrixCorP)*-1)+1,length.out = 2),times=nrow(correlacionmatrixCorP) - 1)
       secuencia <- c(0,secuencia1,nrow(correlacionmatrixCorP))
       
-      print_dev(secuencia)
+      golem::print_dev(secuencia)
       
       for (j in 1:nrow(correlacionmatrixCorP)) {
         
@@ -695,19 +695,19 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       
       if( significancia == TRUE ){  # Si activa significancia de 2 de tres
         
-        print_dev("significancia trueeeeee")
+        golem::print_dev("significancia trueeeeee")
         tipoTtest = c("Pearson's r","valor P","Kendall","valor P")
         
         mat_combined1 <- rbind(corrMatrix, corrMatrixPvalue)
-        print_dev("Union de significancia de pearson y speramn")
+        golem::print_dev("Union de significancia de pearson y speramn")
         
         
         secuencia1 <- rep(seq(nrow(mat_combinedPS),(nrow(mat_combinedPS)*-1)+1,length.out = 2),times=nrow(mat_combinedPS) - 1)
         secuencia <- c(0,secuencia1,nrow(mat_combinedPS))
-        print_dev(secuencia)
+        golem::print_dev(secuencia)
         
         maxVar = nrow(mat_combined1) / 4
-        print_dev(maxVar)
+        golem::print_dev(maxVar)
         
         for (j in 1:maxVar) {
           
@@ -733,7 +733,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
           }
           
         }
-        print_dev(temporal)
+        golem::print_dev(temporal)
         corrMatrix <- mat_combined1[temporal,]
         
         
@@ -759,11 +759,11 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       correlacionmatrixCorS = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas)
       correlacionmatrixP.valueS = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas)
       
-      print_dev("SI CUMPLIO  # 3")
+      golem::print_dev("SI CUMPLIO  # 3")
       tipoTtest = c("Pearson","Spearman")
       
       if (Hypot == "correlacion"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         #
         for (i in 1:length(variable)) {
           for (j in 1:length(variable)) {
@@ -799,13 +799,13 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
           }
         }
         
-        #print_dev(variable)
-        #print_dev(length((variable)))
+        #golem::print_dev(variable)
+        #golem::print_dev(length((variable)))
         
       }
       
       if (Hypot == "correlacion_Positiva"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         for (i in 1:length(variable)) {
           for (j in 1:length(variable)) {
             
@@ -844,7 +844,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       }
       
       if (Hypot == "correlacion_Negativa"){
-        print_dev("HYPOMENOR")
+        golem::print_dev("HYPOMENOR")
         
         #
         for (i in 1:length(variable)) {
@@ -885,7 +885,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       
       ############ Se obtiene parte de arriba de matrix Correlation
       
-      print_dev("obtener parte abajo de Ambas matrices Corr")
+      golem::print_dev("obtener parte abajo de Ambas matrices Corr")
       
       correlacionmatrixCorP[upper.tri(correlacionmatrixCorP)] <- '----'
       diag(correlacionmatrixCorP) <- '----'  
@@ -905,7 +905,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       secuencia1 <- rep(seq(nrow(correlacionmatrixCorP),(nrow(correlacionmatrixCorP)*-1)+1,length.out = 2),times=nrow(correlacionmatrixCorP) - 1)
       secuencia <- c(0,secuencia1,nrow(correlacionmatrixCorP))
       
-      print_dev(secuencia)
+      golem::print_dev(secuencia)
       
       for (j in 1:nrow(correlacionmatrixCorP)) {
         
@@ -932,19 +932,19 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       
       if( significancia == TRUE ){  # Si activa significancia de 2 de tres
         
-        print_dev("significancia trueeeeee")
+        golem::print_dev("significancia trueeeeee")
         tipoTtest = c("Pearson's r","valor P","Spearman","valor P")
         
         mat_combined1 <- rbind(corrMatrix, corrMatrixPvalue)
-        print_dev("Union de significancia de pearson y speramn")
+        golem::print_dev("Union de significancia de pearson y speramn")
         
         
         secuencia1 <- rep(seq(nrow(mat_combinedPS),(nrow(mat_combinedPS)*-1)+1,length.out = 2),times=nrow(mat_combinedPS) - 1)
         secuencia <- c(0,secuencia1,nrow(mat_combinedPS))
-        print_dev(secuencia)
+        golem::print_dev(secuencia)
         
         maxVar = nrow(mat_combined1) / 4
-        print_dev(maxVar)
+        golem::print_dev(maxVar)
         
         for (j in 1:maxVar) {
           
@@ -970,7 +970,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
           }
           
         }
-        print_dev(temporal)
+        golem::print_dev(temporal)
         corrMatrix <- mat_combined1[temporal,]
         
         
@@ -995,11 +995,11 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       correlacionmatrixCorS = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas)
       correlacionmatrixP.valueS = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas)
       
-      print_dev("SI CUMPLIO  # 3")
+      golem::print_dev("SI CUMPLIO  # 3")
       tipoTtest = c("Spearman","Kendall")
       
       if (Hypot == "correlacion"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         #
         for (i in 1:length(variable)) {
           for (j in 1:length(variable)) {
@@ -1035,13 +1035,13 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
           }
         }
         
-        #print_dev(variable)
-        #print_dev(length((variable)))
+        #golem::print_dev(variable)
+        #golem::print_dev(length((variable)))
         
       }
       
       if (Hypot == "correlacion_Positiva"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         for (i in 1:length(variable)) {
           for (j in 1:length(variable)) {
             
@@ -1080,7 +1080,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       }
       
       if (Hypot == "correlacion_Negativa"){
-        print_dev("HYPOMENOR")
+        golem::print_dev("HYPOMENOR")
         
         for (i in 1:length(variable)) {
           for (j in 1:length(variable)) {
@@ -1119,7 +1119,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       
       ############ Se obtiene parte de arriba de matrix Correlation
       
-      print_dev("obtener parte abajo de Ambas matrices Corr")
+      golem::print_dev("obtener parte abajo de Ambas matrices Corr")
       
       correlacionmatrixCorP[upper.tri(correlacionmatrixCorP)] <- '----'
       diag(correlacionmatrixCorP) <- '----'  
@@ -1139,7 +1139,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       secuencia1 <- rep(seq(nrow(correlacionmatrixCorP),(nrow(correlacionmatrixCorP)*-1)+1,length.out = 2),times=nrow(correlacionmatrixCorP) - 1)
       secuencia <- c(0,secuencia1,nrow(correlacionmatrixCorP))
       
-      print_dev(secuencia)
+      golem::print_dev(secuencia)
       
       for (j in 1:nrow(correlacionmatrixCorP)) {
         
@@ -1166,19 +1166,19 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       
       if( significancia == TRUE ){  # Si activa significancia de 2 de tres
         
-        print_dev("significancia trueeeeee")
+        golem::print_dev("significancia trueeeeee")
         tipoTtest = c("Spearman's r","valor P","Kendall","valor P")
         
         mat_combined1 <- rbind(corrMatrix, corrMatrixPvalue)
-        print_dev("Union de significancia de spearman y speramn")
+        golem::print_dev("Union de significancia de spearman y speramn")
         
         
         secuencia1 <- rep(seq(nrow(mat_combinedPS),(nrow(mat_combinedPS)*-1)+1,length.out = 2),times=nrow(mat_combinedPS) - 1)
         secuencia <- c(0,secuencia1,nrow(mat_combinedPS))
-        print_dev(secuencia)
+        golem::print_dev(secuencia)
         
         maxVar = nrow(mat_combined1) / 4
-        print_dev(maxVar)
+        golem::print_dev(maxVar)
         
         for (j in 1:maxVar) {
           
@@ -1204,7 +1204,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
           }
           
         }
-        print_dev(temporal)
+        golem::print_dev(temporal)
         corrMatrix <- mat_combined1[temporal,]
         
         
@@ -1232,11 +1232,11 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       correlacionmatrixCorK = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas)
       correlacionmatrixP.valueK = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas)
       
-      print_dev("SI CUMPLIO  # 3")
+      golem::print_dev("SI CUMPLIO  # 3")
       tipoTtest = c("Pearson","Spearman","Kendall")
       
       if (Hypot == "correlacion"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         #
         for (i in 1:length(variable)) {
           for (j in 1:length(variable)) {
@@ -1293,7 +1293,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       }
       
       if (Hypot == "correlacion_Positiva"){
-        # print_dev("HYPOTESIS IGUAL ")
+        # golem::print_dev("HYPOTESIS IGUAL ")
         #
         for (i in 1:length(variable)) {
           for (j in 1:length(variable)) {
@@ -1350,7 +1350,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       }
       
       if (Hypot == "correlacion_Negativa"){
-        print_dev("HYPOMENOR")
+        golem::print_dev("HYPOMENOR")
         
         for (i in 1:length(variable)) {
           for (j in 1:length(variable)) {
@@ -1389,7 +1389,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       
       ############ Se obtiene parte de arriba de matrix Correlation
       
-      print_dev("obtener parte abajo de tres matrices Corr")
+      golem::print_dev("obtener parte abajo de tres matrices Corr")
       
       correlacionmatrixCorP[upper.tri(correlacionmatrixCorP)] <- '----'
       diag(correlacionmatrixCorP) <- '----'  
@@ -1413,22 +1413,22 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
       mat_combinedPS_Pvalue <- rbind(correlacionmatrixP.valueP, correlacionmatrixP.valueS)     
       mat_combinedPSK_Pvalue <- rbind(mat_combinedPS_Pvalue, correlacionmatrixP.valueK)  
       
-      # print_dev(mat_combinedPSK)
-      #  print_dev(nrow(mat_combinedPSK))
+      # golem::print_dev(mat_combinedPSK)
+      #  golem::print_dev(nrow(mat_combinedPSK))
       #Secuencia para  Obtener 3 metodos en la tabla
       
       nVariables =nFilas
       nUnido= nrow(mat_combinedPSK)
-      print_dev(nVariables)
-      print_dev(nUnido)
+      golem::print_dev(nVariables)
+      golem::print_dev(nUnido)
       
       secuencia1 = seq(nVariables,nVariables,length = 2)
       secuencia = c(0,rep(c(secuencia1,(nVariables-(nUnido-1))),times=(nVariables-1)),secuencia1)
-      print_dev(secuencia)
+      golem::print_dev(secuencia)
       
       
       maxVar = nrow(mat_combinedPSK) / 3
-      print_dev(maxVar)
+      golem::print_dev(maxVar)
       
       for (j in 1:maxVar) {
         
@@ -1453,34 +1453,34 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
           
         }}
       
-      # print_dev(temporal)
-      #print_dev(mat_combinedPSK)
+      # golem::print_dev(temporal)
+      #golem::print_dev(mat_combinedPSK)
       corrMatrix <- mat_combinedPSK[temporal,]
       corrMatrixPvalue <- mat_combinedPSK_Pvalue[temporal,]
-      print_dev(corrMatrix)
+      golem::print_dev(corrMatrix)
       
       
       if( significancia == TRUE ){  # Si activa significancia de 2 de tres
         
-        print_dev("significancia trueeeeee")
+        golem::print_dev("significancia trueeeeee")
         tipoTtest = c("Pearson","valor P","Spearman's r","valor P","Kendall","valor P")
         
-        print_dev("j,dfsnjkbfdjdjkd")
+        golem::print_dev("j,dfsnjkbfdjdjkd")
         
-        print_dev(mat_combinedPSK)
-        print_dev("j,dfsnjkbfdjdjkd")
-        print_dev(mat_combinedPSK_Pvalue)
-        print_dev("nbbxcxcbxcxzcxzcxzcxzczxc")
+        golem::print_dev(mat_combinedPSK)
+        golem::print_dev("j,dfsnjkbfdjdjkd")
+        golem::print_dev(mat_combinedPSK_Pvalue)
+        golem::print_dev("nbbxcxcbxcxzcxzcxzcxzczxc")
         mat_combined1 <- rbind(corrMatrix, corrMatrixPvalue)
-        print_dev("Union de significancia de Pearson, Spearman y kendall")
+        golem::print_dev("Union de significancia de Pearson, Spearman y kendall")
         
         
         secuencia1 <- rep(seq(nrow(mat_combinedPSK),(nrow(mat_combinedPSK)*-1)+1,length.out = 2),times=nrow(mat_combinedPSK) - 1)
         secuencia <- c(0,secuencia1,nrow(mat_combinedPSK))
-        print_dev(secuencia)
+        golem::print_dev(secuencia)
         
         maxVar = nrow(mat_combined1) / 6
-        print_dev(maxVar)
+        golem::print_dev(maxVar)
         
         for (j in 1:maxVar) {
           
@@ -1508,7 +1508,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
           }
           
         }
-        print_dev(temporal)
+        golem::print_dev(temporal)
         corrMatrix <- mat_combined1[temporal,]
         
         
@@ -1531,7 +1531,7 @@ calculoTCorrelacion <- function(session, df, Agrupamiento, Dependiente,
 
 calculoMapadeCalor_Correlacion <- function(session, df, Agrupamiento, Dependiente, mapaCalor) {
   
-  print_dev <- NULL
+ 
   agrupamiento = c()
   total = c()
   valorConfidencia="95"
@@ -1547,15 +1547,15 @@ calculoMapadeCalor_Correlacion <- function(session, df, Agrupamiento, Dependient
   correlacionmatrixCor = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas) #  
   correlacionmatrixP.value = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas) #  
   
-  print_dev("Si es menor y cumple requisitos de calor de correlacion")
+  golem::print_dev("Si es menor y cumple requisitos de calor de correlacion")
   
   intervaloValue <- intervaloValue/100
-  # print_dev(intervaloValue)
+  # golem::print_dev(intervaloValue)
   
   columnasTemp <- list()
   temporal <- vector()
   
-  print_dev("SI CUMPLIO  # 1")
+  golem::print_dev("SI CUMPLIO  # 1")
   tipoTtest = c("pearson")
   
   for (i in 1:length(variable)) {
@@ -1581,14 +1581,14 @@ calculoMapadeCalor_Correlacion <- function(session, df, Agrupamiento, Dependient
   
   colnames(correlacionmatrixCor) <- variable
   rownames(correlacionmatrixCor) <- variable
-  print_dev(correlacionmatrixCor)
+  golem::print_dev(correlacionmatrixCor)
   return(correlacionmatrixCor)
   
 }
 
 calculoEstadistica_Correlacion <- function(session, df, Agrupamiento, Dependiente, estadistica) {
   
-  print_dev <- NULL
+  
   agrupamiento = c()
   total = c()
   valorConfidencia="95"
@@ -1605,19 +1605,19 @@ calculoEstadistica_Correlacion <- function(session, df, Agrupamiento, Dependient
   correlacionmatrixCor = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas) #  
   correlacionmatrixP.value = matrix(numeric(nColumnas*nFilas), nrow = nColumnas, ncol = nFilas) #  
   
-  print_dev("Si es menor y cumple requisitos de descriptivass")
+  golem::print_dev("Si es menor y cumple requisitos de descriptivass")
   
   intervaloValue <- intervaloValue/100
-  # print_dev(intervaloValue)
+  # golem::print_dev(intervaloValue)
   
   columnasTemp <- list()
   temporal <- vector()
   
-  #  print_dev(Agrupamiento)
+  #  golem::print_dev(Agrupamiento)
   
   data <- data.frame(Agrupamiento)
   
-  print_dev(data)
+  golem::print_dev(data)
   return(data)
   
 }

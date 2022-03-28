@@ -1,19 +1,19 @@
 
 # removeIconTxt <- function(txts){
 # 
-#   print_dev("BBNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
-#   print_dev(txts)
+#   golem::print_dev("BBNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+#   golem::print_dev(txts)
 #     onlynames= c()
 #   for(i in 1:length(txts)) {
 #   
 #   delante <- strsplit(txts[i], split =  'gray;\\">',fixed=FALSE)[[1]][2]
 #   
 #   onlynames[i] <- gsub("</span>\n</div>$","",delante)
-#   print_dev(onlynames[i])
+#   golem::print_dev(onlynames[i])
 #  
 #   }
 #    
-#     print_dev(onlynames)
+#     golem::print_dev(onlynames)
 #   return(onlynames)
 # }
 
@@ -34,8 +34,8 @@ data_file <- reactive({
     namesTablaFinal <- NULL
     
     file_spec <- input$file
-    print_dev("TIPO DE ARCHIVOOOOO")
-    print_dev(tools::file_ext(file_spec$datapath))
+    golem::print_dev("TIPO DE ARCHIVOOOOO")
+    golem::print_dev(tools::file_ext(file_spec$datapath))
     
     if(tools::file_ext(file_spec$datapath)=="csv"){
       
@@ -55,13 +55,13 @@ data_file <- reactive({
     
     aa[aa == ""] <- NA
   
-    print_dev("3333333333333333333333333333333333333333333333")
+    golem::print_dev("3333333333333333333333333333333333333333333333")
     aa <- make_factors(aa,15,6)
-    #print_dev(str(bb))
-    #print_dev( (sapply(bb, class))  )
-    print_dev("3333333333333333333333333333333333333333333333")
+    #golem::print_dev(str(bb))
+    #golem::print_dev( (sapply(bb, class))  )
+    golem::print_dev("3333333333333333333333333333333333333333333333")
     defaultSelect <- (sapply(aa, class))
-    #print_dev(defaultSelect)
+    #golem::print_dev(defaultSelect)
     namesTablaFinal=list()
     namesTablaFinalAY = list()
     namesTable <-  colnames(aa)
@@ -118,11 +118,11 @@ data_file <- reactive({
       #colnames(aa) <- namesTablaFinal 
  #     df = rbind(tipoSelect, aa)
       dfEntradaNombres$conIconos <- namesTablaFinal
-  #    print_dev(dfEntradaNombres$conIconos)
-  #    print_dev(class(df))
+  #    golem::print_dev(dfEntradaNombres$conIconos)
+  #    golem::print_dev(class(df))
       dfEntradaValues$transformado <- aa
      
-  #  print_dev(colnames(df))
+  #  golem::print_dev(colnames(df))
     
       
     return (aa)
@@ -136,7 +136,7 @@ namesClasified <- reactive({
     if(length(names(data_file())) == 0 ) {return()} 
     else {
       
-      print_dev("Entro en names CLASIFIEDDDDDDDDDDDDDDD")
+      golem::print_dev("Entro en names CLASIFIEDDDDDDDDDDDDDDD")
      
       dfEntradaNombres$conIconos
     
@@ -172,11 +172,11 @@ output$tablaSeleccion <- DT::renderDT({
 # 
 #   if(banderas$update){
 # 
-#     print_dev("se actuliazho")
+#     golem::print_dev("se actuliazho")
 #   }
 #   else {
 # 
-#     print_dev("nop se actualizho")
+#     golem::print_dev("nop se actualizho")
 #   }
 # 
 # 
@@ -187,7 +187,7 @@ output$tablaSeleccion <- DT::renderDT({
 
     
     if( !banderas$update){
-      print_dev("no es update")
+      golem::print_dev("no es update")
       #Inicializa para carga al inicio los valores
       dfEntradaNombres$conIconos
       dfconIconos <- data_file()
@@ -200,7 +200,7 @@ output$tablaSeleccion <- DT::renderDT({
     if( banderas$update){
      
       
-       print_dev("Si es update") 
+       golem::print_dev("Si es update") 
        dfEntradaValues$original <- values$mydata
      #  banderas$update <- FALSE
        #colnames(dfEntradaValues$original) <- dfEntradaNombres$conIconos
@@ -227,8 +227,8 @@ output$tablaSeleccion <- DT::renderDT({
     replaceData(proxy, dfEntradaValues$original, resetPaging = FALSE,rownames = FALSE)  # replaces data displayed by the updated table
     dfEntradaValues$transformado <- dfEntradaValues$original
     colnames(dfEntradaValues$transformado) <- dfEntradaNombres$original
-    print_dev(utils::str(dfEntradaValues$transformado))
-    print_dev("TRANSFORMADOOOOOOOOOOOOOOO")
+    golem::print_dev(utils::str(dfEntradaValues$transformado))
+    golem::print_dev("TRANSFORMADOOOOOOOOOOOOOOO")
     banderas$dfCargado=1
     
     
@@ -248,7 +248,7 @@ output$tablaSeleccion <- DT::renderDT({
       req(input$select_var)
       req(dfEntradaValues$transformado)
   
-      print_dev( sort(unique(data_file()[-1,input$select_var]) ))
+      golem::print_dev( sort(unique(data_file()[-1,input$select_var]) ))
       #sort(unique(dfEntradaValues$transformado[,input$select_var]) )
 
     }

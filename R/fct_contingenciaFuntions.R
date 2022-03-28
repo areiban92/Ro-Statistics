@@ -11,7 +11,7 @@
 
 calculoTcontingencia <- function(session, df, Dependiente, Agrupamiento, filaEnable, columnaEnable) {
   
-  print_dev <- NULL
+ 
   
   agrupamiento = c()
   dependiente =c()
@@ -33,16 +33,16 @@ calculoTcontingencia <- function(session, df, Dependiente, Agrupamiento, filaEna
   levelsAgrupamiento <- length(sapply(Agrupamiento, levels))
   levelsAgrupamientoNombre <- sapply(Agrupamiento, levels)
   
-  print_dev("dependiente")
-  print_dev(levelsDependiente)
-  print_dev("dependientefinal")
-  print_dev("agrupamiento")
-  print_dev(levelsAgrupamientoNombre)
-  print_dev(levelsAgrupamiento)
-  print_dev("agrupamientofinal")
+  golem::print_dev("dependiente")
+  golem::print_dev(levelsDependiente)
+  golem::print_dev("dependientefinal")
+  golem::print_dev("agrupamiento")
+  golem::print_dev(levelsAgrupamientoNombre)
+  golem::print_dev(levelsAgrupamiento)
+  golem::print_dev("agrupamientofinal")
   tablacontingencia <- table(Agrupamiento[[1]],Dependiente[[1]])
   nombresFilas <- c( unlist((attributes(tablacontingencia))[[2]][1]), "Total" )
-  # print_dev(tablacontingencia)
+  # golem::print_dev(tablacontingencia)
   
   tablacontingencia <- as.data.frame.matrix(tablacontingencia) 
   tablacontingencia <- tablacontingencia[gtools::mixedorder(colnames(tablacontingencia))]
@@ -62,21 +62,21 @@ calculoTcontingencia <- function(session, df, Dependiente, Agrupamiento, filaEna
   filas <- contingencia[,-c(1,numeroColumnasGeneral)]
   
   #######################################FILA DESDE AQUI#################
-  print_dev("DESDe aqui fila Enable")
+  golem::print_dev("DESDe aqui fila Enable")
   temporal <- vector()
   nombreFilas <- data.frame(contingencia[,1])
   colnames(nombreFilas) <- nombreAgrupamiento
-  #print_dev(nombreFilas)
+  #golem::print_dev(nombreFilas)
   nombreFilasRelleno <- data.frame(rep(" ",times=nrow(contingencia)))
   colnames(nombreFilasRelleno) <- nombreAgrupamiento
   mat_combined1_Nombres <- rbind(nombreFilas, nombreFilasRelleno) 
-  # print_dev(mat_combined1_Nombres)
+  # golem::print_dev(mat_combined1_Nombres)
   filaTotal <- data.frame(contingencia[,numeroColumnasGeneral])  # Se obtiene los valores de la ultima columna
   colnames(filaTotal) <- "Total"
-  #  print_dev(filaTotal) 
+  #  golem::print_dev(filaTotal) 
   valoresDeTotal <- data.frame(rep(100, times=nrow(filas)))
   colnames(valoresDeTotal) <- "Total"
-  #print_dev(valoresDeTotal)
+  #golem::print_dev(valoresDeTotal)
   porcentajeFila <- round(filas/rowSums(filas)*100, 2)
   totalesCombinado <- rbind(filaTotal,valoresDeTotal)
   mat_combined1 <- rbind(filas, porcentajeFila) 
@@ -95,17 +95,17 @@ calculoTcontingencia <- function(session, df, Dependiente, Agrupamiento, filaEna
       
     }
   }
-  #print_dev(temporal)
+  #golem::print_dev(temporal)
   tablaPorcentajesFilas_Values <- mat_combined2[temporal,]
   tablaPorcentajesFilas_Names <- mat_combined1_Nombres[temporal,]
   nombreConteo <- c("Conteo", "% de la Fila")
-  #print_dev(tablaPorcentajesFilas_Names)
+  #golem::print_dev(tablaPorcentajesFilas_Names)
   tablaProcentajesFilas <- data.frame(tablaPorcentajesFilas_Names,nombreConteo,tablaPorcentajesFilas_Values)
   colnames(tablaProcentajesFilas) <- c(nombreAgrupamiento," ",names(tablacontingencia),"Total")
   ###########################################################
   
   ####################################COLUMNA##################################
-  print_dev("DESDe aqui Columna Enable")
+  golem::print_dev("DESDe aqui Columna Enable")
   temporal <- vector()
   columnas <- contingencia[-numeroFilasGeneral,-1]
   nombreFilas <- data.frame(contingencia[,1])
@@ -114,13 +114,13 @@ calculoTcontingencia <- function(session, df, Dependiente, Agrupamiento, filaEna
   nombreFilasRelleno <- data.frame(rep(" ",times=nrow(contingencia)))
   colnames(nombreFilasRelleno) <- nombreAgrupamiento
   mat_combined1_Nombres <- rbind(nombreFilas, nombreFilasRelleno) 
-  print_dev(contingencia)
+  golem::print_dev(contingencia)
   valoresDeTotal <- rep(100, times=nrow(contingencia))
   #rownames(filaTotal) <- "Total"
   for(i in 1:numColumnas) {
     porcentajecolum[i] = list(columnas[,i]/sum(columnas[,i]))
   }
-  # print_dev(porcentajecolum)
+  # golem::print_dev(porcentajecolum)
   columnasF <- do.call(rbind.data.frame, porcentajecolum)
   columns <- data.table::transpose(columnasF)
   columns <- t(columnasF)
@@ -130,7 +130,7 @@ calculoTcontingencia <- function(session, df, Dependiente, Agrupamiento, filaEna
   mat_combinedcolumn <- rbind(contingencia[,-1],totalesCombinado)
   secuencia1c <- rep(seq(nrow(totalesCombinado),(nrow(totalesCombinado)*-1)+1,length.out = 2),times=nrow(totalesCombinado) - 1)
   secuenciac <- c(0,secuencia1c,nrow(totalesCombinado))
-  #print_dev(secuenciac)
+  #golem::print_dev(secuenciac)
   for (j in 1:nrow(mat_combinedcolumn)) {
     
     if(j==1) {
@@ -198,7 +198,7 @@ calculoTcontingencia <- function(session, df, Dependiente, Agrupamiento, filaEna
 
 calculoConteoEsperado  <- function(session, df, Agrupamiento, Dependiente, conteoEsperadoEnable) {
   
-  print_dev <- NULL
+  golem::print_dev <- NULL
   agrupamiento = c()
   dependiente =c()
   total = c()
@@ -221,7 +221,7 @@ calculoConteoEsperado  <- function(session, df, Agrupamiento, Dependiente, conte
   
   tablacontingencia <- table(Agrupamiento[[1]],Dependiente[[1]])
   nombresFilas <- c( unlist((attributes(tablacontingencia))[[2]][1]), "Total" )
-  # print_dev(tablacontingencia)
+  # golem::print_dev(tablacontingencia)
   
   tablacontingencia <- as.data.frame.matrix(tablacontingencia) 
   tablacontingencia <- tablacontingencia[gtools::mixedorder(colnames(tablacontingencia))]
@@ -259,17 +259,17 @@ calculoConteoEsperado  <- function(session, df, Agrupamiento, Dependiente, conte
         multiplicacion = (columnaValue*filaValue)/totalEsperados
         
         
-        print_dev(paste0(k,",",(j-1)))
+        golem::print_dev(paste0(k,",",(j-1)))
         matrixEsperados[k,(j-1)] = multiplicacion
         
         
-        #print_dev(Multiplicacion)
+        #golem::print_dev(Multiplicacion)
       }
     }
     margins <- addmargins(matrixEsperados)
     dataFrameExpected <- as.data.frame(margins)
     
-    print_dev(dataFrameExpected)
+    golem::print_dev(dataFrameExpected)
     
     nombreFilas <- data.frame(contingencia[,1])
     colnames(nombreFilas) <- nombreAgrupamiento
@@ -277,17 +277,17 @@ calculoConteoEsperado  <- function(session, df, Agrupamiento, Dependiente, conte
     nombreFilasRelleno <- data.frame(rep(" ",times=nrow(contingencia)))
     tablaEsperada <- cbind(nombreFilasRelleno,dataFrameExpected)
     colnames(tablaEsperada) <- c(nombreAgrupamiento,names(tablacontingencia),"Total")
-    print_dev(tablaEsperada)
-    print_dev(contingencia)
+    golem::print_dev(tablaEsperada)
+    golem::print_dev(contingencia)
     
     #union de tablas
     esperadoTablaUnida <- rbind(contingencia,tablaEsperada)
-    print_dev(esperadoTablaUnida)
+    golem::print_dev(esperadoTablaUnida)
     
     secuencia1 <- rep(seq(nrow(filas),(nrow(filas)*-1)+1,length.out = 2),times=nrow(filas) - 1)
     secuencia <- c(0,secuencia1,nrow(filas))
     
-    print_dev(secuencia)
+    golem::print_dev(secuencia)
     
     for (j in 1:nrow(esperadoTablaUnida)) {
       
@@ -302,7 +302,7 @@ calculoConteoEsperado  <- function(session, df, Agrupamiento, Dependiente, conte
     
     tablaPorcentajesFilas_Values_Esperado <- esperadoTablaUnida[temporal,]
     
-    #print_dev(tablaPorcentajesFilas_Values_Esperado)
+    #golem::print_dev(tablaPorcentajesFilas_Values_Esperado)
     #tablaPorcentajesFilas_Names <- mat_combined1_Nombres[temporal,]
     
     nombreConteo <- c("Conteo", "Conteo Esperado ")
@@ -310,7 +310,7 @@ calculoConteoEsperado  <- function(session, df, Agrupamiento, Dependiente, conte
     tablaProcentajesFilas <- as.data.frame(append(tablaPorcentajesFilas_Values_Esperado, list(nombreConteo), after = 1))
     colnames(tablaProcentajesFilas) <- c(nombreAgrupamiento," ",names(tablacontingencia),"Total")
     
-    print_dev(tablaProcentajesFilas)
+    golem::print_dev(tablaProcentajesFilas)
     
     return(list(tablaProcentajesFilas,paste0(" ")))
     
@@ -324,7 +324,7 @@ calculoConteoEsperado  <- function(session, df, Agrupamiento, Dependiente, conte
 
 estadisticaCalculoContingencia <- function(session, df, Agrupamiento, Dependiente) {
   
-  print_dev <- NULL
+ 
   agrupamiento = c()
   dependiente =c()
   total = c()
@@ -366,7 +366,7 @@ estadisticaCalculoContingencia <- function(session, df, Agrupamiento, Dependient
   
   
   
-  # print_dev(utils::str(chi))
+  # golem::print_dev(utils::str(chi))
   
   return(list(nuevo,paste0("Nota. Prueba Chi-Cuadrado" )))
   
@@ -379,7 +379,7 @@ estadisticaCalculoContingencia <- function(session, df, Agrupamiento, Dependient
 
 calculoFisherContingencia <- function(session, df, Agrupamiento, Dependiente, Hypot,intervalo) {
   
-  print_dev <- NULL
+
   agrupamiento = c()
   dependiente =c()
   total = c()
@@ -389,13 +389,13 @@ calculoFisherContingencia <- function(session, df, Agrupamiento, Dependiente, Hy
   
   levelsAgrupamiento <- length(sapply(Agrupamiento, levels))
   
-  print_dev(paste0("Dependiente ",levelsDependiente))
-  print_dev(paste0("Agrupamiento  ",levelsAgrupamiento))
+  golem::print_dev(paste0("Dependiente ",levelsDependiente))
+  golem::print_dev(paste0("Agrupamiento  ",levelsAgrupamiento))
   
   
   if(levelsAgrupamiento == 2 && levelsDependiente ==2 )
   {
-    print_dev("DEsde aqui testtt")
+    golem::print_dev("DEsde aqui testtt")
     
     if(intervaloValue  < 100 ){
       
@@ -403,10 +403,10 @@ calculoFisherContingencia <- function(session, df, Agrupamiento, Dependiente, Hy
       intervaloValue <- intervaloValue/100
       
       if (Hypot == "hipotesis_Mayor"){
-        print_dev("mayor")
+        golem::print_dev("mayor")
         
         fisher <-fisher.test(table(Agrupamiento[[1]], Dependiente[[1]]),alternative = "greater", conf.level = intervaloValue)
-        print_dev(fisher)
+        golem::print_dev(fisher)
         nombre <- "Fisher Test"
         fisherEstimate <- round(fisher$estimate, digits = 3)
         fisherValorconfInt <- round(fisher$conf.int, digits = 3)
@@ -419,31 +419,31 @@ calculoFisherContingencia <- function(session, df, Agrupamiento, Dependiente, Hy
       
       if (Hypot == "hipotesis_Igual"){
         
-        print_dev("igual")
-        # print_dev("HIpotesis fisher iguallll-----------------")
-        # print_dev(table(Agrupamiento[[1]], Dependiente[[1]]))
-        # print_dev("HIpotesis fisher iguallll-----------------")
+        golem::print_dev("igual")
+        # golem::print_dev("HIpotesis fisher iguallll-----------------")
+        # golem::print_dev(table(Agrupamiento[[1]], Dependiente[[1]]))
+        # golem::print_dev("HIpotesis fisher iguallll-----------------")
         fisher <- stats::fisher.test(table(Agrupamiento[[1]], Dependiente[[1]]),alternative = "two.sided", conf.level = intervaloValue)
-        #  print_dev(fisher)
-        #  print_dev(utils::str(fisher))
+        #  golem::print_dev(fisher)
+        #  golem::print_dev(utils::str(fisher))
         nombre <- "Fisher Test"
         fisherEstimate <- round(fisher$estimate, digits = 3)
-        print_dev(fisherEstimate)
+        golem::print_dev(fisherEstimate)
         fisherValorconfInt <- round(fisher$conf.int, digits = 3)
         fisherPvalue <- fisher$p.value
         
-        #  print_dev(fisherPvalue)
+        #  golem::print_dev(fisherPvalue)
         
         
         if(fisherPvalue  < 0.01)
         {
-          #  print_dev("ghsahgsghsashga")
+          #  golem::print_dev("ghsahgsghsashga")
           fisherPvalue      <- "< 0.01"
         }
         else
         {
-          # print_dev("ghsahgsghsashga")
-          #print_dev(fisher$fisherPvalue)
+          # golem::print_dev("ghsahgsghsashga")
+          #golem::print_dev(fisher$fisherPvalue)
           fisherPvalue      <- round(fisherPvalue, digits = 3)   
         }
         
@@ -452,7 +452,7 @@ calculoFisherContingencia <- function(session, df, Agrupamiento, Dependiente, Hy
       }
       
       if (Hypot == "hipotesis_Menor"){
-        print_dev("menor")
+        golem::print_dev("menor")
         
         fisher <-fisher.test(table(Agrupamiento[[1]], Dependiente[[1]]),alternative = "less", conf.level = intervaloValue,conf.int = TRUE)
         print(fisher)
@@ -462,7 +462,7 @@ calculoFisherContingencia <- function(session, df, Agrupamiento, Dependiente, Hy
         fisherValorconfInt <- round(fisher$conf.int, digits = 3)
         fisherPvalue <- fisher$p.value
         
-        print_dev(fisherPvalue)
+        golem::print_dev(fisherPvalue)
         
         
         

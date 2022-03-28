@@ -377,7 +377,7 @@ mod_UIDescriptivos_server <- function(id, namesClasified, r){
         cowplot::plot_grid(plotlist = plot_list)
         #utils::str("Entro en distribucion") 
       } 
-      else {print_dev("no entro distribucion")}        },bg="transparent")
+      else {golem::print_dev("no entro distribucion")}        },bg="transparent")
     
     
     output$graficaCorrelacion <-renderPlot({
@@ -533,7 +533,7 @@ mod_UIDescriptivos_server <- function(id, namesClasified, r){
         cowplot::plot_grid(plotlist = plot_list)
         #utils::str("Entro en distribucion") 
       } 
-      else {print_dev("no entro distribucion")}
+      else {golem::print_dev("no entro distribucion")}
       
       
       
@@ -571,7 +571,7 @@ mod_UIDescriptivos_server <- function(id, namesClasified, r){
           if(input$radioButtonplotEncimas == "Hist")
           {
             defaultSelect <- class( r$valuesmydata [[input$rank_list_Descriptiva_Dependiente[[1]] ]])
-            print_dev(defaultSelect)
+            golem::print_dev(defaultSelect)
             
             
             if(defaultSelect=="numeric" || defaultSelect=="integer"){
@@ -606,7 +606,7 @@ mod_UIDescriptivos_server <- function(id, namesClasified, r){
           if(input$radioButtonplotDerechos == "Hist")
           {
             defaultSelect <- class( r$valuesmydata [[input$rank_list_Descriptiva_Dependiente[[1]] ]])
-            print_dev(defaultSelect)
+            golem::print_dev(defaultSelect)
             
             
             if(defaultSelect=="numeric" || defaultSelect=="integer"){
@@ -638,7 +638,7 @@ mod_UIDescriptivos_server <- function(id, namesClasified, r){
               
               # h <- h + ggplot2::geom_smooth(method = "lm", se = FALSE,level=as.numeric(input$txtInputDispersionRegresionIntervalos))
               if(input$radioButtonplotRegresions == "Smooth"){
-                print_dev("dispersionnnnnnnnnnnnnn")
+                golem::print_dev("dispersionnnnnnnnnnnnnn")
                 
                 h <- h + ggplot2::stat_smooth(method = "loess",formula = y ~ x, se = TRUE,level=as.numeric(input$txtInputDispersionRegresionIntervalos)/100) + 
                   ggplot2::theme_bw() + My_Theme
@@ -687,7 +687,7 @@ mod_UIDescriptivos_server <- function(id, namesClasified, r){
         
         
       } 
-      else {print_dev("no entro dispersion")}
+      else {golem::print_dev("no entro dispersion")}
       
       
       
@@ -835,7 +835,7 @@ mod_UIDescriptivos_server <- function(id, namesClasified, r){
     
     observeEvent( r$inputGuardar,{
       
-      print_dev("DESCREIPTIVOSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
+      golem::print_dev("DESCREIPTIVOSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
       
       removeBOX <-   c("#descriptivaBoxDependiente","#descriptivaBoxAgrupamiento",
                        "#ttestBoxDependiente","#ttestBoxAgrupamiento",
@@ -926,7 +926,7 @@ mod_UIDescriptivos_server <- function(id, namesClasified, r){
       
       for (box in removeBOX){
         
-        # print_dev(box)
+        # golem::print_dev(box)
         
         removeUI(
           selector =  box
@@ -1007,7 +1007,7 @@ mod_UIDescriptivos_server <- function(id, namesClasified, r){
       banderaDescriptivos==TRUE
       
       
-      print_dev("Agregando Descriptivos los cuadrios")
+      golem::print_dev("Agregando Descriptivos los cuadrios")
       insertUI(
         selector= paste0("#",ns("placeholderDescriptivaDependiente")),
         where="beforeBegin",

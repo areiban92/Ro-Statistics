@@ -27,8 +27,8 @@ make_factors <- function(data, max_levels,min_levels) {
       data[[n]] <- as.factor(data[[n]]) }
     
     if(!is.factor(data[[n]]) && (length(unique(data[[n]])) >= min_levels && length(unique(data[[n]])) <= max_levels) ){
-      #print_dev("Ordered")
-      #print_dev(unique(data[[n]]))
+      #golem::golem::print_dev("Ordered")
+      #golem::golem::print_dev(unique(data[[n]]))
       data[[n]] <- ordered(data[[n]], levels = unique(data[[n]])) }
     
     
@@ -42,7 +42,7 @@ make_factors <- function(data, max_levels,min_levels) {
 calculoVariables <- function(session,dforiginal,Dependiente,Agrupamiento,Mean,Mediana,Moda,Suma,
                              SE,MAD,Iqr,Rango,Maximo,DsvEstandar,MADRobust,Varianza,Minimo,
                              Quartiles,PuntoCorte,PuntoCorteValue,Percentil,PercentilValue){
-  print_dev <- NULL
+ 
   
   df <- dforiginal
   if (  length(names(Agrupamiento)) > 0  )
@@ -72,7 +72,7 @@ calculoVariables <- function(session,dforiginal,Dependiente,Agrupamiento,Mean,Me
     summaryVariableTable2 = c()
     
     
-    print_dev(" Con variable de agrupamiento")
+    golem::print_dev(" Con variable de agrupamiento")
     
     nombreAgrupamiento <- c(names(Agrupamiento))
     nombreDependiente <- c(names(Dependiente))
@@ -85,64 +85,64 @@ calculoVariables <- function(session,dforiginal,Dependiente,Agrupamiento,Mean,Me
       if(class(Dependiente[[i]])=="numeric"){
         
         df$temp <-  as.numeric(Dependiente[[i]])
-        print_dev("AHORA ES NUMERICO EL NUMERICCO")
+        golem::print_dev("AHORA ES NUMERICO EL NUMERICCO")
       }
       else{
         
         df$temp  <- ( as.numeric(Dependiente[[i]]) -1)
         
-        print_dev("AHORA ES NUMERICO EL CATEGORICO")
+        golem::print_dev("AHORA ES NUMERICO EL CATEGORICO")
       }
       
       # varActual <- paste0( nombreDependiente[i]  ," ~ ",paste(nombreAgrupamiento, collapse = '+'))
       varActual <- paste0( "temp"  ," ~ ",paste(nombreAgrupamiento, collapse = '+'))
-      print_dev(varActual)
-      print_dev(aggregate( eval(parse(text = varActual ))   , df, sum))
+      golem::print_dev(varActual)
+      golem::print_dev(aggregate( eval(parse(text = varActual ))   , df, sum))
       rowSVariables <- aggregate( eval(parse(text = varActual ))   , df, sum)[c(seq(1:(numeroVariablesAgrupamiento)))]
       
       if(Mean==TRUE){
-        print_dev("Si es True MEAN")
-        print_dev(  aggregate( eval(parse(text = varActual ))   , df, mean)  )
+        golem::print_dev("Si es True MEAN")
+        golem::print_dev(  aggregate( eval(parse(text = varActual ))   , df, mean)  )
         Mean_vector[i] <- list( round(aggregate( eval(parse(text = varActual ))   , df, mean)[[(numeroVariablesAgrupamiento+1)]] ,3) )
         
       }
       if(Mediana==TRUE){
-        print_dev("Si es True Mediana")
+        golem::print_dev("Si es True Mediana")
         Mediana_vector[i] <- list(round( aggregate( eval(parse(text = varActual ))   , df, median)[[(numeroVariablesAgrupamiento+1)]],3)) 
         
       }
       if(Moda==TRUE){
         
-        print_dev("si es moda vector")
+        golem::print_dev("si es moda vector")
         Moda_vector[i] <- list(round( aggregate( eval(parse(text = varActual ))  , df, modafuntion )[[(numeroVariablesAgrupamiento+1)]],3)) 
         
       }
       if(Suma==TRUE){
-        print_dev("Si es True Suma")
+        golem::print_dev("Si es True Suma")
         Suma_vector[i] <- list(round( aggregate( eval(parse(text = varActual ))   , df, sum)[[(numeroVariablesAgrupamiento+1)]],3)) 
         
       }
       if(SE==TRUE){
-        print_dev("Si es True SE")
+        golem::print_dev("Si es True SE")
         SE.MEAN_vector[i]<-list(round(aggregate( eval(parse(text = varActual ))   , df, rapportools::se.mean)[[(numeroVariablesAgrupamiento+1)]],3)) 
         
       }
       if(MAD==TRUE){
-        print_dev("Si es True MAD con factor")
+        golem::print_dev("Si es True MAD con factor")
         MAD_vector[i]<- list( aggregate( eval(parse(text = varActual ))   , df, mad ,constant = 1)[[(numeroVariablesAgrupamiento+1)]] )
         print(MAD_vector[i])
         #  MAD_vector[i]<- list(aggregate( eval(parse(text = varActual ))   , df, FUN = "mad",constant = 1))
         
       }
       if(Iqr==TRUE){
-        print_dev("Si es True IQR")
+        golem::print_dev("Si es True IQR")
         IQR_vector[i] <- list(round(aggregate( eval(parse(text = varActual ))   , df, IQR)[[(numeroVariablesAgrupamiento+1)]],3)) 
         
         
       }
       if(Rango==TRUE){
-        print_dev("Si es True Rango con Factor")
-        print_dev(aggregate( eval(parse(text = varActual ))   , df, range)[[(numeroVariablesAgrupamiento+1)]])
+        golem::print_dev("Si es True Rango con Factor")
+        golem::print_dev(aggregate( eval(parse(text = varActual ))   , df, range)[[(numeroVariablesAgrupamiento+1)]])
         
         rangoCalc [i]<- list(as.list(data.frame(t( aggregate( eval(parse(text = varActual ))   , df, range)[[(numeroVariablesAgrupamiento+1)]] ))))
         for (j in 1:length(rangoCalc[[1]])) {
@@ -152,63 +152,63 @@ calculoVariables <- function(session,dforiginal,Dependiente,Agrupamiento,Mean,Me
         }
         
         
-        print_dev(Rango_vector)
+        golem::print_dev(Rango_vector)
       }
       if(Maximo==TRUE){
-        print_dev("Si es True Maximo")
+        golem::print_dev("Si es True Maximo")
         Max_vector[i]<- list(round(aggregate( eval(parse(text = varActual ))   , df, max)[[(numeroVariablesAgrupamiento+1)]],3)) 
         
       }
       if(DsvEstandar==TRUE){
-        print_dev("Si es True DsvEstandar")
+        golem::print_dev("Si es True DsvEstandar")
         Desv.Est_vector[i]<- list(round(aggregate( eval(parse(text = varActual ))   , df, sd)[[(numeroVariablesAgrupamiento+1)]],3)) 
         
       }
       if(MADRobust==TRUE){
-        print_dev("Si es True MADRobust")
+        golem::print_dev("Si es True MADRobust")
         MadRobust_vector[i] <- list(round( aggregate( eval(parse(text = varActual ))   , df, mad ,constant = 1.4826)[[(numeroVariablesAgrupamiento+1)]],3))
         # MadRobust_vector[i]
         
       }
       if(Varianza==TRUE){
-        print_dev("Si es True Varianza")
+        golem::print_dev("Si es True Varianza")
         Varianza_vector[i]<-   list(round(aggregate( eval(parse(text = varActual ))   , df, var)[[(numeroVariablesAgrupamiento+1)]],3)) 
       }
       if(Minimo==TRUE){
-        print_dev("Si es True Minimo")
+        golem::print_dev("Si es True Minimo")
         Min_vector[i]<- list(round(aggregate( eval(parse(text = varActual ))   , df, min)[[(numeroVariablesAgrupamiento+1)]],3)) 
         
       }
       if(Quartiles==TRUE){
-        print_dev("Si es True Quartiles con factor")
-        # print_dev(aggregate( eval(parse(text = varActual ))   , df, FUN = "quantile",na.rm = TRUE))
+        golem::print_dev("Si es True Quartiles con factor")
+        # golem::print_dev(aggregate( eval(parse(text = varActual ))   , df, FUN = "quantile",na.rm = TRUE))
         Quartiles_vector[i] <-  list(round(aggregate( eval(parse(text = varActual ))   , df, quantile,na.rm = TRUE)[[(numeroVariablesAgrupamiento+1)]][,c(-1,-5)],3))
         
         
         
-        #  print_dev(c(t(dfff[[(numeroVariablesAgrupamiento+1)]])))
+        #  golem::print_dev(c(t(dfff[[(numeroVariablesAgrupamiento+1)]])))
         # Quartiles_vector[i]
       }
       if(PuntoCorte==TRUE){
         
         if(as.numeric(PuntoCorteValue) >= 2){
-          print_dev("Si es True PuntodeCorte con factor")
+          golem::print_dev("Si es True PuntodeCorte con factor")
           stepValue <-(1/(as.numeric(PuntoCorteValue)))
-          #print_dev(stepValue)
+          #golem::print_dev(stepValue)
           #PuntoCorte_vector[i] <- list(quantile(varActual, prob=seq(0,1,(1/(as.numeric(PuntoCorteValue))))   ,na.rm = TRUE))
-          # print_dev(aggregate( eval(parse(text = varActual ))   , df, FUN = "quantile", prob=seq(0,1,stepValue ) ,na.rm = TRUE)[[(numeroVariablesAgrupamiento+1)]])
+          # golem::print_dev(aggregate( eval(parse(text = varActual ))   , df, FUN = "quantile", prob=seq(0,1,stepValue ) ,na.rm = TRUE)[[(numeroVariablesAgrupamiento+1)]])
           PuntoCorte_vector[i] <- list(round(aggregate( eval(parse(text = varActual ))   , df, quantile, prob=seq(0,1,stepValue ) ,na.rm = TRUE)[[(numeroVariablesAgrupamiento+1)]] [,c(-1,-(as.numeric(PuntoCorteValue) + 1))],3))
           
           
         }
         
-        #print_dev("Si es True PuntoCorte")
+        #golem::print_dev("Si es True PuntoCorte")
       }
       if(Percentil==TRUE){
-        print_dev("Si es True Percentil")
+        golem::print_dev("Si es True Percentil")
         if(as.numeric(PercentilValue) >= 2){
           
-          #print_dev(  aggregate( eval(parse(text = varActual ))  , df, FUN= "quantile",prob=seq(0,1,length = 101),na.rm = TRUE) )
+          #golem::print_dev(  aggregate( eval(parse(text = varActual ))  , df, FUN= "quantile",prob=seq(0,1,length = 101),na.rm = TRUE) )
           valores <- aggregate( eval(parse(text = varActual ))  , df, quantile,prob=seq(0,1,length = 101),na.rm = TRUE)[[(numeroVariablesAgrupamiento+1)]]
           
           Percentil_vector[i] <- list(round(valores[,(as.numeric(PercentilValue) + (1))],3))
@@ -222,7 +222,7 @@ calculoVariables <- function(session,dforiginal,Dependiente,Agrupamiento,Mean,Me
       
       
       Validos[i] <-   list(round(aggregate( (eval(parse(text = varActual )))   , df, length )[[(numeroVariablesAgrupamiento+1)]],3))
-      #  print_dev(Validos)
+      #  golem::print_dev(Validos)
       NoValidos [i] <- list(round(aggregate( (eval(parse(text = varActual )))   , df, function(x) {sum(is.na(x))}, na.action = NULL )[[(numeroVariablesAgrupamiento+1)]],3))
       
       
@@ -259,14 +259,14 @@ calculoVariables <- function(session,dforiginal,Dependiente,Agrupamiento,Mean,Me
       if(PuntoCorte==TRUE)
       {
         
-        print_dev( colnames(unlist(PuntoCorte_vector[[1]]))  )
+        golem::print_dev( colnames(unlist(PuntoCorte_vector[[1]]))  )
         
         lengthNames <-length( colnames(unlist(PuntoCorte_vector[[1]]))  )
         
         
         for(j in 1:lengthNames){
-          # print_dev(paste0(colnames(unlist(PuntoCorte_vector[[1]]))[j]," "))
-          # print_dev(PuntoCorte_vector[[1]][,j])
+          # golem::print_dev(paste0(colnames(unlist(PuntoCorte_vector[[1]]))[j]," "))
+          # golem::print_dev(PuntoCorte_vector[[1]][,j])
           summaryVariableTable[, paste0(colnames(unlist(PuntoCorte_vector[[1]]))[j]," ")] <- unlist( PuntoCorte_vector[[1]][,j])
           
         }
@@ -286,10 +286,10 @@ calculoVariables <- function(session,dforiginal,Dependiente,Agrupamiento,Mean,Me
       
       if(Percentil==TRUE)
       {
-        # print_dev(i)
-        # print_dev(  paste0(PercentilValue_names[i]," Percentil") )
-        # print_dev(Percentil_vector[[i]])
-        # print_dev(paste0(PercentilValue_names[1]," Percentil"))
+        # golem::print_dev(i)
+        # golem::print_dev(  paste0(PercentilValue_names[i]," Percentil") )
+        # golem::print_dev(Percentil_vector[[i]])
+        # golem::print_dev(paste0(PercentilValue_names[1]," Percentil"))
         summaryVariableTable[, paste0(PercentilValue_names[i]," Percentil")] <- Percentil_vector[[i]]
         
       }else
@@ -301,7 +301,7 @@ calculoVariables <- function(session,dforiginal,Dependiente,Agrupamiento,Mean,Me
       length(rownames(summaryVariableTable))
       nombreMetodosDescriptivos <- rep(colnamesSummary, each= length(rownames(summaryVariableTable)))
       
-      print_dev(summaryVariableTable)
+      golem::print_dev(summaryVariableTable)
       repVacios <- rep("", (length(rownames(summaryVariableTable)) -1 ))
       summaryVariableTable2[i] <- data.frame(unlist(summaryVariableTable))
       
@@ -311,7 +311,7 @@ calculoVariables <- function(session,dforiginal,Dependiente,Agrupamiento,Mean,Me
     
     for (i in 1: length(colnamesSummary))
     {
-      print_dev(i)
+      golem::print_dev(i)
       nombreMetodos <- append(nombreMetodos,colnamesSummary[i])
       nombreMetodos <- append(nombreMetodos,repVacios)
       
@@ -320,7 +320,7 @@ calculoVariables <- function(session,dforiginal,Dependiente,Agrupamiento,Mean,Me
     
     #summaryVariableTable2[i] <- data.frame(nombreMetodosDescriptivos,rowSVariables,unlist(summaryVariableTable))
     finalNames <- c(" ",nombreAgrupamiento,nombreDependiente )
-    print_dev(finalNames)
+    golem::print_dev(finalNames)
     
     finalDescriptivas <- data.frame(nombreMetodos,rowSVariables,summaryVariableTable2)
     colnames(finalDescriptivas) <- finalNames
@@ -328,7 +328,7 @@ calculoVariables <- function(session,dforiginal,Dependiente,Agrupamiento,Mean,Me
     
     
   }else {
-    print_dev("Sin variable de Grupo Descriptivas")
+    golem::print_dev("Sin variable de Grupo Descriptivas")
     
     Variable=c( names(Dependiente))
     
@@ -358,9 +358,9 @@ calculoVariables <- function(session,dforiginal,Dependiente,Agrupamiento,Mean,Me
       
       
       defaultSelect <- class(Dependiente[[i]])
-      print_dev("ASSSSSSSSSSSSSDDDDDDDDD")
-      print_dev(defaultSelect)
-      print_dev("ASSSSSSSSSSSSSDDDDDDDDD")
+      golem::print_dev("ASSSSSSSSSSSSSDDDDDDDDD")
+      golem::print_dev(defaultSelect)
+      golem::print_dev("ASSSSSSSSSSSSSDDDDDDDDD")
       if(defaultSelect=="numeric"){
         
         varActual <- (as.numeric(Dependiente[[i]]))
@@ -371,17 +371,17 @@ calculoVariables <- function(session,dforiginal,Dependiente,Agrupamiento,Mean,Me
         varActual <- (as.numeric(Dependiente[[i]]) )
       }
       
-      print_dev(utils::str(varActual))
+      golem::print_dev(utils::str(varActual))
       
       if(Mean==TRUE){
-        print_dev("Si es True MEAN")
+        golem::print_dev("Si es True MEAN")
         
         Mean_vector[i] <- round( mean(varActual, na.rm = TRUE),digits = 3 )
-        print_dev(Mean_vector[i])
+        golem::print_dev(Mean_vector[i])
         
       }
       if(Mediana==TRUE){
-        print_dev("Si es True Mediana")
+        golem::print_dev("Si es True Mediana")
         Mediana_vector[i] <-round( median(varActual,na.rm = TRUE),digits = 3)
         
         
@@ -392,58 +392,58 @@ calculoVariables <- function(session,dforiginal,Dependiente,Agrupamiento,Mean,Me
         
       }
       if(Suma==TRUE){
-        print_dev("Si es True Suma")
+        golem::print_dev("Si es True Suma")
         Suma_vector[i] <-round( sum(varActual,na.rm = TRUE), digits = 3)
         
       }
       if(SE==TRUE){
-        print_dev("Si es True SE")
+        golem::print_dev("Si es True SE")
         SE.MEAN_vector[i]<- round(  rapportools::se.mean(varActual), digits = 3)  
         
       }
       if(MAD==TRUE){
-        print_dev("Si es True MAD")
+        golem::print_dev("Si es True MAD")
         MAD_vector[i]<- round(  mad(varActual,constant = 1,na.rm = TRUE), digits = 3)
         
       }
       if(Iqr==TRUE){
-        print_dev("Si es True IQR")
+        golem::print_dev("Si es True IQR")
         IQR_vector[i]<- round(  IQR(varActual,na.rm = TRUE), digits = 3)
         
       }
       if(Rango==TRUE){
-        print_dev("Si es True Rango")
-        #print_dev(range(varActual))
+        golem::print_dev("Si es True Rango")
+        #golem::print_dev(range(varActual))
         Rango_vector[i]<-paste(range(varActual,na.rm = TRUE), collapse = " ") 
         
       }
       if(Maximo==TRUE){
-        print_dev("Si es True Maximo")
+        golem::print_dev("Si es True Maximo")
         Max_vector[i]<-  round(   max(varActual,na.rm = TRUE), digits = 3)  
         
       }
       if(DsvEstandar==TRUE){
-        print_dev("Si es True DsvEstandar")
+        golem::print_dev("Si es True DsvEstandar")
         Desv.Est_vector[i]<-round(  sd(varActual,na.rm = TRUE), digits = 3)   
         
       }
       if(MADRobust==TRUE){
-        print_dev("Si es True MADRobust")
+        golem::print_dev("Si es True MADRobust")
         MadRobust_vector[i] <-round(  mad(varActual,constant = 1.4826,na.rm = TRUE), digits = 3) 
         
       }
       if(Varianza==TRUE){
-        print_dev("Si es True Varianza")
+        golem::print_dev("Si es True Varianza")
         Varianza_vector[i]<-round( var(varActual,na.rm = TRUE), digits = 3)
         
       }
       if(Minimo==TRUE){
-        print_dev("Si es True Minimo")
+        golem::print_dev("Si es True Minimo")
         Min_vector[i]<- round( min(varActual,na.rm = TRUE), digits = 3)
         
       }
       if(Quartiles==TRUE){
-        print_dev("Si es True Quartiles")
+        golem::print_dev("Si es True Quartiles")
         Quartiles_vector[i] <- list(round(quantile(varActual,na.rm = TRUE),3))
         print(quantile(varActual,na.rm = TRUE))
         
@@ -451,21 +451,21 @@ calculoVariables <- function(session,dforiginal,Dependiente,Agrupamiento,Mean,Me
       if(PuntoCorte==TRUE){
         
         if(as.numeric(PuntoCorteValue) >= 2){
-          print_dev("Si es True PuntodeCorte")
+          golem::print_dev("Si es True PuntodeCorte")
           stepValue <-(1/(as.numeric(PuntoCorteValue)))
-          #print_dev(stepValue)
+          #golem::print_dev(stepValue)
           #PuntoCorte_vector[i] <- list(quantile(varActual, prob=seq(0,1,(1/(as.numeric(PuntoCorteValue))))   ,na.rm = TRUE))
           PuntoCorte_vector[i] <- list(round(quantile(varActual, prob=seq(0,1,stepValue )   ,na.rm = TRUE),3) )
         }
         
-        #print_dev("Si es True PuntoCorte")
+        #golem::print_dev("Si es True PuntoCorte")
       }
       if(Percentil==TRUE){
-        print_dev("Si es True Percentil redondeado")
+        golem::print_dev("Si es True Percentil redondeado")
         if(as.numeric(PercentilValue) >= 2){
           
           valores <- quantile(varActual, prob=seq(0,1,length = 101)   ,na.rm = TRUE)
-          print_dev(valores)
+          golem::print_dev(valores)
           PercentilValue_names <- names(valores)
           
           
@@ -476,7 +476,7 @@ calculoVariables <- function(session,dforiginal,Dependiente,Agrupamiento,Mean,Me
       Validos[i] <- length(varActual) - NoValidos[i]
     }
     
-    print_dev(PercentilValue_names)
+    golem::print_dev(PercentilValue_names)
     summaryVariableTable <- data.frame(NoValidos,Validos)
     
     if(Mean==TRUE){summaryVariableTable$Media= Mean_vector} else{summaryVariableTable$Media <- NULL}
@@ -509,7 +509,7 @@ calculoVariables <- function(session,dforiginal,Dependiente,Agrupamiento,Mean,Me
     if(PuntoCorte==TRUE)
     {
       
-      print_dev(names(unlist(PuntoCorte_vector)))
+      golem::print_dev(names(unlist(PuntoCorte_vector)))
       lenghtNamesPC <-length(names(unlist(PuntoCorte_vector)))
       
       for(i in seq(2, as.numeric(lenghtNamesPC) - 1, by=1)){
@@ -545,15 +545,15 @@ calculoVariables <- function(session,dforiginal,Dependiente,Agrupamiento,Mean,Me
     summaryVariableTable2 <- data.frame(t(summaryVariableTable))
     
     summaryVariableTable2 <- dplyr::mutate(summaryVariableTable2, dplyr::across(where(is.numeric), as.character))
-    print_dev(str(summaryVariableTable2))
+    golem::print_dev(str(summaryVariableTable2))
     
     rownames(summaryVariableTable2) <- NULL
-    print_dev(colnames(summaryVariableTable))
+    golem::print_dev(colnames(summaryVariableTable))
     
     summaryVariableTable3 <- data.frame( colnames(summaryVariableTable), summaryVariableTable2  )
     colnames(summaryVariableTable3) <- c(" ",Variable)
     
-    #print_dev(str(summaryVariableTable3))
+    #golem::print_dev(str(summaryVariableTable3))
     
     #finalDescriptivas <- dplyr::mutate(summaryVariableTable3, dplyr::across(where(is.numeric), as.character))
     
@@ -571,20 +571,20 @@ calculoVariables <- function(session,dforiginal,Dependiente,Agrupamiento,Mean,Me
 
 calculoFrecuencias <- function(session,df,frecuenciaEnable) {
   
-  print_dev <- NULL
+ 
   if (frecuenciaEnable == TRUE) {
     
     
     #nbreaks <- pretty(range.default(as.numeric(df_sel()[[i]])),n = nclass.Sturges(as.numeric(df_sel()[[i]])),min.n = 1)
     tablas  = c()
     nombreVariable <- names(df)[[1]]
-    print_dev(nombreVariable)
+    golem::print_dev(nombreVariable)
     
     tablaFrecuencia <- summarytools::freq(df[[1]], order = "freq")
     
     # tablaFrecuencia <- summarytools::freq(df, order = "freq")
     elemntos <- attributes(tablaFrecuencia)[[2]][[1]]
-    print_dev(elemntos)
+    golem::print_dev(elemntos)
     freq <- tablaFrecuencia[,1]
     validos <-  tablaFrecuencia[,2]
     validosCum <- tablaFrecuencia[,3]
@@ -593,7 +593,7 @@ calculoFrecuencias <- function(session,df,frecuenciaEnable) {
     
     descriptivasFrecuencia <- data.frame(elemntos,freq,validos,totalCum)
     row.names(descriptivasFrecuencia) <- NULL
-    print_dev(descriptivasFrecuencia)
+    golem::print_dev(descriptivasFrecuencia)
     descriptivasFrecuencia <- dplyr::mutate(descriptivasFrecuencia, dplyr::across(where(is.numeric), round, 3))
     colnames(descriptivasFrecuencia) <- c(nombreVariable,"Frecuencia","Porcentaje Validos","Porcentaje Acumulado")
     
@@ -616,7 +616,7 @@ calculoFrecuencias <- function(session,df,frecuenciaEnable) {
     
     descriptivasFrecuencia <- data.frame(elemntos,freq,validos,totalCum)
     row.names(descriptivasFrecuencia) <- NULL
-    print_dev(descriptivasFrecuencia)
+    golem::print_dev(descriptivasFrecuencia)
     descriptivasFrecuencia <- dplyr::mutate(descriptivasFrecuencia, dplyr::across(where(is.numeric), round, 3))
     colnames(descriptivasFrecuencia) <- c("nombreVariable","Frecuencia","Procentaje Validos","Procentaje Acumulado")
     

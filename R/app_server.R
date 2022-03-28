@@ -6,14 +6,12 @@
 #' @noRd
 app_server <- function( input, output, session ) {
 
-
-  
   r <- reactiveValues()
   t <- reactiveValues()
   
   data_file <- NULL
   namesClasified <- NULL
-  print_dev <- NULL
+ 
   
   namesClasi <- mod_cargaDatos_server("cargaDatos_ui_1", r = r )
   
@@ -59,19 +57,19 @@ app_server <- function( input, output, session ) {
   #   
   #   if(banderas$dfCargado){
   #     
-  #     print_dev("bandera es 1")
-  #     print_dev("ENTRO EN GUARDAR 22222 ")
+  #     golem::print_dev("bandera es 1")
+  #     golem::print_dev("ENTRO EN GUARDAR 22222 ")
   #     values$mydata <- NULL
   #     mylist <- list()
-  #     print_dev(length(names(data_file())))
-  #     print_dev(utils::str(dfEntradaValues$transformado))
+  #     golem::print_dev(length(names(data_file())))
+  #     golem::print_dev(utils::str(dfEntradaValues$transformado))
   #     
   #     for(i in 1:length(colnames(data_file()))){
   #       
   #       
-  #       print_dev(paste0("La variable es : " ,input[[paste0("tipoDatosEntrada_", i)]]))
+  #       golem::print_dev(paste0("La variable es : " ,input[[paste0("tipoDatosEntrada_", i)]]))
   #       
-  #       print_dev(dfEntradaValues$transformado[,dfEntradaNombres$original[i]])
+  #       golem::print_dev(dfEntradaValues$transformado[,dfEntradaNombres$original[i]])
   #       
   #       #Check si la Variables es Escalar Guarda esa Columna como numerica
   #       if(input[[paste0("tipoDatosEntrada_", i)]]=='Escalar'){
@@ -82,7 +80,7 @@ app_server <- function( input, output, session ) {
   #       }
   #       
   #       if(input[[paste0("tipoDatosEntrada_", i)]]=="Ordinal"){
-  #         print_dev("entro en ordinal")
+  #         golem::print_dev("entro en ordinal")
   #         
   #         levelss <-  (sort(unique(dfEntradaValues$transformado[,dfEntradaNombres$original[i]])))
   #         #  assign(paste0("muted_",dfEntradaNombres$original[i]),factor(dfEntradaValues$transformado[,dfEntradaNombres$original[i]],ordered = TRUE,levels=levelss))
@@ -93,7 +91,7 @@ app_server <- function( input, output, session ) {
   #       
   #       if(input[[paste0("tipoDatosEntrada_", i)]]=="Nominal"){
   #         
-  #         print_dev("Entro en nomialll")
+  #         golem::print_dev("Entro en nomialll")
   #         # assign(paste0("muted_",dfEntradaNombres$original[i]),factor(dfEntradaValues$transformado[,dfEntradaNombres$original[i]]))
   #         mylist[[i]] <- factor(dfEntradaValues$transformado[,dfEntradaNombres$original[i]],ordered = FALSE)
   #         
@@ -103,7 +101,7 @@ app_server <- function( input, output, session ) {
   #       
   #       
   #     }
-  #     print_dev(utils::str(mylist))
+  #     golem::print_dev(utils::str(mylist))
   #     
   #     values$mydata <- do.call(rbind.data.frame, args = list(mylist, stringsAsFactors=TRUE) )
   #     shinyalert::shinyalert(
@@ -121,15 +119,15 @@ app_server <- function( input, output, session ) {
   #       animation = TRUE
   #     )
   #     names(values$mydata) <- names(data_file())
-  #     print_dev("Todo ok hasta aqui5555")
-  #     print_dev(utils::str(values$mydata))
+  #     golem::print_dev("Todo ok hasta aqui5555")
+  #     golem::print_dev(utils::str(values$mydata))
   #     #   session$sendCustomMessage('unbind-DT', 'tablaPrincipal')
   #     banderas$dfCargado <- 0
   #     
   #     banderas$update=1
   #     
   #     
-  #   }else {print_dev("Bandera es 0")}
+  #   }else {golem::print_dev("Bandera es 0")}
   #   
   #   
   #   
@@ -236,7 +234,7 @@ app_server <- function( input, output, session ) {
   #   
   #   for (box in removeBOX){
   #     
-  #     # print_dev(box)
+  #     # golem::print_dev(box)
   #     
   #     removeUI(
   #       selector =  box
@@ -311,20 +309,20 @@ app_server <- function( input, output, session ) {
   #   
   #   
   #   
-  #   print_dev("ENTRO EN GUARDAR 22222 ")
+  #   golem::print_dev("ENTRO EN GUARDAR 22222 ")
   #   values$mydata <- NULL
   #   mylist <- list()
   #   namesTablaActualizada=list()
-  #   print_dev(length(names(data_file())))
-  #   print_dev(utils::str(dfEntradaValues$transformado))
+  #   golem::print_dev(length(names(data_file())))
+  #   golem::print_dev(utils::str(dfEntradaValues$transformado))
   #   values$mydata <- dfEntradaValues$transformado
   #   
   #   for(i in 1:length(colnames(data_file()))){
   #     
   #     
-  #     print_dev(paste0("La variable es : " ,input[[paste0("tipoDatosEntrada_", i)]]))
+  #     golem::print_dev(paste0("La variable es : " ,input[[paste0("tipoDatosEntrada_", i)]]))
   #     
-  #     #  print_dev(dfEntradaValues$transformado[,dfEntradaNombres$original[i]])
+  #     #  golem::print_dev(dfEntradaValues$transformado[,dfEntradaNombres$original[i]])
   #     
   #     #Check si la Variables es Escalar Guarda esa Columna como numerica
   #     if(input[[paste0("tipoDatosEntrada_", i)]]=='Escalar'){
@@ -335,7 +333,7 @@ app_server <- function( input, output, session ) {
   #     }
   #     
   #     if(input[[paste0("tipoDatosEntrada_", i)]]=="Ordinal"){
-  #       print_dev("entro en ordinal")
+  #       golem::print_dev("entro en ordinal")
   #       
   #       levelss <-  ((unique(dfEntradaValues$transformado[,dfEntradaNombres$original[i]])))
   #     
@@ -347,7 +345,7 @@ app_server <- function( input, output, session ) {
   #     
   #     if(input[[paste0("tipoDatosEntrada_", i)]]=="Nominal"){
   #       
-  #       print_dev("Entro en nomimal")
+  #       golem::print_dev("Entro en nomimal")
   #       
   #       values$mydata[,i] <- factor(dfEntradaValues$transformado[,dfEntradaNombres$original[i]],ordered=FALSE)
   #       namesTablaActualizada[[i]]= HTML( as.character(tags$div(tags$span(class = "fa-stack",icon("chart-bar","fa-stack-1x", lib = "font-awesome"),style="color:#780b0b"),
@@ -357,7 +355,7 @@ app_server <- function( input, output, session ) {
   #     
   #     
   #   }
-  #   print_dev(utils::str(values$mydata))
+  #   golem::print_dev(utils::str(values$mydata))
   # 
   #   
   #   shinyalert::shinyalert(
@@ -375,8 +373,8 @@ app_server <- function( input, output, session ) {
   #     animation = TRUE
   #   )
   #   names(values$mydata) <- names(data_file())
-  #   print_dev("Todo ok hasta aqui2222222")
-  #   print_dev(utils::str(values$mydata))
+  #   golem::print_dev("Todo ok hasta aqui2222222")
+  #   golem::print_dev(utils::str(values$mydata))
   #   
   #   dfEntradaNombres$conIconos <- namesTablaActualizada
   #   
