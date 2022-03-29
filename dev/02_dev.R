@@ -15,7 +15,7 @@
 
 ## Dependencies ----
 ## Add one line by package you want to add as dependency
-usethis::use_package( "lazyeval" )
+usethis::use_package( "bslib" )
 
 usethis::use_pipe()
 

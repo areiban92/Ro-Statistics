@@ -16,7 +16,8 @@ app_ui <- function(request) {
                  HTML(".navbar-nav {width: 80%;}
                                     .navbar-nav :last-child{float:right}")),
       
-      theme = shinythemes::shinytheme("simplex"),
+     # theme = shinythemes::shinytheme("simplex"),
+    # theme = bslib::bs_theme(bootswatch = "flatly" ),
       tags$link(rel="stylesheet", type="text/css", href="www/dark_mode.css"),
         
       navbarPage(
@@ -62,11 +63,11 @@ golem_add_external_resources <- function(){
     favicon(),
     bundle_resources(
       path = app_sys('app/www'),
-      app_title = 'RoStatistics'
+      app_title = 'RO-Statistics'
     ),
     shinyjs::useShinyjs(),
     withMathJax(),
-    shinythemes::shinytheme("simplex")
+    #shinythemes::shinytheme("simplex")
     
     
 
