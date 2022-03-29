@@ -67,7 +67,7 @@ golem_add_external_resources <- function(){
     ),
     shinyjs::useShinyjs(),
     withMathJax(),
-    #shinythemes::shinytheme("simplex")
+    
     
     
 

@@ -73,10 +73,12 @@ calculoTcontingencia <- function(session, df, Dependiente, Agrupamiento, filaEna
   # golem::print_dev(mat_combined1_Nombres)
   filaTotal <- data.frame(contingencia[,numeroColumnasGeneral])  # Se obtiene los valores de la ultima columna
   colnames(filaTotal) <- "Total"
-  #  golem::print_dev(filaTotal) 
+  
+  
   valoresDeTotal <- data.frame(rep(100, times=nrow(filas)))
   colnames(valoresDeTotal) <- "Total"
-  #golem::print_dev(valoresDeTotal)
+  
+  
   porcentajeFila <- round(filas/rowSums(filas)*100, 2)
   totalesCombinado <- rbind(filaTotal,valoresDeTotal)
   mat_combined1 <- rbind(filas, porcentajeFila) 
@@ -115,7 +117,8 @@ calculoTcontingencia <- function(session, df, Dependiente, Agrupamiento, filaEna
   colnames(nombreFilasRelleno) <- nombreAgrupamiento
   mat_combined1_Nombres <- rbind(nombreFilas, nombreFilasRelleno) 
   golem::print_dev(contingencia)
-  valoresDeTotal <- rep(100, times=nrow(contingencia))
+  golem::print_dev(ncol(contingencia))
+  valoresDeTotal <- rep(100, times=ncol(contingencia)-1)
   #rownames(filaTotal) <- "Total"
   for(i in 1:numColumnas) {
     porcentajecolum[i] = list(columnas[,i]/sum(columnas[,i]))
@@ -198,7 +201,8 @@ calculoTcontingencia <- function(session, df, Dependiente, Agrupamiento, filaEna
 
 calculoConteoEsperado  <- function(session, df, Agrupamiento, Dependiente, conteoEsperadoEnable) {
   
-  golem::print_dev <- NULL
+
+  golem::print_dev("DESDE AQUI VAAAAAAAAAAAA CONTEO ESPERADOOOOOOOOOOOOOOOOOOOOOOOOOOO")
   agrupamiento = c()
   dependiente =c()
   total = c()
@@ -221,7 +225,7 @@ calculoConteoEsperado  <- function(session, df, Agrupamiento, Dependiente, conte
   
   tablacontingencia <- table(Agrupamiento[[1]],Dependiente[[1]])
   nombresFilas <- c( unlist((attributes(tablacontingencia))[[2]][1]), "Total" )
-  # golem::print_dev(tablacontingencia)
+  golem::print_dev(tablacontingencia)
   
   tablacontingencia <- as.data.frame.matrix(tablacontingencia) 
   tablacontingencia <- tablacontingencia[gtools::mixedorder(colnames(tablacontingencia))]
@@ -240,7 +244,12 @@ calculoConteoEsperado  <- function(session, df, Agrupamiento, Dependiente, conte
   
   filas <- contingencia[,-c(1,numeroColumnasGeneral)]
   
+  golem::print_dev(contingencia)
+  
   if(conteoEsperadoEnable == TRUE){
+    
+    if(levelsAgrupamiento == 2 && levelsDependiente ==2 )
+    {
     
     temporal <- vector()
     
@@ -248,6 +257,12 @@ calculoConteoEsperado  <- function(session, df, Agrupamiento, Dependiente, conte
     totalEsperados <- contingencia[numeroFilasGeneral,numeroColumnasGeneral]
     
     matrixEsperados <-  matrix(numeric((numeroColumnasGeneral-2)*(numeroFilasGeneral-1)), nrow = (numeroColumnasGeneral-2), ncol = (numeroFilasGeneral-1))
+    
+    golem::print_dev(totalEsperados)
+    golem::print_dev(matrixEsperados)
+    golem::print_dev(numeroFilasGeneral)
+    golem::print_dev(numeroColumnasGeneral)
+    
     
     for (k in 1:(numeroFilasGeneral-1)){
       for (j in 2:(numeroColumnasGeneral-1)){
@@ -257,15 +272,13 @@ calculoConteoEsperado  <- function(session, df, Agrupamiento, Dependiente, conte
         filaValue <- contingencia[numeroFilasGeneral,j]
         
         multiplicacion = (columnaValue*filaValue)/totalEsperados
-        
-        
         golem::print_dev(paste0(k,",",(j-1)))
         matrixEsperados[k,(j-1)] = multiplicacion
         
         
-        #golem::print_dev(Multiplicacion)
       }
     }
+   
     margins <- addmargins(matrixEsperados)
     dataFrameExpected <- as.data.frame(margins)
     
@@ -313,6 +326,36 @@ calculoConteoEsperado  <- function(session, df, Agrupamiento, Dependiente, conte
     golem::print_dev(tablaProcentajesFilas)
     
     return(list(tablaProcentajesFilas,paste0(" ")))
+    }
+    else{
+      
+      
+      shinyalert::shinyalert(
+        title = "Error",
+        text = "Las variables deben contener dos Factores unicamente",
+        size = "s", 
+        closeOnEsc = TRUE,
+        closeOnClickOutside = FALSE,
+        html = FALSE,
+        type = "error",
+        showConfirmButton = TRUE,
+        showCancelButton = FALSE,
+        confirmButtonText = "OK",
+        confirmButtonCol = "#AEDEF4",
+        timer = 0,
+        imageUrl = "",
+        animation = TRUE
+      )
+      
+      empty  <- ""
+      tablaProcentajesFilas <- data.frame(empty)
+      return(list(tablaProcentajesFilas,paste0(" ")))
+      
+      
+      
+      
+    }
+    
     
   }
   
@@ -395,6 +438,7 @@ calculoFisherContingencia <- function(session, df, Agrupamiento, Dependiente, Hy
   
   if(levelsAgrupamiento == 2 && levelsDependiente ==2 )
   {
+    
     golem::print_dev("DEsde aqui testtt")
     
     if(intervaloValue  < 100 ){
@@ -482,8 +526,8 @@ calculoFisherContingencia <- function(session, df, Agrupamiento, Dependiente, Hy
   else {
     
     shinyalert::shinyalert(
-      title = "Las variables deben contener dos Factores unicamente",
-      text = "This is a modal",
+      title = "Error",
+      text = "Las variables deben contener dos Factores unicamente",
       size = "s", 
       closeOnEsc = TRUE,
       closeOnClickOutside = FALSE,

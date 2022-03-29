@@ -35,7 +35,6 @@ Imports:
     shiny (>= 1.7.1),
     shinyalert,
     shinyjs,
-    shinythemes,
     shinyWidgets,
     sortable,
     stats,

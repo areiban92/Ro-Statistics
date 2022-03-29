@@ -52,7 +52,7 @@ mod_Anova_ui <- function(id){
                               ),# Fin  de Columna 
                               column(6,
                                      div(id= ns("tituloGraficasPersonalizadas"), tags$div(tags$span(strong("Asumiendo que son diferentes"),style = "color: black;"))),
-                                     div(style="display: inline-block;vertical-align:top;  ", id = ns("checkGamesHowellEnable_Anova"),checkboxInput(("check_Input_GamesHowell_Anova"), "Games Howell", FALSE)),
+                                     div(style="display: inline-block;vertical-align:top;  ", id = ns("checkGamesHowellEnable_Anova"),checkboxInput(ns("check_Input_GamesHowell_Anova"), "Games Howell", FALSE)),
                                      
                               )
                               
