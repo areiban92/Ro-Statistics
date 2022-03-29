@@ -14,11 +14,7 @@ knitr::opts_chunk$set(
 ```
 
 
-
-
-
-
-# RoStatistics
+# RO-Statistics
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
@@ -32,7 +28,7 @@ knitr::opts_chunk$set(
 ## Descripción
 
 
-**RoStatictics** un paquete de software gráfico para realizar métodos estadísticos básicos para universitarios desarrollado por el PADLAB de la Universidad Catolica de Cuenca
+**RO-Statictics** un paquete de software gráfico para realizar métodos estadísticos básicos para universitarios desarrollado por el PADLAB de la Universidad Catolica de Cuenca
 
 Características:
 
@@ -40,7 +36,7 @@ Características:
 - Análisis estadísticos básicos Descriptivos, Pruebas- T, One way Anova, Regresión.
 - Corre en el navegador sin la necesidad de instalarlo o como paquete para correrlo dentro de R.
 - Ofrece Resultados en tablas con formato APA.
-- Opción de descargar los datos en formato tiff(Importar en Ms Windows).
+- Opción de descargar los datos en formato tiff(Importar en MS Windows).
 
 
 
@@ -73,5 +69,5 @@ run_app()
 ```
 
 ###Nota:
-Versión en desarrollo, se podrian presentar algunos problemas.
+Versión en desarrollo, se podrían presentar algunos problemas.
 

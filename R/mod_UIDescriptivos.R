@@ -799,7 +799,6 @@ mod_UIDescriptivos_server <- function(id, namesClasified, r){
     observeEvent(input$checkInputDescriptivaEstadisticaPercentiless, {
       
       shinyjs::toggleState ("txtInputDescriptivaEstadisticaPercentiless")
-      
     })
     
     output$bucket_1_Descriptiva <- renderUI({

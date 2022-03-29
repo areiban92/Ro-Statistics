@@ -32,7 +32,6 @@ mod_Contingencia_ui <- function(id){
                                  #tags$b("VARIABLES2"),
                                  tags$div(id = ns('placeholderContingenciaDependiente'))
                                  
-                                 
                                )),
                            div(style = "font-size: 12px; padding: 0px 0px; margin-top:-3em",
                                fluidRow(width = 4,

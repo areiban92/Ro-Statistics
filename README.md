@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# RoStatistics
+# RO-Statistics
 
 <!-- badges: start -->
 
@@ -14,7 +14,7 @@ coverage](https://codecov.io/gh/CarlosGuerreroG/RoStatisticsGolem/branch/master/
 
 ## Descripción
 
-**RoStatictics** un paquete de software gráfico para realizar métodos
+**RO-Statictics** un paquete de software gráfico para realizar métodos
 estadísticos básicos para universitarios desarrollado por el PADLAB de
 la Universidad Catolica de Cuenca
 
@@ -56,5 +56,5 @@ run_app()
 ## basic example code
 ```
 
-\#\#\#Nota: Versión en desarrollo, se podrian presentar algunos
+\#\#\#Nota: Versión en desarrollo, se podrían presentar algunos
 problemas.

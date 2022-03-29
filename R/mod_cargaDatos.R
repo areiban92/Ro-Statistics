@@ -121,13 +121,13 @@ mod_cargaDatos_ui <- function(id){
                              
                              div( style="display: inline-block;vertical-align:top; font-size: 16px;", "1.0.4  **Beta 3"),
                              br(),  
-                             
+        
                              div( style="display: inline-block;vertical-align:top; font-size: 16px;","25 de marzo de 2022  " ),
                              br(),
                              
                              div( style="display: inline-block;vertical-align:top; font-size: 16px; ",a("https://rostatictictest.shinyapps.io/RoStatistics/ ", href="https://rostatictictest.shinyapps.io/Ucacue/ ") ),
                              br(),
-                             div( style="display: inline-block;vertical-align:top; font-size: 16px; "," Ro-Statistics 1.0.4 (2022). Ro-Statistics (version 1.0.4) [Computer software].  "),
+                             div( style="display: inline-block;vertical-align:top; font-size: 16px; "," RO-StatistiCs 1.0.4 (2022). RO-Statistics (version 1.0.4) [Computer software].  "),
                       ), #Finde columa2
                       
                       
