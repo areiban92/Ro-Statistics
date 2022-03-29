@@ -20,8 +20,7 @@ mod_UIDescriptivos_ui <- function(idxxx){
                      "DESCRIPTIVOS" )
     ), value = "Tab 2",
     sidebarPanel( style =paste0(" height: 620px; overflow-y: auto; "),  width = 6,
-                  
-                  
+                
                   fluidRow(
                     column(
                       #tags$b("VARIABLES"),

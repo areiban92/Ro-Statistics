@@ -155,14 +155,14 @@ h6 {
   
 }
 
-#menuGraficas {
+#UIDescriptivos_ui_1-menuGraficas {
   color: white;
   padding-right: 465px;
   height: 30px;
   margin:5px;
 }
 
-#menuEstadistica{
+#UIDescriptivos_ui_1-menuEstadistica{
   color: white;
   padding-right: 450px;
   height: 30px;
@@ -170,7 +170,7 @@ h6 {
   
 }
 
-#menuPostHocAnova{
+#Anova_ui_1-menuPostHocAnova{
   color: white;
   padding-right: 401px;
   height: 30px;
@@ -178,7 +178,7 @@ h6 {
   
 }
 
-#menuOpcionesAnova{
+#Anova_ui_1-menuOpcionesAnova{
   color: white;
   padding-right: 450px;
   height: 30px;
@@ -186,7 +186,7 @@ h6 {
   
 }
 
-#menutestTtest{
+#Ttest_ui_1-menutestTtest{
   color: white;
   padding-right: 492px;
   height: 30px;
@@ -194,7 +194,7 @@ h6 {
   
 }
 
-#menuSuposicionesTtest{
+#Ttest_ui_1-menuSuposicionesTtest{
   color: white;
   padding-right: 346px;
   height: 30px;
@@ -202,7 +202,7 @@ h6 {
   
 }  
 
-#menuTestContingencia{
+#Contingencia_ui_1-menuTestContingencia{
   color: white;
   padding-right: 485px;
   height: 30px;
@@ -210,7 +210,7 @@ h6 {
   
 } 
 
-#menuPorcentajesContingencia{
+#Contingencia_ui_1-menuPorcentajesContingencia{
   color: white;
   padding-right: 440px;
   height: 30px;
@@ -218,7 +218,7 @@ h6 {
   
 } 
 
-#menuTestCorrelacion{
+#Regresion_ui_1-menuTestCorrelacion{
   color: white;
   padding-right: 495px;
   height: 30px;
@@ -226,7 +226,7 @@ h6 {
   
 }
 
-#menuOpcionesCorrelacion{
+#Regresion_ui_1-menuOpcionesCorrelacion{
   color: white;
   padding-right: 453px;
   height: 30px;
@@ -266,7 +266,7 @@ a:link { color: #f5f5f5; }
 }
 
 
-#textoIconos{
+#UIDescriptivos_ui_1-textoIconos, #Ttest_ui_1-textoIconos, #Contingencia_ui_1-textoIconos, #Anova_ui_1-textoIconos, #Regresion_ui_1-textoIconos  {
   vertical-align: top;
   display: inline-block;
   text-align: center;
@@ -277,7 +277,7 @@ a:link { color: #f5f5f5; }
 
 }
 
-#imgIconos{
+#UIDescriptivos_ui_1-imgIconos, #Ttest_ui_1-imgIconos, #Contingencia_ui_1-imgIconos, #Anova_ui_1-imgIconos, #Regresion_ui_1-imgIconos {
   
  display: inline-block;
  text-align: center;
