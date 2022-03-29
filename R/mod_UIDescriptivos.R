@@ -830,176 +830,7 @@ mod_UIDescriptivos_server <- function(id, namesClasified, r){
       
     })
     
-    
-    observeEvent( r$inputGuardar,{
-      
-      golem::print_dev("DESCREIPTIVOSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
-      
-      removeBOX <-   c("#descriptivaBoxDependiente","#descriptivaBoxAgrupamiento",
-                       "#ttestBoxDependiente","#ttestBoxAgrupamiento",
-                       "#contingenciaBoxDependiente","#contingenciaBoxAgrupamiento",
-                       "#correlacionBoxDependiente", 
-                       "#anovaBoxDependiente" ,"#anovaBoxAgrupamiento",
-                       "#regresionLinealBoxDependiente","#regresionLinealBoxAgrupamiento",
-                       "#regresionBinomialBoxDependiente","#regresionBinomialBoxAgrupamiento",
-                       "#regresionMultinomialBoxDependiente","#regresionMultinomialBoxAgrupamiento"
-      )
-      
-      selectorAddBOX <- c("'#placeholderDescriptivaDependiente'","'#placeholderDescriptivaAgrupamiento'",
-                          "'#placeholderTtestDependiente'","'#placeholderTtestAgrupamiento'",
-                          "'#placeholderContingenciaDependiente'","'#placeholderContingenciaAgrupamiento'",
-                          "'#placeholderCorrelacionDependiente'",
-                          "'#placeholderAnovaDependiente'","'#placeholderAnovaAgrupamiento'",
-                          "'#placeholderRegresionLinealDependiente'","'#placeholderRegresionLinealAgrupamiento'",  
-                          "'#placeholderRegresionBinomialDependiente'","'#placeholderRegresionBinomialAgrupamiento'",
-                          "'#placeholderRegresionMultinomialDependiente'","'#placeholderRegresionMultinomialAgrupamiento'"
-      )
-      
-      ui_idAddBOX <- c(  "'descriptivaBoxDependiente'","'descriptivaBoxAgrupamiento'",
-                         "'ttestBoxDependiente'","'ttestBoxAgrupamiento'",
-                         "'contingenciaBoxDependiente'", "'contingenciaBoxAgrupamiento'",
-                         "'correlacionBoxDependiente'",
-                         "'anovaBoxDependiente'", "'anovaBoxAgrupamiento'",
-                         "'regresionLinealBoxDependiente'","'regresionLinealBoxAgrupamiento'",
-                         "'regresionBinomialBoxDependiente'","'regresionBinomialBoxAgrupamiento'",
-                         "'regresionMultinomialBoxDependiente'","'regresionMultinomialBoxAgrupamiento'"
-      )
-      
-      ###########################
-      # 1 dependiente numerica
-      # 2 agrupacion  factor
-      # 3 dependiente factor
-      # 4 agrupacion   numerico 
-      # 5 covariate   numerico 
-      # 6 covariate   factor 
-      # 7 variable   numnerica y factor
-      # 8 segmentado por factor
-      
-      tipo <- c(7,8,
-                1,2,
-                3,2,
-                1,
-                1,2,
-                1,5,
-                3,5,
-                3,5)
-      
-      csstipo <- c("'custom-sortableDependiente'","'custom-sortableAgrupamiento'",
-                   "'custom-sortableDependiente'","'custom-sortableAgrupamiento'",
-                   "'custom-sortableDependiente'","'custom-sortableAgrupamiento'",
-                   "'custom-sortableDependiente'",
-                   "'custom-sortableDependiente'","'custom-sortableAgrupamiento'",
-                   "'custom-sortableDependiente'","'custom-sortableAgrupamiento'",
-                   "'custom-sortableDependiente'","'custom-sortableAgrupamiento'",
-                   "'custom-sortableDependiente'","'custom-sortableAgrupamiento'" )
-      
-      
-      groupName <- c( "'bucket_list_Descriptiva'","'bucket_list_Descriptiva'",
-                      "'bucket_list_Ttest'","'bucket_list_Ttest'",
-                      "'bucket_list_Tcontingencia'","'bucket_list_Tcontingencia'",
-                      "'bucket_list_TCorrelacion'", 
-                      "'bucket_list_Anova'","'bucket_list_Anova'",
-                      "'bucket_list_RegresionLineal'","'bucket_list_RegresionLineal'",
-                      "'bucket_list_RegresionBinomial'","'bucket_list_RegresionBinomial'",
-                      "'bucket_list_RegresionMultinomial'","'bucket_list_RegresionMultinomial'"
-      )
-      
-      id_Input <- c( "'rank_list_Descriptiva_Dependiente'","'rank_list_Descriptiva_Agrupamiento'",
-                     "'rank_list_Ttest_Dependiente'","'rank_list_Ttest_Agrupamiento'",
-                     "'rank_list_Tcontingencia_Dependiente'","'rank_list_Tcontingencia_Agrupamiento'",
-                     "'rank_list_TCorrelacion_Dependiente'",
-                     "'rank_list_Anova_Dependiente'","'rank_list_Anova_Agrupamiento'",
-                     "'rank_list_RegresionLineal_Dependiente'","'rank_list_RegresionLineal_Agrupamiento'",
-                     "'rank_list_RegresionBinomial_Dependiente'","'rank_list_RegresionBinomial_Agrupamiento'",
-                     "'rank_list_RegresionMultinomial_Dependiente'","'rank_list_RegresionMultinomial_Agrupamiento'" )
-      
-      cssId <- c("'rank_Descriptiva_Dependiente'","'rank_Descriptiva_Agrupamiento'",
-                 "'rank_Ttest_Dependiente'","'rank_Ttest_Agrupamiento'",
-                 "'rank_Tcontingencia_Dependiente'","'rank_Tcontingencia_Agrupamiento'",
-                 "'rank_TCorrelacion_Dependiente'",
-                 "'rank_Anova_Dependiente'","'rank_Anova_Agrupamiento'",  
-                 "'rank_RegresionLineal_Dependiente'","'rank_RegresionLineal_Agrupamiento'",  
-                 "'rank_RegresionBinomial_Dependiente'","'rank_RegresionBinomial_Agrupamiento'",  
-                 "'rank_RegresionMultinomial_Dependiente'","'rank_RegresionMultinomial_Agrupamiento'"  )
-      
-      for (box in removeBOX){
-        
-        # golem::print_dev(box)
-        
-        removeUI(
-          selector =  box
-        )
-        
-        
-      }
-      
-      
-      for (i in seq(1:length(selectorAddBOX))) {
-        
-        
-        if(tipo[i]==1)
-        {
-          
-          ddf  <-  paste0("insertUI(selector=",selectorAddBOX[i],",where='beforeBegin',ui =  tags$div(id =ns(", ui_idAddBOX[i],"),sortable::bucket_list(header =  HTML(as.character( tags$div(tags$span(strong('Variables : '),style = paste0('color: black;')),tags$span(class = 'fa-stack', icon('ruler','fa-lg',lib = 'font-awesome'),style='color:blue')))),group_name = ", groupName[i],",orientation = 'horizontal',class = c('default-sortable', ",csstipo[i],"),sortable::add_rank_list(text = '',labels = NULL,input_id =",id_Input[i],",css_id =",cssId[i],"))))")
-        }
-        
-        if (tipo[i]==2)
-        {
-          
-          ddf  <-  paste0("insertUI(selector=",selectorAddBOX[i],",where='beforeBegin',ui =  tags$div(id =ns(", ui_idAddBOX[i],"),sortable::bucket_list(header = HTML(as.character(  tags$div(tags$span(strong('Variable de Agrupaci\u00f3n : '),style = paste0('color: black;')),tags$span(class = 'fa-stack',icon('chart-bar','fa-lg',lib = 'font-awesome'), style='color:#a22f2f'),tags$span(class = 'fa-stack',icon('signal','fa-stack-lg', lib = 'font-awesome'),style='color:#a22f2f')))),group_name = ", groupName[i],",orientation = 'horizontal',class = c('default-sortable', ",csstipo[i],"),sortable::add_rank_list(text = '',labels = NULL,input_id =",id_Input[i],",css_id =",cssId[i],"))))")
-          
-        }
-        
-        if (tipo[i] == 3)
-        {
-          
-          ddf  <-  paste0("insertUI(selector=",selectorAddBOX[i],",where='beforeBegin',ui =  tags$div(id =ns(", ui_idAddBOX[i],"),sortable::bucket_list(header =  HTML(as.character( tags$div(tags$span(strong('Variable Dependiente  : '),style = paste0('color: black;')),tags$span(class = 'fa-stack',icon('chart-bar','fa-lg',lib = 'font-awesome'), style='color:#a22f2f'),tags$span(class = 'fa-stack',icon('signal','fa-stack-lg', lib = 'font-awesome'),style='color:#a22f2f')))),group_name = ", groupName[i],",orientation = 'horizontal',class = c('default-sortable', ",csstipo[i],"),sortable::add_rank_list(text = '',labels = NULL,input_id =",id_Input[i],",css_id =",cssId[i],"))))")
-          
-        }
-        
-        if (tipo[i] == 4)
-        {
-          
-          ddf  <-  paste0("insertUI(selector=",selectorAddBOX[i],",where='beforeBegin',ui =  tags$div(id =ns(", ui_idAddBOX[i],"),sortable::bucket_list(header =  HTML(as.character( tags$div(tags$span(strong('Agrupacion Numerico : '),style = paste0('color: black;')),tags$span(class = 'fa-stack', icon('ruler','fa-lg',lib = 'font-awesome'),style='color:blue')))),group_name = ", groupName[i],",orientation = 'horizontal',class = c('default-sortable', ",csstipo[i],"),sortable::add_rank_list(text = '',labels = NULL,input_id =",id_Input[i],",css_id =",cssId[i],"))))")
-          
-        }
-        
-        
-        if (tipo[i] == 5)
-        {
-          
-          ddf  <-  paste0("insertUI(selector=",selectorAddBOX[i],",where='beforeBegin',ui =  tags$div(id =ns(", ui_idAddBOX[i],"),sortable::bucket_list(header =  HTML(as.character( tags$div(tags$span(strong('Covariante Numerico : '),style = paste0('color: black;')),tags$span(class = 'fa-stack', icon('ruler','fa-lg',lib = 'font-awesome'),style='color:blue')))),group_name = ", groupName[i],",orientation = 'horizontal',class = c('default-sortable', ",csstipo[i],"),sortable::add_rank_list(text = '',labels = NULL,input_id =",id_Input[i],",css_id =",cssId[i],"))))")
-          
-        }
-        
-        if (tipo[i] == 6)
-        {
-          
-          ddf  <-  paste0("insertUI(selector=",selectorAddBOX[i],",where='beforeBegin',ui =  tags$div(id =ns(", ui_idAddBOX[i],"),sortable::bucket_list(header =  HTML(as.character( tags$div(tags$span(strong('Covariante  : '),style = paste0('color: black;')),tags$span(class = 'fa-stack',icon('chart-bar','fa-lg',lib = 'font-awesome'), style='color:#a22f2f'),tags$span(class = 'fa-stack',icon('signal','fa-stack-lg', lib = 'font-awesome'),style='color:#a22f2f')))),group_name = ", groupName[i],",orientation = 'horizontal',class = c('default-sortable', ",csstipo[i],"),sortable::add_rank_list(text = '',labels = NULL,input_id =",id_Input[i],",css_id =",cssId[i],"))))")
-          
-        }
-        
-        if(tipo[i]==7 )
-        {
-          
-          ddf  <-  paste0("insertUI(selector=",selectorAddBOX[i],",where='beforeBegin',ui =  tags$div(id =ns(", ui_idAddBOX[i],"),sortable::bucket_list(header =  HTML(as.character( tags$div(tags$span(strong(' Variables: '),style = paste0('color: black;')),tags$span(class = 'fa-stack', icon('ruler','fa-lg',lib = 'font-awesome'),style='color:blue'),tags$span(class = 'fa-stack',icon('chart-bar','fa-lg',lib = 'font-awesome'), style='color:#a22f2f'),tags$span(class = 'fa-stack',icon('signal','fa-stack-lg', lib = 'font-awesome'),style='color:#a22f2f')) )),group_name = ", groupName[i],",orientation = 'horizontal',class = c('default-sortable', ",csstipo[i],"),  sortable::add_rank_list(text = '',labels = NULL,input_id =",id_Input[i],",css_id =",cssId[i]," ,options = sortable::sortable_options( group = list(pull = 'clone',name = 'bucket_list_Descriptiva',put = FALSE)    )))))")
-        }
-        
-        if (tipo[i] == 8 )
-        {
-          
-          ddf  <-  paste0("insertUI(selector=",selectorAddBOX[i],",where='beforeBegin',ui =  tags$div(id = ns(", ui_idAddBOX[i],"),sortable::bucket_list(header =  HTML(as.character(  tags$div(tags$span(strong(' Segmentado por : '),style = paste0('color: black;')),tags$span(class = 'fa-stack',icon('chart-bar','fa-lg',lib = 'font-awesome'), style='color:#a22f2f'),tags$span(class = 'fa-stack',icon('signal','fa-stack-lg', lib = 'font-awesome'),style='color:#a22f2f')))),group_name = ", groupName[i],",orientation = 'horizontal',class = c('default-sortable', ",csstipo[i],"),sortable::add_rank_list(text = '',labels = NULL,input_id =",id_Input[i],",css_id =",cssId[i],"))))")
-          
-        }
-        
-        
-        eval(parse(text=ddf))
-        
-      }
-      
-    })
-    
-    
+
     
     if (banderaDescriptivos == FALSE) {
       banderaDescriptivos==TRUE
@@ -1051,6 +882,67 @@ mod_UIDescriptivos_server <- function(id, namesClasified, r){
     }
     
     
+    observeEvent( r$inputGuardar,{
+      
+      golem::print_dev("DESCREIPTIVOSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
+      
+      
+     #placeholderDescriptivaAgrupamiento
+      
+      ui_idAddBOX <- c(  "'descriptivaBoxDependiente'","'descriptivaBoxAgrupamiento'" )
+      
+
+
+      removeUI(
+        selector =  paste0("#",ns("descriptivaBoxDependiente"))
+      )
+      
+     removeUI(
+       selector =  paste0("#",ns("descriptivaBoxAgrupamiento"))
+     )
+      
+  
+       
+       insertUI(selector= paste0("#",ns("placeholderDescriptivaDependiente")),
+       where='beforeBegin',
+       ui =  tags$div(id =ns("descriptivaBoxDependiente"),
+         sortable::bucket_list(
+          header =  HTML(as.character( tags$div(tags$span(strong(' Variables: '),style = paste0('color: black;')),tags$span(class = 'fa-stack', icon('ruler','fa-lg',lib = 'font-awesome'),style='color:blue'),
+                                                tags$span(class = 'fa-stack',icon('chart-bar','fa-lg',lib = 'font-awesome'), style='color:#a22f2f'),tags$span(class = 'fa-stack',icon('signal','fa-stack-lg', lib = 'font-awesome'),style='color:#a22f2f')) )),
+          group_name = "bucket_list_Descriptiva",
+          orientation = 'horizontal',
+          class = c('default-sortable', "custom-sortableDependiente"), 
+          
+          sortable::add_rank_list(
+          text = '',
+          labels = NULL,
+          input_id =ns("rank_list_Descriptiva_Dependiente"),
+          css_id ="rank_Descriptiva_Dependiente" ,
+          options = sortable::sortable_options( group = list(pull = 'clone',name = 'bucket_list_Descriptiva',put = FALSE)    )))))
+
+       
+       insertUI(selector= paste0("#",ns("placeholderDescriptivaAgrupamiento")),
+       where='beforeBegin',
+       ui =  tags$div(id = ns("descriptivaBoxAgrupamiento"),
+       sortable::bucket_list(header =  HTML(as.character(  tags$div(tags$span(strong(' Segmentado por : '),style = paste0('color: black;')),
+                                                tags$span(class = 'fa-stack',icon('chart-bar','fa-lg',lib = 'font-awesome'), style='color:#a22f2f'),tags$span(class = 'fa-stack',icon('signal','fa-stack-lg', lib = 'font-awesome'),style='color:#a22f2f')))),
+       group_name = "bucket_list_Descriptiva",
+       orientation = 'horizontal',
+       
+       class = c('default-sortable', "custom-sortableAgrupamiento"),
+       sortable::add_rank_list(
+       text = '',
+       labels = NULL,
+       input_id =ns("rank_list_Descriptiva_Agrupamiento"),
+       css_id ="rank_Descriptiva_Agrupamiento"))))
+       
+     
+      
+      
+    })
+    
+    
+    
     df_sel <- reactive({
       req(input$rank_list_Descriptiva_Dependiente)
       df_sel <- r$valuesmydata %>% dplyr::select(input$rank_list_Descriptiva_Dependiente)
@@ -1088,8 +980,6 @@ mod_UIDescriptivos_server <- function(id, namesClasified, r){
       df_Descriptiva_Seleccion_Dependiente <- r$valuesmydata  %>% dplyr::select(input$rank_list_Descriptiva_Dependiente)
       
     })
-    
-    
     
     
     # mod_DescriptivosTablas_server("DescriptivosTablas_ui_1")

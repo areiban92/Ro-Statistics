@@ -404,7 +404,6 @@ mod_cargaDatos_server <- function(id,r){
       banderas$dfCargado=1
       
       
-      
     })
     
     
@@ -437,8 +436,6 @@ mod_cargaDatos_server <- function(id,r){
                    choices = if(is.null(dfEntradaNombres$original)){return()}
                    else{(dfEntradaNombres$original)})
     })
-    
-    
     
     
     ######## METODO PARA REACTIVAR LOS CUADROS ########### 
@@ -517,7 +514,7 @@ mod_cargaDatos_server <- function(id,r){
       dfEntradaNombres$conIconos <- namesTablaActualizada
       print("VALORESSSSSSSSSSSSSSSS")
       
-      r$inputGuardar <- TRUE
+      r$inputGuardar = input$guardar
       #print(r$inputGuardar)
       r$valuesmydata <- values$mydata
       #print(r$valuesmydata)
