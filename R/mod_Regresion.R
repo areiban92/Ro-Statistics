@@ -648,9 +648,6 @@ mod_Regresion_server <- function(id,namesClasified, r){
           input_id =ns("rank_list_RegresionBinomial_Agrupamiento") ,
           css_id ="rank_RegresionBinomial_Agrupamiento" ))))
       
-      
-      
-      
     })
     
     

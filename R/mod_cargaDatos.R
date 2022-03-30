@@ -182,7 +182,6 @@ mod_cargaDatos_server <- function(id,r){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
  
-    
     ################# CARGA DE DATOS#############
     dfEntradaNombres <- reactiveValues(original = 0, conIconos="",updated=NULL)
     tipoVariable <- reactiveValues(select=NULL)
@@ -220,7 +219,7 @@ mod_cargaDatos_server <- function(id,r){
           bb <- readxl::read_excel(file_spec$datapath)
           aa <- as.data.frame(bb)
         }
-        if(tools::file_ext(file_spec$datapath)=="sav"){
+        if(tools::file_ext(file_spec$datapath)=="sav" || tools::file_ext(file_spec$datapath)=="SAV" ){
           
           aa  <- foreign::read.spss(file_spec$datapath, use.value.label=TRUE, to.data.frame=TRUE)
           aa %>% dplyr::mutate(dplyr::across(where(is.factor), as.character)) -> aa
@@ -385,6 +384,94 @@ mod_cargaDatos_server <- function(id,r){
     })
     
     
+    
+    observe({
+      
+      
+      req(banderas$dfCargado)
+      
+      if(banderas$dfCargado){
+        
+        golem::print_dev("bandera es 1")
+        golem::print_dev("ENTRO EN GUARDAR 22222 ")
+        values$mydata <- NULL
+        mylist <- list()
+        golem::print_dev(length(names(data_file())))
+        golem::print_dev(utils::str(dfEntradaValues$transformado))
+        
+        for(i in 1:length(colnames(data_file()))){
+          
+          
+          golem::print_dev(paste0("La variable es : " ,input[[paste0("tipoDatosEntrada_", i)]]))
+          
+          golem::print_dev(dfEntradaValues$transformado[,dfEntradaNombres$original[i]])
+          
+          #Check si la Variables es Escalar Guarda esa Columna como numerica
+          if(input[[paste0("tipoDatosEntrada_", i)]]=='Escalar'){
+            
+            
+            # assign(paste0("muted_", dfEntradaNombres$original[i]  ),as.numeric(dfEntradaValues$transformado[,dfEntradaNombres$original[i]]))
+            mylist[[i]] <- as.numeric(dfEntradaValues$transformado[,dfEntradaNombres$original[i]])
+          }
+          
+          if(input[[paste0("tipoDatosEntrada_", i)]]=="Ordinal"){
+            golem::print_dev("entro en ordinal")
+            
+            levelss <-  (sort(unique(dfEntradaValues$transformado[,dfEntradaNombres$original[i]])))
+            #  assign(paste0("muted_",dfEntradaNombres$original[i]),factor(dfEntradaValues$transformado[,dfEntradaNombres$original[i]],ordered = TRUE,levels=levelss))
+            mylist[[i]] <-  factor(dfEntradaValues$transformado[,dfEntradaNombres$original[i]],ordered = TRUE,levels=levelss)
+            
+            
+          }
+          
+          if(input[[paste0("tipoDatosEntrada_", i)]]=="Nominal"){
+            
+            golem::print_dev("Entro en nomialll")
+            # assign(paste0("muted_",dfEntradaNombres$original[i]),factor(dfEntradaValues$transformado[,dfEntradaNombres$original[i]]))
+            mylist[[i]] <- factor(dfEntradaValues$transformado[,dfEntradaNombres$original[i]],ordered = FALSE)
+            
+          }
+          
+          #  mylist[[i]] <- get(paste0("muted_",dfEntradaNombres$original[i]))
+          
+          
+        }
+        golem::print_dev(utils::str(mylist))
+        
+        values$mydata <- do.call(rbind.data.frame, args = list(mylist, stringsAsFactors=TRUE) )
+        shinyalert::shinyalert(
+          title = " ",
+          text = "Valores Guardados",
+          size = "s",
+          closeOnEsc = TRUE,
+          closeOnClickOutside = FALSE,
+          html = FALSE,
+          type = "success",
+          showConfirmButton = FALSE,
+          showCancelButton = FALSE,
+          timer = 1000,
+          imageUrl = "",
+          animation = TRUE
+        )
+        names(values$mydata) <- names(data_file())
+        golem::print_dev("Todo ok hasta aqui5555")
+        golem::print_dev(utils::str(values$mydata))
+        #   session$sendCustomMessage('unbind-DT', 'tablaPrincipal')
+        banderas$dfCargado <- 0
+        
+        banderas$update=1
+        r$valuesmydata <- values$mydata
+        
+        
+      }else {golem::print_dev("Bandera es 0")}
+      
+      
+      
+    })
+    
+    
+    
+    
     proxy = DT::dataTableProxy('tablaPrincipal')
     
     observeEvent(input$tablaPrincipal_cell_edit, {
@@ -396,7 +483,7 @@ mod_cargaDatos_server <- function(id,r){
       
       # problem starts here
       dfEntradaValues$original[i, j] <- isolate(DT::coerceValue(v, dfEntradaValues$original[i, j]))
-      replaceData(proxy, dfEntradaValues$original, resetPaging = FALSE,rownames = FALSE)  # replaces data displayed by the updated table
+      DT::replaceData(proxy, dfEntradaValues$original, resetPaging = FALSE,rownames = FALSE)  # replaces data displayed by the updated table
       dfEntradaValues$transformado <- dfEntradaValues$original
       colnames(dfEntradaValues$transformado) <- dfEntradaNombres$original
       golem::print_dev(utils::str(dfEntradaValues$transformado))
