@@ -245,7 +245,7 @@ mod_Ttest_server <- function(id, namesClasified, r){
       }
       
     })
-  ###################################### SELECT DE TTTES Y CUADRITOS
+  ###################################### SELECT DE TTTES Y CUADRITOS ##################
     
     df_Ttest_Seleccion_Agrupamiento <- reactive({
       
@@ -324,6 +324,51 @@ mod_Ttest_server <- function(id, namesClasified, r){
         ))
       
     }
+    
+    
+    observeEvent( r$inputGuardar,{
+      
+      golem::print_dev("T test")
+      
+      
+      removeUI(
+        selector =  paste0("#",ns("ttestBoxDependiente"))
+      )
+      
+      removeUI(
+        selector =  paste0("#",ns("ttestBoxAgrupamiento"))
+      )
+      
+      
+      
+      insertUI(selector=paste0("#",ns("placeholderTtestDependiente")),
+      where='beforeBegin',
+      ui =  tags$div(id =ns("ttestBoxDependiente"),
+      sortable::bucket_list(header =  HTML(as.character( tags$div(tags$span(strong('Variables : '),style = paste0('color: black;')),
+      tags$span(class = 'fa-stack', icon('ruler','fa-lg',lib = 'font-awesome'),style='color:blue')))),
+      group_name = "bucket_list_Ttest",
+      orientation = 'horizontal',
+      class = c('default-sortable', "custom-sortableDependiente"),
+      sortable::add_rank_list(text = '',labels = NULL,
+      input_id =ns("rank_list_Ttest_Dependiente"),
+      css_id ="rank_Ttest_Dependiente "))))
+      
+      insertUI(selector=paste0("#",ns("placeholderTtestAgrupamiento")),
+      where='beforeBegin',
+      ui =  tags$div(id =ns("ttestBoxAgrupamiento"),
+      sortable::bucket_list(header = HTML(as.character(  tags$div(tags$span(strong('Variable de Agrupaci\u00f3n : '),style = paste0('color: black;')),
+      tags$span(class = 'fa-stack',icon('chart-bar','fa-lg',lib = 'font-awesome'), style='color:#a22f2f'),tags$span(class = 'fa-stack',icon('signal','fa-stack-lg', lib = 'font-awesome'),style='color:#a22f2f')))),
+      group_name = "bucket_list_Ttest",
+      orientation = 'horizontal',
+      class = c('default-sortable', "custom-sortableAgrupamiento"),
+      sortable::add_rank_list(text = '',labels = NULL,
+      input_id = ns("rank_list_Ttest_Agrupamiento"),
+      css_id ="rank_Ttest_Agrupamiento"))))
+      
+      
+      
+    })
+    
     
     
     ###################################################TTESTABLAS##################
