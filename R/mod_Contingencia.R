@@ -168,14 +168,7 @@ mod_Contingencia_server <- function(id,namesClasified, r = r){
     
     
     
-    
-    
- 
-    
-    
-    
-    
-    ############################################  OBSERVER CONTINGENCIA
+    ############################################  OBSERVER CONTINGENCIA ###############
     observeEvent(input$fisherTestContingenciaEnables, {
       
       shinyjs::toggleState ("radioContingenciaHypotesis")   
@@ -377,7 +370,9 @@ mod_Contingencia_server <- function(id,namesClasified, r = r){
     )
     
     
-############################### SELECTORES CONTINGENCIA
+############################### SELECTORES CONTINGENCIA   ############
+    
+    
     
     df_Tcontingencia_Seleccion_Agrupamiento <- reactive({
       
@@ -460,6 +455,56 @@ mod_Contingencia_server <- function(id,namesClasified, r = r){
       
     }
     
+    
+    observeEvent( r$inputGuardar,{
+      
+      golem::print_dev("CONTINGENCIASSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
+   
+      
+      removeUI(
+        selector =  paste0("#",ns("contingenciaBoxDependiente"))
+      )
+      
+      removeUI(
+        selector =  paste0("#",ns("contingenciaBoxAgrupamiento"))
+      )
+      
+      
+      insertUI(selector= paste0("#",ns("placeholderContingenciaDependiente")),
+               where='beforeBegin',
+               ui =  tags$div(id =ns("contingenciaBoxDependiente"),
+                              sortable::bucket_list(
+                                header =  HTML(as.character( tags$div(tags$span(strong(' Variables: '),style = paste0('color: black;')),tags$span(class = 'fa-stack', icon('ruler','fa-lg',lib = 'font-awesome'),style='color:blue'),
+                                                                      tags$span(class = 'fa-stack',icon('chart-bar','fa-lg',lib = 'font-awesome'), style='color:#a22f2f'),tags$span(class = 'fa-stack',icon('signal','fa-stack-lg', lib = 'font-awesome'),style='color:#a22f2f')) )),
+                                group_name = "bucket_list_Tcontingencia",
+                                orientation = 'horizontal',
+                                class = c('default-sortable', "custom-sortableDependiente"), 
+                                
+                                sortable::add_rank_list(
+                                  text = '',
+                                  labels = NULL,
+                                  input_id =ns("rank_list_Tcontingencia_Dependiente"),
+                                  css_id ="rank_Tcontingencia_Dependiente" ,
+                                  options = sortable::sortable_options( group = list(pull = 'clone',name = 'bucket_list_Descriptiva',put = FALSE)    )))))
+      
+      
+      insertUI(selector= paste0("#",ns("placeholderContingenciaAgrupamiento")),
+               where='beforeBegin',
+               ui =  tags$div(id = ns("contingenciaBoxAgrupamiento"),
+                              sortable::bucket_list(header =  HTML(as.character(  tags$div(tags$span(strong(' Segmentado por : '),style = paste0('color: black;')),
+                                                                                           tags$span(class = 'fa-stack',icon('chart-bar','fa-lg',lib = 'font-awesome'), style='color:#a22f2f'),tags$span(class = 'fa-stack',icon('signal','fa-stack-lg', lib = 'font-awesome'),style='color:#a22f2f')))),
+                                                    
+                                                    group_name = "bucket_list_Tcontingencia",
+                                                    orientation = 'horizontal',
+                                                    
+                                                    class = c('default-sortable', "custom-sortableAgrupamiento"),
+                                                    sortable::add_rank_list(
+                                                      text = '',
+                                                      labels = NULL,
+                                                      input_id = ns("rank_list_Tcontingencia_Agrupamiento"),
+                                                      css_id ="rank_Tcontingencia_Agrupamiento"))))
+ 
+    })
     
     
     

@@ -835,8 +835,8 @@ mod_UIDescriptivos_server <- function(id, namesClasified, r){
     if (banderaDescriptivos == FALSE) {
       banderaDescriptivos==TRUE
       
-      
       golem::print_dev("Agregando Descriptivos los cuadrios")
+      
       insertUI(
         selector= paste0("#",ns("placeholderDescriptivaDependiente")),
         where="beforeBegin",
@@ -868,7 +868,6 @@ mod_UIDescriptivos_server <- function(id, namesClasified, r){
                         orientation = "horizontal",
                         class = c("default-sortable", "custom-sortableAgrupamiento"), # add custom style
                         
-                        
                         sortable::add_rank_list(
                           text = "",
                           labels = NULL,
@@ -886,13 +885,6 @@ mod_UIDescriptivos_server <- function(id, namesClasified, r){
       
       golem::print_dev("DESCREIPTIVOSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
       
-      
-     #placeholderDescriptivaAgrupamiento
-      
-      ui_idAddBOX <- c(  "'descriptivaBoxDependiente'","'descriptivaBoxAgrupamiento'" )
-      
-
-
       removeUI(
         selector =  paste0("#",ns("descriptivaBoxDependiente"))
       )
