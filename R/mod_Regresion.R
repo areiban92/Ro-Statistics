@@ -367,6 +367,41 @@ mod_Regresion_server <- function(id,namesClasified, r){
         ))
       
     }
+    
+    
+    observeEvent( r$inputGuardar,{
+      
+      golem::print_dev("REGRESIONSSSSSSSSSS")
+      
+      
+      removeUI(
+        selector =  paste0("#",ns("correlacionBoxDependiente"))
+      )
+      
+      
+      
+     insertUI(selector=paste0("#",ns("placeholderCorrelacionDependiente")),
+     where='beforeBegin',
+     ui =  tags$div(id =ns("correlacionBoxDependiente"),
+        sortable::bucket_list(
+        header =  HTML(as.character( tags$div(tags$span(strong('Variables : '),style = paste0('color: black;')),
+        tags$span(class = 'fa-stack', icon('ruler','fa-lg',lib = 'font-awesome'),style='color:blue')))),
+        group_name = "bucket_list_TCorrelacion",
+        orientation = 'horizontal',
+        class = c('default-sortable', "custom-sortableDependiente"),
+        sortable::add_rank_list(text = '',labels = NULL,
+        input_id =ns("rank_list_TCorrelacion_Dependiente"),
+        css_id ="rank_TCorrelacion_Dependiente"))))
+      
+      
+      
+      
+    
+     
+    })
+    
+    
+    
  ###################### SELECCION DE REGRESION LINEAL ###############
     df_RegresionLineal_Seleccion_Agrupamiento <- reactive({
       
@@ -442,6 +477,58 @@ mod_Regresion_server <- function(id,namesClasified, r){
         ))
       
     }
+    
+    
+    
+    observeEvent( r$inputGuardar,{
+      
+      golem::print_dev("REGRESIONSSSSSSSSSS LINEAL")
+      
+      
+      removeUI(
+        selector =  paste0("#",ns("regresionLinealBoxDependiente"))
+      )
+      
+      removeUI(
+        selector =  paste0("#",ns("regresionLinealBoxAgrupamiento"))
+      )
+      
+      
+      insertUI(selector=paste0("#",ns("placeholderRegresionLinealDependiente")),
+               where='beforeBegin',
+               ui =  tags$div(id =ns("regresionLinealBoxDependiente"),
+                              sortable::bucket_list(
+                                header =  HTML(as.character( tags$div(tags$span(strong('Variables : '),style = paste0('color: black;')),
+                                                                      tags$span(class = 'fa-stack', icon('ruler','fa-lg',lib = 'font-awesome'),style='color:blue')))),
+                                group_name = "bucket_list_RegresionLineal",
+                                orientation = 'horizontal',
+                                class = c('default-sortable', "custom-sortableDependiente"),
+                                sortable::add_rank_list(text = '',labels = NULL,
+                                input_id =ns("rank_list_RegresionLineal_Dependiente"),
+                                css_id ="rank_RegresionLineal_Dependiente"))))
+      
+      
+      insertUI(selector=paste0("#",ns("placeholderRegresionLinealAgrupamiento")),
+      where='beforeBegin',
+      ui =  tags$div(id =ns("regresionLinealBoxAgrupamiento"),
+      sortable::bucket_list(header =  HTML(as.character( tags$div(tags$span(strong('Covariante Numerico : '),style = paste0('color: black;')),
+              tags$span(class = 'fa-stack', icon('ruler','fa-lg',lib = 'font-awesome'),style='color:blue')))),
+              group_name = "bucket_list_RegresionLineal",
+              orientation = 'horizontal',
+              class = c('default-sortable', "custom-sortableAgrupamiento"),
+              
+              sortable::add_rank_list(text = '',labels = NULL,
+              input_id =ns("rank_list_RegresionLineal_Agrupamiento"),
+              css_id ="rank_RegresionLineal_Agrupamiento"))))
+      
+      
+      
+      
+    })
+    
+    
+    
+    
     
  ########################### SELECCION DE REGRESION BINOMIAL ############
     
