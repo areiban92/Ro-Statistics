@@ -608,6 +608,53 @@ mod_Regresion_server <- function(id,namesClasified, r){
       
     }
    
+    
+    observeEvent( r$inputGuardar,{
+      
+      golem::print_dev("REGRESIONSSSSSSSSSS Binomial")
+      
+      
+      removeUI(
+        selector =  paste0("#",ns("regresionBinomialBoxDependiente"))
+      )
+      
+      removeUI(
+        selector =  paste0("#",ns("regresionBinomialBoxAgrupamiento"))
+      )
+      
+      
+      insertUI(selector=paste0("#",ns("placeholderRegresionBinomialDependiente")),
+      where='beforeBegin',
+      ui =  tags$div(id = ns("regresionBinomialBoxDependiente"),
+      sortable::bucket_list(header =  HTML(as.character( tags$div(tags$span(strong('Variable Dependiente  : '),style = paste0('color: black;')),
+          tags$span(class = 'fa-stack',icon('chart-bar','fa-lg',lib = 'font-awesome'), style='color:#a22f2f'),tags$span(class = 'fa-stack',icon('signal','fa-stack-lg', lib = 'font-awesome'),style='color:#a22f2f')))),
+          group_name = "bucket_list_RegresionBinomial",
+          orientation = 'horizontal',
+          class = c('default-sortable', "custom-sortableDependiente"),
+          sortable::add_rank_list(text = '',labels = NULL,
+          input_id = ns("rank_list_RegresionBinomial_Dependiente"),
+          css_id ="rank_RegresionBinomial_Dependiente" ))))
+      
+      
+      insertUI(selector=paste0("#",ns("placeholderRegresionBinomialAgrupamiento")),
+      where='beforeBegin',
+      ui =  tags$div(id = ns("regresionBinomialBoxAgrupamiento"),
+          sortable::bucket_list(header =  HTML(as.character( tags$div(tags$span(strong('Covariante Numerico : '),style = paste0('color: black;')),
+          tags$span(class = 'fa-stack', icon('ruler','fa-lg',lib = 'font-awesome'),style='color:blue')))),
+          group_name = "bucket_list_RegresionBinomial",
+          orientation = 'horizontal',
+          class = c('default-sortable', "custom-sortableAgrupamiento"),
+          sortable::add_rank_list(text = '',labels = NULL,
+          input_id =ns("rank_list_RegresionBinomial_Agrupamiento") ,
+          css_id ="rank_RegresionBinomial_Agrupamiento" ))))
+      
+      
+      
+      
+    })
+    
+    
+    
   #################### SELECION DE MULTINOMIAL  ##################
     
     
@@ -685,6 +732,52 @@ mod_Regresion_server <- function(id,namesClasified, r){
         ))
       
     }
+    
+    
+    observeEvent( r$inputGuardar,{
+      
+      golem::print_dev("REGRESIONSSSSSSSSSS Multinomial")
+      
+      
+      removeUI(
+        selector =  paste0("#",ns("regresionMultinomialBoxDependiente"))
+      )
+      
+      removeUI(
+        selector =  paste0("#",ns("regresionMultinomialBoxAgrupamiento"))
+      )
+      
+      
+      insertUI(selector=paste0("#",ns("placeholderRegresionMultinomialDependiente")),
+               where='beforeBegin',
+               ui =  tags$div(id = ns("regresionMultinomialBoxDependiente"),
+                              sortable::bucket_list(header =  HTML(as.character( tags$div(tags$span(strong('Variable Dependiente  : '),style = paste0('color: black;')),
+                                                                                          tags$span(class = 'fa-stack',icon('chart-bar','fa-lg',lib = 'font-awesome'), style='color:#a22f2f'),tags$span(class = 'fa-stack',icon('signal','fa-stack-lg', lib = 'font-awesome'),style='color:#a22f2f')))),
+                                                    group_name = "bucket_list_RegresionMultinomial",
+                                                    orientation = 'horizontal',
+                                                    class = c('default-sortable', "custom-sortableDependiente"),
+                                                    sortable::add_rank_list(text = '',labels = NULL,
+                                                    input_id = ns("rank_list_RegresionMultinomial_Dependiente"),
+                                                    css_id ="rank_RegresionMultinomial_Dependiente" ))))
+      
+      
+      insertUI(selector=paste0("#",ns("placeholderRegresionMultinomialAgrupamiento")),
+               where='beforeBegin',
+               ui =  tags$div(id = ns("regresionMultinomialBoxAgrupamiento"),
+                              sortable::bucket_list(header =  HTML(as.character( tags$div(tags$span(strong('Covariante Numerico : '),style = paste0('color: black;')),
+                                                                                          tags$span(class = 'fa-stack', icon('ruler','fa-lg',lib = 'font-awesome'),style='color:blue')))),
+                                                    group_name = "bucket_list_RegresionMultinomial",
+                                                    orientation = 'horizontal',
+                                                    class = c('default-sortable', "custom-sortableAgrupamiento"),
+                                                    sortable::add_rank_list(text = '',labels = NULL,
+                                                    input_id =ns("rank_list_RegresionMultinomial_Agrupamiento") ,
+                                                    css_id ="rank_RegresionMultinomial_Agrupamiento" ))))
+      
+      
+      
+      
+    })
+    
     
   ####################### CORRELACION #############
     
