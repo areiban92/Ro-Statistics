@@ -281,7 +281,7 @@ mod_Ttest_server <- function(id, namesClasified, r){
     if (banderaTtest==FALSE) {
       banderaTtest==TRUE
       
-      print_dev("Agregando TTESTTTTTTTT los cuadrios")
+      golem::print_dev("Agregando TTESTTTTTTTT los cuadrios")
       
       insertUI(
         selector= paste0("#",ns("placeholderTtestDependiente")),

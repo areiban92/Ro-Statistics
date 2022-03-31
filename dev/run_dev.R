@@ -1,6 +1,6 @@
 # Set options here
 
-options(golem.app.prod = FALSE) # TRUE = production mode, FALSE = development mode
+options(golem.app.prod = TRUE) # TRUE = production mode, FALSE = development mode
 print_dev <- golem::make_dev(print)
 # Detach all loaded packages and clean your environment
 golem::detach_all_attached()
