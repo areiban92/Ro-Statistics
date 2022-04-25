@@ -195,7 +195,7 @@ mod_Anova_server <- function(id,namesClasified, r){
       
       calculoPostHocAnovaDesiguales(session,r$valuesmydata, df_Anova_Seleccion_Dependiente(),
                                     df_Anova_Seleccion_Agrupamiento(),
-                                    checkAnovaGamesHowell()  )
+                                    checkAnovaGamesHowell(),table_calculo_Anova()[[4]]  )
       
     })
     

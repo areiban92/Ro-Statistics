@@ -209,6 +209,30 @@ mod_cargaDatos_server <- function(id,r){
         golem::print_dev("TIPO DE ARCHIVOOOOO")
         golem::print_dev(tools::file_ext(file_spec$datapath))
         
+        if(tools::file_ext(file_spec$datapath)!="csv" 
+           & tools::file_ext(file_spec$datapath) !="xlsx" & tools::file_ext(file_spec$datapath)!="xls" 
+           & tools::file_ext(file_spec$datapath)!="sav" & tools::file_ext(file_spec$datapath)!="SAV"  ){
+          
+          golem::print_dev("Formato NO aceptado ")
+          aa <- data.frame(empty=c("vacio","vacio"))
+          
+          shinyalert::shinyalert(
+            title = "Error",
+            text = "Archivo No compatible, cargue un base de datos compatible\n Archivos soportados: xlsx,xls,sav,csv",
+            size = "s",
+            closeOnEsc = TRUE,
+            closeOnClickOutside = FALSE,
+            html = FALSE,
+            type = "success",
+            showConfirmButton = TRUE,
+            showCancelButton = FALSE,
+            
+            imageUrl = "",
+            animation = TRUE
+          )
+          
+        }
+        
         if(tools::file_ext(file_spec$datapath)=="csv"){
           
           aa <-  utils::read.csv(file_spec$datapath)
@@ -217,16 +241,18 @@ mod_cargaDatos_server <- function(id,r){
         if(tools::file_ext(file_spec$datapath)=="xlsx" || tools::file_ext(file_spec$datapath)=="xls"){
           
           bb <- readxl::read_excel(file_spec$datapath)
+          golem::print_dev("hasta aqui ok")
           aa <- as.data.frame(bb)
+          
         }
         if(tools::file_ext(file_spec$datapath)=="sav" || tools::file_ext(file_spec$datapath)=="SAV" ){
           
           aa  <- foreign::read.spss(file_spec$datapath, use.value.label=TRUE, to.data.frame=TRUE)
           aa %>% dplyr::mutate(dplyr::across(where(is.factor), as.character)) -> aa
         }
-        
-        aa[aa == ""] <- NA
-        
+        golem::print_dev("antessss")
+        #aa[aa == ""] <- NA
+        #golem::print_dev(aa)
         golem::print_dev("3333333333333333333333333333333333333333333333")
         aa <- make_factors(aa,15,6)
         #golem::print_dev(str(bb))

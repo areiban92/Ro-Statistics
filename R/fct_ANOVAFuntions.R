@@ -296,7 +296,7 @@ calculoPostHocAnovaIguales <- function(session, df,  Dependiente, Agrupamiento, 
   
 }
 
-calculoPostHocAnovaDesiguales <- function(session, df,  Dependiente, Agrupamiento, checkAnovaGamesHowell )
+calculoPostHocAnovaDesiguales <- function(session, df,  Dependiente, Agrupamiento, checkAnovaGamesHowell,anovaTablaresult )
 {
   
   
@@ -321,7 +321,10 @@ calculoPostHocAnovaDesiguales <- function(session, df,  Dependiente, Agrupamient
   levelsAgrupamiento <- length(sapply(Agrupamiento, levels))
   levelsAgrupamientoNombre <- sapply(Agrupamiento, levels)
   
-  tablaAuxDes <- TukeyHSD(table_calculo_Anova()[[4]])
+  
+  tablaAuxDes <- TukeyHSD(anovaTablaresult)
+  #tablaAuxDes <- TukeyHSD(table_calculo_Anova()[[4]])
+  
   #golem::print_dev(utils::str(tablaAux))
   
   tablaGeneralDes<-as.data.frame(tablaAuxDes[1:1])
